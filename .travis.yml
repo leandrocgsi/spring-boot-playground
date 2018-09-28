@@ -4,7 +4,6 @@ jdk:
   - oraclejdk8
 notifications:
   - emails: false
-script: bash /02_FirstEndpoints/ci.sh
-  on:
-    tags: true
-    all_branches: true
+script:
+ - cd 02_FirstEndpoints 
+ - echo "Entered 02_FirstEndpoints."
