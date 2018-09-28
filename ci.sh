@@ -1,5 +1,5 @@
 #!/bin/bash
-cd $(dirname $0)/00 - Scaffold/
+cd $(dirname $0)/00_Scaffold/
 
 set -e
 
