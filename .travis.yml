@@ -4,7 +4,7 @@ jdk:
   - oraclejdk8
 notifications:
   - emails: false
-script: bash ci.sh
+script: bash /02_FirstEndpoints/ci.sh
   on:
     tags: true
     all_branches: true
