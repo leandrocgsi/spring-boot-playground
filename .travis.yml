@@ -7,8 +7,5 @@ notifications:
 script:
  - cd 02_FirstEndpoints 
  - echo "Entered 02_FirstEndpoints."
- - cd $(dirname $0)
- - set -e
- - sudo rm -rf build
  - mvn clean
  - sudo rm -rf target
