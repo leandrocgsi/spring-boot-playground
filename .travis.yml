@@ -7,3 +7,4 @@ notifications:
 script:
  - cd 02_FirstEndpoints 
  - echo "Entered 02_FirstEndpoints."
+ - mvn clean install
