@@ -2,27 +2,27 @@ package br.com.erudio.math;
 
 public class SimpleMath {
 
-    public Float Sum(Float firstNumber, Float secondNumber) {
+    public Float sum(Float firstNumber, Float secondNumber) {
         return firstNumber + secondNumber;
     }
 
-    public Float Subtraction(Float firstNumber, Float secondNumber) {
+    public Float subtraction(Float firstNumber, Float secondNumber) {
         return firstNumber - secondNumber;
     }
 
-    public Float Multiplication(Float firstNumber, Float secondNumber) {
+    public Float multiplication(Float firstNumber, Float secondNumber) {
         return firstNumber * secondNumber;
     }
 
-    public Float Division(Float firstNumber, Float secondNumber) {
+    public Float division(Float firstNumber, Float secondNumber) {
         return firstNumber / secondNumber;
     }
 
-    public Float Mean(Float firstNumber, Float secondNumber) {
+    public Float mean(Float firstNumber, Float secondNumber) {
         return (firstNumber + secondNumber) / 2;
     }
     
-    public Float SquareRoot(Float number) {
+    public Float squareRoot(Float number) {
         return (float) Math.sqrt(number);
     }
 }

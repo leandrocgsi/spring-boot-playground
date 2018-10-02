@@ -1,0 +1,52 @@
+package br.com.erudio.math;
+
+public class SimpleMath {
+
+<<<<<<< HEAD
+    public Float Sum(Float firstNumber, Float secondNumber) {
+        return firstNumber + secondNumber;
+    }
+
+    public Float Subtraction(Float firstNumber, Float secondNumber) {
+        return firstNumber - secondNumber;
+    }
+
+    public Float Multiplication(Float firstNumber, Float secondNumber) {
+        return firstNumber * secondNumber;
+    }
+
+    public Float Division(Float firstNumber, Float secondNumber) {
+        return firstNumber / secondNumber;
+    }
+
+    public Float Mean(Float firstNumber, Float secondNumber) {
+        return (firstNumber + secondNumber) / 2;
+    }
+    
+    public Float SquareRoot(Float number) {
+=======
+    public Long sum(Long firstNumber, Long secondNumber) {
+        return firstNumber + secondNumber;
+    }
+
+    public Long subtraction(Long firstNumber, Long secondNumber) {
+        return firstNumber - secondNumber;
+    }
+
+    public Long multiplication(Long firstNumber, Long secondNumber) {
+        return firstNumber * secondNumber;
+    }
+
+    public Long division(Long firstNumber, Long secondNumber) {
+        return firstNumber / secondNumber;
+    }
+
+    public Long mean(Long firstNumber, Long secondNumber) {
+        return (firstNumber + secondNumber) / 2;
+    }
+    
+    public Float squareRoot(Long number) {
+>>>>>>> 46b7176762fc04025f69790a668024c1cb033aac
+        return (float) Math.sqrt(number);
+    }
+}
