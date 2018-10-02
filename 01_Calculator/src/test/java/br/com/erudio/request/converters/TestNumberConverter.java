@@ -20,16 +20,16 @@ public class TestNumberConverter {
     }
     
     @Test
-    public void convertToFloatTest() {
-        assertEquals(0f, NumberConverter.CovertToFloat("A"), 0.0f);
-        assertEquals(0f, NumberConverter.CovertToFloat(null), 0.0f);
-        assertEquals(0f, NumberConverter.CovertToFloat(" "), 0.0f);
-        assertEquals(0f, NumberConverter.CovertToFloat(""), 0.0f);
-        assertEquals(5f, NumberConverter.CovertToFloat("5"), 0.0f);
-        assertEquals(0f, NumberConverter.CovertToFloat("0"), 0.0f);
-        assertEquals(-2f, NumberConverter.CovertToFloat("-2"), 0.0f);
-        assertEquals(5.2f, NumberConverter.CovertToFloat("5,2"), 0.0f);
-        assertEquals(5.2f, NumberConverter.CovertToFloat("5.2"), 0.0f);
+    public void convertToDoubleTest() {
+        assertEquals(0f, NumberConverter.CovertToDouble("A"), 0.0f);
+        assertEquals(0f, NumberConverter.CovertToDouble(null), 0.0f);
+        assertEquals(0f, NumberConverter.CovertToDouble(" "), 0.0f);
+        assertEquals(0f, NumberConverter.CovertToDouble(""), 0.0f);
+        assertEquals(5f, NumberConverter.CovertToDouble("5"), 0.0f);
+        assertEquals(0f, NumberConverter.CovertToDouble("0"), 0.0f);
+        assertEquals(-2f, NumberConverter.CovertToDouble("-2"), 0.0f);
+        assertEquals(5.2f, NumberConverter.CovertToDouble("5,2"), 0.0f);
+        assertEquals(5.2f, NumberConverter.CovertToDouble("5.2"), 0.0f);
     }
 
 }

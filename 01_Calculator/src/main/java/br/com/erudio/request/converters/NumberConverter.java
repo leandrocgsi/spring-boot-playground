@@ -2,11 +2,11 @@ package br.com.erudio.request.converters;
 
 public class NumberConverter {
 
-    public static Float CovertToFloat(String strNumber) {
-        if (strNumber == null) return 0f; 
+    public static Double CovertToDouble(String strNumber) {
+        if (strNumber == null) return 0d; 
         String number = strNumber.replaceAll(",", ".");
-        if (IsNumeric(number)) return Float.parseFloat(number);
-        return 0f;
+        if (IsNumeric(number)) return Double.parseDouble(number);
+        return 0d;
     }
 
     public static boolean IsNumeric(String strNumber) {
