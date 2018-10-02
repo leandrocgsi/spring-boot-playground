@@ -80,12 +80,15 @@ public class MathController {
         return squareRoot;
     }
 
-    private Float CovertToDecimal(String number) {
+    private Float CovertToDecimal(String strNumber) {
+        String number = strNumber.replaceAll(",", ".");
         if (IsNumeric(number)) return Float.parseFloat(number);
         return 0f;
     }
 
     private boolean IsNumeric(String strNumber) {
-        return StringUtils.isNumeric(strNumber);
+        //Solution One: return StringUtils.isNumeric(strNumber);
+        String number = strNumber.replaceAll(",", ".");
+        return number.matches("[-+]?[0-9]*\\.?[0-9]+");
     }
 }
