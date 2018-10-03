@@ -21,6 +21,9 @@ public class TestNumberConverter {
     
     @Test
     public void convertToDoubleTest() {
+       
+        double expected = Double.parseDouble("5.2");
+        
         assertEquals(0f, NumberConverter.CovertToDouble("A"), 0.0f);
         assertEquals(0f, NumberConverter.CovertToDouble(null), 0.0f);
         assertEquals(0f, NumberConverter.CovertToDouble(" "), 0.0f);
@@ -28,8 +31,8 @@ public class TestNumberConverter {
         assertEquals(5f, NumberConverter.CovertToDouble("5"), 0.0f);
         assertEquals(0f, NumberConverter.CovertToDouble("0"), 0.0f);
         assertEquals(-2f, NumberConverter.CovertToDouble("-2"), 0.0f);
-        assertEquals(5.2f, NumberConverter.CovertToDouble("5,2"), 0.0f);
-        assertEquals(5.2f, NumberConverter.CovertToDouble("5.2"), 0.0f);
+        assertEquals(expected, NumberConverter.CovertToDouble("5,2"), 0.0f);
+        assertEquals(expected, NumberConverter.CovertToDouble("5.2"), 0.0f);
     }
 
 }
