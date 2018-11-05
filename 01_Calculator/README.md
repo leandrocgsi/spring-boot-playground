@@ -1,5 +1,7 @@
 # Endpoint structure
 
+>### How to Test Endpoints
+
 http://{host}:{port}/sum/{numberOne}/{numberTwo}
 
 http://{host}:{port}/subtraction/{numberOne}/{numberTwo}
