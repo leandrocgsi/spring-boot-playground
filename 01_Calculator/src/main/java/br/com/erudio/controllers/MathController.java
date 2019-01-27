@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.erudio.exception.UnsuportedMath2OperationException;
 import br.com.erudio.exception.UnsuportedMathOperationException;
 import br.com.erudio.math.SimpleMath;
 import br.com.erudio.request.converters.NumberConverter;
@@ -15,11 +16,11 @@ public class MathController {
     private SimpleMath math = new SimpleMath();
     
 
-    @RequestMapping(value="/sum/{numberOne}/{numberTwo}", method=RequestMethod.GET)
+    @RequestMapping(value="/math/sum/{numberOne}/{numberTwo}", method=RequestMethod.GET)
     public Double sum(@PathVariable("numberOne") String numberOne, @PathVariable("numberTwo") String numberTwo) {
         
         if (!NumberConverter.IsNumeric(numberOne) || !NumberConverter.IsNumeric(numberTwo)) {
-            throw new UnsuportedMathOperationException("Please set a numeric value");
+            throw new UnsuportedMath2OperationException("Please set a numeric value");
         }
         
         Double sum = math.sum(NumberConverter.CovertToDouble(numberOne), NumberConverter.CovertToDouble(numberTwo));
