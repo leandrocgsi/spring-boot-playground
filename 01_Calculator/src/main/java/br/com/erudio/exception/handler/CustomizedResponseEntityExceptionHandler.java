@@ -11,6 +11,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import br.com.erudio.exception.ExceptionResponse;
+import br.com.erudio.exception.UnsuportedMath2OperationException;
 import br.com.erudio.exception.UnsuportedMathOperationException;
 
 @ControllerAdvice
@@ -24,9 +25,15 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
     }
 
     @ExceptionHandler(UnsuportedMathOperationException.class)
-    public final ResponseEntity<ExceptionResponse> handleUserNotFoundException(UnsuportedMathOperationException ex, WebRequest request) {
+    public final ResponseEntity<ExceptionResponse> handleUserBadRequestException(UnsuportedMathOperationException ex, WebRequest request) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+    }
+    
+    @ExceptionHandler(UnsuportedMath2OperationException.class)
+    public final ResponseEntity<ExceptionResponse> handleUserNotFoundException(UnsuportedMathOperationException ex, WebRequest request) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
     }
 
 }
