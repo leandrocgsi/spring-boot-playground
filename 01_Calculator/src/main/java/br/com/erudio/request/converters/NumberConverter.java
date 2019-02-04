@@ -11,7 +11,6 @@ public class NumberConverter {
 
     public static boolean IsNumeric(String strNumber) {
         if (strNumber == null) return false; 
-        //Solution One: return StringUtils.isNumeric(strNumber);
         String number = strNumber.replaceAll(",", ".");
         return number.matches("[-+]?[0-9]*\\.?[0-9]+");
     }
