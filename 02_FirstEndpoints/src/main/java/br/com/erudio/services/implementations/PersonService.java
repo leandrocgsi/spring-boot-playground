@@ -3,14 +3,13 @@ package br.com.erudio.services.implementations;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
- 
+
 import org.springframework.stereotype.Service;
- 
+
 import br.com.erudio.models.Person;
-import br.com.erudio.services.PersonService;
  
 @Service
-public class PersonServiceImpl implements PersonService {
+public class PersonService {
      
     // Contador responsável por gerar um fake ID já que não estamos
     // acessando nenhum banco de dados
@@ -19,7 +18,6 @@ public class PersonServiceImpl implements PersonService {
     // Metodo responsável por criar uma nova pessoa
     // Se tivéssemos um banco de dados esse seria o
     // momento de persistir os dados
-    @Override
     public Person create(Person person) {
         return person;
     }
@@ -27,7 +25,6 @@ public class PersonServiceImpl implements PersonService {
     // Método responsável por retornar uma pessoa
     // como não acessamos nenhuma base de dados
     // estamos retornando um mock
-    @Override
     public Person findById(String personId) {
         Person person = new Person();
         person.setId(counter.incrementAndGet());
@@ -39,7 +36,6 @@ public class PersonServiceImpl implements PersonService {
  
     // Método responsável por retornar todas as pessoas
     // mais uma vez essas informações são mocks
-    @Override
     public List<Person> findAll() {
         ArrayList<Person> persons = new ArrayList<>();
         for (int i = 0; i < 8; i++) {
@@ -51,14 +47,12 @@ public class PersonServiceImpl implements PersonService {
      
     // Método responsável por atualizar uma pessoa
     // por ser mock retornamos a mesma informação passada
-    @Override
     public Person update(Person person) {
         return person;
     }
  
     // Método responsável por deletar
     // uma pessoa a partir de um ID
-    @Override
     public void delete(String personId) {
  
     }
