@@ -1,7 +1,7 @@
 package br.com.erudio.web.controllers;
  
 import java.util.List;
- 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
- 
+
 import br.com.erudio.models.Person;
-import br.com.erudio.services.PersonService;
+import br.com.erudio.services.implementations.PersonService;
  
 @RestController
 //Mapeia as requisições de localhost:8080/person/
-@RequestMapping("/person/")
+@RequestMapping("/v0/person/")
 public class PersonController {
      
     @Autowired
