@@ -17,7 +17,7 @@ import br.com.erudio.services.implementations.PersonService;
  
 @RestController
 //Mapeia as requisições de localhost:8080/person/
-@RequestMapping("/v0/person/")
+@RequestMapping("/v0/person")
 public class PersonController {
      
     @Autowired
@@ -36,7 +36,7 @@ public class PersonController {
      
     @ResponseStatus(HttpStatus.OK)
     //Por padrão responde com o status code 200 success
-    @RequestMapping(value = "/findAll",
+    @RequestMapping(
     //Mapeia as requisições GET para localhost:8080/person/findAll
     method = RequestMethod.GET,
     produces = MediaType.APPLICATION_JSON_VALUE)
