@@ -1,17 +1,31 @@
 package br.com.erudio.models;
  
 import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
  
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
- 
-@JsonIgnoreProperties(ignoreUnknown = true)
+@Entity
+@Table (name="person")
 public class Person implements Serializable{
      
     private static final long serialVersionUID = 1L;
      
+    @Id
+    @GeneratedValue
+    @Column(name="id", nullable=false)
     private Long id;
+    
+    @Column (name="first_name", nullable = false, length = 80 )
     private String firstName;
+    
+    @Column (name="last_name", nullable = false, length = 80 )
     private String lastName;
+    
+    @Column (name="address", nullable = false, length = 80 )
     private String address;
      
     public Long getId() {
