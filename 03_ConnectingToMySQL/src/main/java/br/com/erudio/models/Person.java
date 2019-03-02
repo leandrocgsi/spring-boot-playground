@@ -27,6 +27,10 @@ public class Person implements Serializable{
     
     @Column (name="address", nullable = false, length = 80 )
     private String address;
+    
+    
+    @Column (name="gender", nullable = false, length = 6 )
+    private String gender;
      
     public Long getId() {
         return id;
@@ -59,4 +63,14 @@ public class Person implements Serializable{
     public void setAddress(String address) {
         this.address = address;
     }
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+    
+    
 }
