@@ -11,8 +11,6 @@ import br.com.erudio.models.Person;
 @Service
 public class PersonService {
      
-    // Contador responsável por gerar um fake ID já que não estamos
-    // acessando nenhum banco de dados
     private final AtomicLong counter = new AtomicLong();
  
     // Metodo responsável por criar uma nova pessoa
