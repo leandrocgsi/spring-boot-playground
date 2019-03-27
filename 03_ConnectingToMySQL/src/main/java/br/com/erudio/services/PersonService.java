@@ -1,67 +1,49 @@
-package br.com.erudio.services.implementations;
+package br.com.erudio.services;
  
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.erudio.exception.ResourceNotFoundException;
 import br.com.erudio.models.Person;
+import br.com.erudio.repository.PersonRepository;
  
 @Service
 public class PersonService {
      
-    private final AtomicLong counter = new AtomicLong();
- 
-    // Metodo responsável por criar uma nova pessoa
-    // Se tivéssemos um banco de dados esse seria o
-    // momento de persistir os dados
+    @Autowired
+    PersonRepository repository;
+    
     public Person create(Person person) {
-        return person;
+    	return repository.save(person);
     }
  
-    // Método responsável por retornar uma pessoa
-    // como não acessamos nenhuma base de dados
-    // estamos retornando um mock
-    public Person findById(String personId) {
-        Person person = new Person();
-        person.setId(counter.incrementAndGet());
-        person.setFirstName("Leandro");
-        person.setLastName("Costa");
-        person.setAddress("Uberlândia - Minas Gerais - Brasil");
-        return person;
+    public Person findById(Long id) {
+        return repository.findById(id)
+        		.orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
     }
  
-    // Método responsável por retornar todas as pessoas
-    // mais uma vez essas informações são mocks
     public List<Person> findAll() {
-        ArrayList<Person> persons = new ArrayList<>();
-        for (int i = 0; i < 8; i++) {
-            Person person = mockPerson(i);
-            persons.add(person);
-        }
-        return persons;
+    	return repository.findAll();
     }
      
-    // Método responsável por atualizar uma pessoa
-    // por ser mock retornamos a mesma informação passada
     public Person update(Person person) {
-        return person;
+    	Person persistedPerson = repository.findById(person.getId())
+                 .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
+
+		persistedPerson.setAddress(person.getAddress());
+		persistedPerson.setFirstName(person.getFirstName());
+		persistedPerson.setLastName(person.getLastName());
+		persistedPerson.setGender(person.getGender());
+		
+		return repository.save(persistedPerson);
     }
  
-    // Método responsável por deletar
-    // uma pessoa a partir de um ID
-    public void delete(String personId) {
- 
-    }
-         
-    // Método responsável por mockar uma pessoa
-    private Person mockPerson(int i) {
-        Person person = new Person();
-        person.setId(counter.incrementAndGet());
-        person.setFirstName("Person Name " + i);
-        person.setLastName("Last Name " + i);
-        person.setAddress("Some Address in Brasil " + i);
-        return person;
+    public void delete(Long id) {
+    	Person person = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
+		
+		repository.delete(person);
     }
 }
