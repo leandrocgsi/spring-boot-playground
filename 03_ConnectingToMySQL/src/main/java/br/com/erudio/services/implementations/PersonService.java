@@ -37,7 +37,7 @@ public class PersonService {
     // Método responsável por retornar todas as pessoas
     // mais uma vez essas informações são mocks
     public List<Person> findAll() {
-        ArrayList<Person> persons = new ArrayList<>();
+        ArrayList<Person> persons = new ArrayList<Person>();
         for (int i = 0; i < 8; i++) {
             Person person = mockPerson(i);
             persons.add(person);
