@@ -10,7 +10,7 @@ import br.com.erudio.converter.mocks.MockPerson;
 import br.com.erudio.models.Person;
 import br.com.erudio.vo.PersonVO;
 
-public class DozerParserTest {
+public class DozerConverterTest {
 	
     MockPerson inputObject;
 
@@ -21,8 +21,8 @@ public class DozerParserTest {
 
     @Test
     public void parseEntityToVOTest() {
-        PersonVO output = DozerParser.parseObjectInputToObjectOutput(inputObject.mockEntity(), PersonVO.class);
-        //Assert.assertEquals(0L, output.getId());
+        PersonVO output = DozerConverter.parseObject(inputObject.mockEntity(), PersonVO.class);
+        Assert.assertEquals(Long.valueOf(0L), output.getId());
         Assert.assertEquals("First Name Test0", output.getFirstName());
         Assert.assertEquals("Last Name Test0", output.getLastName());
         Assert.assertEquals("Addres Test0", output.getAddress());
@@ -31,10 +31,10 @@ public class DozerParserTest {
 
     @Test
     public void parseEntityListToVOListTest() {
-        List<PersonVO> outputList = DozerParser.parserListObjectInputToObjectOutput(inputObject.mockEntityList(), PersonVO.class);
+        List<PersonVO> outputList = DozerConverter.parserListObjects(inputObject.mockEntityList(), PersonVO.class);
         PersonVO outputZero = outputList.get(0);
         
-        //Assert.assertEquals(0L, output.getId());
+        Assert.assertEquals(Long.valueOf(0L), outputZero.getId());
         Assert.assertEquals("First Name Test0", outputZero.getFirstName());
         Assert.assertEquals("Last Name Test0", outputZero.getLastName());
         Assert.assertEquals("Addres Test0", outputZero.getAddress());
@@ -42,7 +42,7 @@ public class DozerParserTest {
         
         PersonVO outputSeven = outputList.get(7);
         
-        //Assert.assertEquals(0L, output.getId());
+        Assert.assertEquals(Long.valueOf(7L), outputSeven.getId());
         Assert.assertEquals("First Name Test7", outputSeven.getFirstName());
         Assert.assertEquals("Last Name Test7", outputSeven.getLastName());
         Assert.assertEquals("Addres Test7", outputSeven.getAddress());
@@ -50,7 +50,7 @@ public class DozerParserTest {
         
         PersonVO outputTwelve = outputList.get(12);
         
-        //Assert.assertEquals(0L, output.getId());
+        Assert.assertEquals(Long.valueOf(12L), outputTwelve.getId());
         Assert.assertEquals("First Name Test12", outputTwelve.getFirstName());
         Assert.assertEquals("Last Name Test12", outputTwelve.getLastName());
         Assert.assertEquals("Addres Test12", outputTwelve.getAddress());
@@ -59,8 +59,8 @@ public class DozerParserTest {
 
     @Test
     public void parseVOToEntityTest() {
-        Person output = DozerParser.parseObjectInputToObjectOutput(inputObject.mockVO(), Person.class);
-        //Assert.assertEquals(0L, output.getId());
+        Person output = DozerConverter.parseObject(inputObject.mockVO(), Person.class);
+        Assert.assertEquals(Long.valueOf(0L), output.getId());
         Assert.assertEquals("First Name Test0", output.getFirstName());
         Assert.assertEquals("Last Name Test0", output.getLastName());
         Assert.assertEquals("Addres Test0", output.getAddress());
@@ -69,10 +69,10 @@ public class DozerParserTest {
 
     @Test
     public void parserVOListToEntityListTest() {
-        List<Person> outputList = DozerParser.parserListObjectInputToObjectOutput(inputObject.mockVOList(), Person.class);
+        List<Person> outputList = DozerConverter.parserListObjects(inputObject.mockVOList(), Person.class);
         Person outputZero = outputList.get(0);
         
-        //Assert.assertEquals(0L, output.getId());
+        Assert.assertEquals(Long.valueOf(0L), outputZero.getId());
         Assert.assertEquals("First Name Test0", outputZero.getFirstName());
         Assert.assertEquals("Last Name Test0", outputZero.getLastName());
         Assert.assertEquals("Addres Test0", outputZero.getAddress());
@@ -80,7 +80,7 @@ public class DozerParserTest {
         
         Person outputSeven = outputList.get(7);
         
-        //Assert.assertEquals(0L, output.getId());
+        Assert.assertEquals(Long.valueOf(7L), outputSeven.getId());
         Assert.assertEquals("First Name Test7", outputSeven.getFirstName());
         Assert.assertEquals("Last Name Test7", outputSeven.getLastName());
         Assert.assertEquals("Addres Test7", outputSeven.getAddress());
@@ -88,7 +88,7 @@ public class DozerParserTest {
         
         Person outputTwelve = outputList.get(12);
         
-        //Assert.assertEquals(0L, output.getId());
+        Assert.assertEquals(Long.valueOf(12L), outputTwelve.getId());
         Assert.assertEquals("First Name Test12", outputTwelve.getFirstName());
         Assert.assertEquals("Last Name Test12", outputTwelve.getLastName());
         Assert.assertEquals("Addres Test12", outputTwelve.getAddress());

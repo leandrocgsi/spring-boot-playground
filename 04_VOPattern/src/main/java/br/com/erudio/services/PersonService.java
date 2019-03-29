@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.erudio.converter.DozerParser;
+import br.com.erudio.converter.DozerConverter;
 import br.com.erudio.exception.ResourceNotFoundException;
 import br.com.erudio.models.Person;
 import br.com.erudio.repository.PersonRepository;
@@ -18,19 +18,19 @@ public class PersonService {
     PersonRepository repository;
     
     public PersonVO create(PersonVO person) {
-    	var entity = DozerParser.parseObjectInputToObjectOutput(person, Person.class);
-    	var vo = DozerParser.parseObjectInputToObjectOutput(repository.save(entity), PersonVO.class);
+    	var entity = DozerConverter.parseObject(person, Person.class);
+    	var vo = DozerConverter.parseObject(repository.save(entity), PersonVO.class);
     	return vo;
     }
  
     public PersonVO findById(Long id) {
     	var entity = repository.findById(id)
         		.orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
-        return DozerParser.parseObjectInputToObjectOutput(entity, PersonVO.class);
+        return DozerConverter.parseObject(entity, PersonVO.class);
     }
  
     public List<PersonVO> findAll() {
-    	return DozerParser.parserListObjectInputToObjectOutput(repository.findAll(), PersonVO.class);
+    	return DozerConverter.parserListObjects(repository.findAll(), PersonVO.class);
     }
      
     public PersonVO update(PersonVO person) {
@@ -41,7 +41,7 @@ public class PersonService {
 		entity.setFirstName(person.getFirstName());
 		entity.setLastName(person.getLastName());
 		entity.setGender(person.getGender());
-		var vo = DozerParser.parseObjectInputToObjectOutput(repository.save(entity), PersonVO.class);
+		var vo = DozerConverter.parseObject(repository.save(entity), PersonVO.class);
     	return vo;
     }
  
