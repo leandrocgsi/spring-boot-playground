@@ -10,7 +10,7 @@ import br.com.erudio.converter.mocks.MockPerson;
 import br.com.erudio.models.Person;
 import br.com.erudio.vo.PersonVO;
 
-public class DozerParserTest {
+public class DozerConverterTest {
 	
     MockPerson inputObject;
 
@@ -21,7 +21,7 @@ public class DozerParserTest {
 
     @Test
     public void parseEntityToVOTest() {
-        PersonVO output = DozerParser.parseObjectInputToObjectOutput(inputObject.mockEntity(), PersonVO.class);
+        PersonVO output = DozerConverter.parseObject(inputObject.mockEntity(), PersonVO.class);
         //Assert.assertEquals(0L, output.getId());
         Assert.assertEquals("First Name Test0", output.getFirstName());
         Assert.assertEquals("Last Name Test0", output.getLastName());
@@ -31,7 +31,7 @@ public class DozerParserTest {
 
     @Test
     public void parseEntityListToVOListTest() {
-        List<PersonVO> outputList = DozerParser.parserListObjectInputToObjectOutput(inputObject.mockEntityList(), PersonVO.class);
+        List<PersonVO> outputList = DozerConverter.parserListObjects(inputObject.mockEntityList(), PersonVO.class);
         PersonVO outputZero = outputList.get(0);
         
         //Assert.assertEquals(0L, output.getId());
@@ -59,7 +59,7 @@ public class DozerParserTest {
 
     @Test
     public void parseVOToEntityTest() {
-        Person output = DozerParser.parseObjectInputToObjectOutput(inputObject.mockVO(), Person.class);
+        Person output = DozerConverter.parseObject(inputObject.mockVO(), Person.class);
         //Assert.assertEquals(0L, output.getId());
         Assert.assertEquals("First Name Test0", output.getFirstName());
         Assert.assertEquals("Last Name Test0", output.getLastName());
@@ -69,7 +69,7 @@ public class DozerParserTest {
 
     @Test
     public void parserVOListToEntityListTest() {
-        List<Person> outputList = DozerParser.parserListObjectInputToObjectOutput(inputObject.mockVOList(), Person.class);
+        List<Person> outputList = DozerConverter.parserListObjects(inputObject.mockVOList(), Person.class);
         Person outputZero = outputList.get(0);
         
         //Assert.assertEquals(0L, output.getId());
