@@ -1,4 +1,4 @@
-package br.com.erudio.web.controllers;
+package br.com.erudio.controllers;
  
 import java.util.List;
 
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.erudio.models.Person;
 import br.com.erudio.services.PersonService;
+import br.com.erudio.vo.PersonVO;
  
 @RestController
 @RequestMapping("/person")
@@ -24,22 +24,22 @@ public class PersonController {
     private PersonService personService;
      
     @GetMapping("/{id}")
-    public Person get(@PathVariable(value = "id") Long id){
+    public PersonVO get(@PathVariable(value = "id") Long id){
         return personService.findById(id);
     }
      
     @GetMapping
-    public List<Person> findAll(){
+    public List<PersonVO> findAll(){
         return personService.findAll();
     }
      
     @PostMapping
-    public Person create(@RequestBody Person person){
+    public PersonVO create(@RequestBody PersonVO person){
         return personService.create(person);
     }
      
     @PutMapping
-    public Person update(@RequestBody Person person){
+    public PersonVO update(@RequestBody PersonVO person){
         return personService.update(person);
     }
  
