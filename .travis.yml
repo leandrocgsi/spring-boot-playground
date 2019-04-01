@@ -5,8 +5,8 @@ jdk:
 notifications:
   - emails: false
 script:
- - cd 02_FirstEndpoints 
- - echo "Entered 02_FirstEndpoints."
+ - cd 06_Migrations 
+ - echo "Entered 06_Migrations."
  - mvn clean
  - sudo rm -rf target
 after_success:
