@@ -21,26 +21,26 @@ public class PersonController {
      
     @RequestMapping(value = "/{personId}",
     method = RequestMethod.GET, 
-    produces = { "application/json", "application/xml" })
+    produces = { "application/json", "application/xml", "application/x-yaml" })
     public Person get(@PathVariable(value = "personId") String personId){
         return personService.findById(personId);
     }
     
 	@RequestMapping(method = RequestMethod.GET,
-	produces = { "application/json", "application/xml" })
+	produces = { "application/json", "application/xml", "application/x-yaml" })
     public List<Person> findAll(){
         return personService.findAll();
     }
      
     @RequestMapping(method = RequestMethod.PUT,
-    consumes = { "application/json", "application/xml" },
-    produces = { "application/json", "application/xml" })
+    consumes = { "application/json", "application/xml", "application/x-yaml" },
+    produces = { "application/json", "application/xml", "application/x-yaml" })
     public Person create(@RequestBody Person person){
         return personService.create(person);
     }
      
     @RequestMapping(method = RequestMethod.POST,
-    consumes = { "application/json", "application/xml" })
+    consumes = { "application/json", "application/xml", "application/x-yaml" })
     public Person update(@RequestBody Person person){
         return personService.update(person);
     }
