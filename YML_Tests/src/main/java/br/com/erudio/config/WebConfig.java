@@ -33,13 +33,13 @@ public class WebConfig implements WebMvcConfigurer {
 			.mediaType("json", MediaType.APPLICATION_JSON)
 			.mediaType("x-yaml", MEDIA_TYPE_YML);*/
 		
-	    // Via HEADER. localhost:8080/person Content-Type:application/json
+	    // Via HEADER. localhost:8080/person Accept:application/x-yaml Content-Type:application/x-yaml
 		configurer
 		.favorPathExtension(false)
 		.favorParameter(false)
 		.ignoreAcceptHeader(false)
 		.useRegisteredExtensionsOnly(false)
-		.defaultContentType(MediaType.APPLICATION_JSON)
+		.defaultContentType(MediaType.APPLICATION_XML)
 		.mediaType("xml", MediaType.APPLICATION_XML)
 		.mediaType("json", MediaType.APPLICATION_JSON)
 		.mediaType("x-yaml", MEDIA_TYPE_YML);
