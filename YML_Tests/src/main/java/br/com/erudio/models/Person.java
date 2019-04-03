@@ -1,10 +1,10 @@
 package br.com.erudio.models;
  
 import java.io.Serializable;
+
+import javax.xml.bind.annotation.XmlRootElement;
  
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
- 
-@JsonIgnoreProperties(ignoreUnknown = true)
+@XmlRootElement
 public class Person implements Serializable{
      
     private static final long serialVersionUID = 1L;
@@ -14,6 +14,9 @@ public class Person implements Serializable{
     private String lastName;
     private String address;
      
+	public Person() {
+	}
+	
     public Long getId() {
         return id;
     }

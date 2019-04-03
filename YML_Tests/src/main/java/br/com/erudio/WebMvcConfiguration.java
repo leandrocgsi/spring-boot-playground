@@ -1,4 +1,4 @@
-package br.com.erudio;
+/*package br.com.erudio;
 
 import java.util.List;
 
@@ -50,4 +50,4 @@ final class YamlJackson2HttpMessageConverter extends AbstractJackson2HttpMessage
     YamlJackson2HttpMessageConverter() {
         super(new YAMLMapper(), MediaType.parseMediaType("application/x-yaml"));
     }
-}
+}*/

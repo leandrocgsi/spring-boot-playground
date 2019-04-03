@@ -1,4 +1,4 @@
-package br.com.erudio;
+/*package br.com.erudio;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,3 +26,4 @@ public class ObjectMapperConfiguration {
     return yamlObjectMapper;
   }
 }
+*/
