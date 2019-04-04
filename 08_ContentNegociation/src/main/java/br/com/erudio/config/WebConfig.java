@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.ContentNegotiationConfi
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import br.com.erudio.converter.YamlJackson2HttpMessageConverter;
+import br.com.erudio.serializer.converter.YamlJackson2HttpMessageConverter;
 
 @Configuration
 @EnableWebMvc
@@ -48,14 +48,14 @@ public class WebConfig implements WebMvcConfigurer {
 		
 	    // Via HEADER. localhost:8080/person Accept:application/x-yaml Content-Type:application/x-yaml
 		configurer
-		.favorPathExtension(false)
-		.favorParameter(false)
-		.ignoreAcceptHeader(false)
-		.useRegisteredExtensionsOnly(false)
-		.defaultContentType(MediaType.APPLICATION_XML)
-		.mediaType("xml", MediaType.APPLICATION_XML)
-		.mediaType("json", MediaType.APPLICATION_JSON)
-		.mediaType("x-yaml", MEDIA_TYPE_YML);
+			.favorPathExtension(false)
+			.favorParameter(false)
+			.ignoreAcceptHeader(false)
+			.useRegisteredExtensionsOnly(false)
+			.defaultContentType(MediaType.APPLICATION_XML)
+			.mediaType("xml", MediaType.APPLICATION_XML)
+			.mediaType("json", MediaType.APPLICATION_JSON)
+			.mediaType("x-yaml", MEDIA_TYPE_YML);
 	}
 
 }
