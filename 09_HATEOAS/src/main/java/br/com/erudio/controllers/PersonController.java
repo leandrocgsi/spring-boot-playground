@@ -29,32 +29,39 @@ public class PersonController {
     method = RequestMethod.GET, 
     produces = { "application/json", "application/xml", "application/x-yaml" })
     public PersonVO get(@PathVariable(value = "id") Long id){
-        PersonVO person = personService.findById(id);
-        person.add(linkTo(methodOn(PersonController.class).get(id)).withSelfRel());
-        return person;
+        PersonVO personVO = personService.findById(id);
+        personVO.add(linkTo(methodOn(PersonController.class).get(id)).withSelfRel());
+        return personVO;
     }
      
     @RequestMapping(method = RequestMethod.GET,
 	produces = { "application/json", "application/xml", "application/x-yaml" })
     public List<PersonVO> findAll(){
-    	/*List<PersonVO> domainObjects = personService.findAll();
-    	return domainObjects.stream()
-                .map(t -> toResource(t))
-                .collect(Collectors.toList());*/
-    	return personService.findAll();
+    	List<PersonVO> persons = personService.findAll();
+    	persons
+    		.stream()
+    		.forEach(p -> p.add(
+    				linkTo(methodOn(PersonController.class).get(p.getKey())).withSelfRel()
+				)
+			);
+    	return persons;
     }
      
     @RequestMapping(method = RequestMethod.POST,
     consumes = { "application/json", "application/xml", "application/x-yaml" },
     produces = { "application/json", "application/xml", "application/x-yaml" })
     public PersonVO create(@RequestBody PersonVO person){
-        return personService.create(person);
+    	PersonVO personVO = personService.create(person);
+        personVO.add(linkTo(methodOn(PersonController.class).get(personVO.getKey())).withSelfRel());
+        return personVO;
     }
      
     @RequestMapping(method = RequestMethod.PUT,
     consumes = { "application/json", "application/xml", "application/x-yaml" })
     public PersonVO update(@RequestBody PersonVO person){
-        return personService.update(person);
+    	PersonVO personVO = personService.update(person);
+        personVO.add(linkTo(methodOn(PersonController.class).get(personVO.getKey())).withSelfRel());
+        return personVO;
     }
  
     @RequestMapping(value = "/{id}",
