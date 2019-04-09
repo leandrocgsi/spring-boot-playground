@@ -4,10 +4,11 @@ import java.io.Serializable;
 
 import org.springframework.hateoas.ResourceSupport;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.dozermapper.core.Mapping;
  
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class PersonVO extends ResourceSupport implements Serializable{
      
     private static final long serialVersionUID = 1L;
@@ -18,8 +19,22 @@ public class PersonVO extends ResourceSupport implements Serializable{
     private String lastName;
     private String address;
     private String gender;
+    
+    public PersonVO() {}
      
-    public Long getKey() {
+    /*@JsonCreator
+    @JsonIgnoreProperties(ignoreUnknown=true)
+    public PersonVO(@JsonProperty("id") Long key, String firstName, String lastName, String address, String gender) {
+		super();
+		this.key = key;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.address = address;
+		this.gender = gender;
+	}
+    */
+    
+	public Long getKey() {
 		return key;
 	}
 

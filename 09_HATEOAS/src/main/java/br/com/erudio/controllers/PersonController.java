@@ -6,7 +6,6 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.ExposesResourceFor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,7 +17,6 @@ import br.com.erudio.data.vo.v1.PersonVO;
 import br.com.erudio.services.PersonService;
  
 @RestController
-@ExposesResourceFor(PersonVO.class)
 @RequestMapping("/api/person/v1")
 public class PersonController {
      
