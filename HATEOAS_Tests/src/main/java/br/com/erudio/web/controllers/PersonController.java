@@ -3,7 +3,6 @@ package br.com.erudio.web.controllers;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,19 +39,13 @@ public class PersonController {
 	produces = { "application/json", "application/xml", "application/x-yaml" })
     public List<Person> findAll(){
     	List<Person> persons = personService.findAll();
-    	ArrayList<Person> personsReturn = new ArrayList<Person>();
-        for (Person person : persons) {
-            person.add(linkTo(methodOn(PersonController.class).get(person.getKey())).withSelfRel());
-            personsReturn.add(person);
-        }
-    	/*persons
+    	persons
     		.stream()
     		.forEach(p -> p.add(
     				linkTo(methodOn(PersonController.class).get(p.getKey())).withSelfRel()
 				)
-			);*/
-    	
-    	return personsReturn;
+			);
+    	return persons;
     }
      
     @RequestMapping(method = RequestMethod.POST,
