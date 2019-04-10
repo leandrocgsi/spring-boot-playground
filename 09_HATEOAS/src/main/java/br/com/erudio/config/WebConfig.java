@@ -50,9 +50,9 @@ public class WebConfig implements WebMvcConfigurer {
 			.favorParameter(false)
 			.ignoreAcceptHeader(false)
 			.useRegisteredExtensionsOnly(false)
-			.defaultContentType(MediaType.APPLICATION_XML)
-			.mediaType("xml", MediaType.APPLICATION_XML)
+			.defaultContentType(MediaType.APPLICATION_JSON)
 			.mediaType("json", MediaType.APPLICATION_JSON)
+			.mediaType("xml", MediaType.APPLICATION_XML)
 			.mediaType("x-yaml", MEDIA_TYPE_YML);
 	}
 
