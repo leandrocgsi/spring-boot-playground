@@ -15,7 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.erudio.data.vo.v1.BookVO;
 import br.com.erudio.services.BookService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
  
+@Api(value = "BookEndpoint") 
 @RestController
 @RequestMapping("/api/book/v1")
 public class BookController {
@@ -23,6 +26,7 @@ public class BookController {
     @Autowired
     private BookService bookService;
      
+    @ApiOperation(value = "Find a specific book by your ID" )
     @RequestMapping(value = "/{id}",
     method = RequestMethod.GET, 
     produces = { "application/json", "application/xml", "application/x-yaml" })
@@ -31,7 +35,8 @@ public class BookController {
         bookVO.add(linkTo(methodOn(BookController.class).get(id)).withSelfRel());
         return bookVO;
     }
-     
+    
+    @ApiOperation(value = "Find all books" ) 
     @RequestMapping(method = RequestMethod.GET,
 	produces = { "application/json", "application/xml", "application/x-yaml" })
     public List<BookVO> findAll(){
@@ -44,7 +49,8 @@ public class BookController {
 			);
     	return books;
     }
-     
+    
+    @ApiOperation(value = "Create a new book") 
     @RequestMapping(method = RequestMethod.POST,
     consumes = { "application/json", "application/xml", "application/x-yaml" },
     produces = { "application/json", "application/xml", "application/x-yaml" })
@@ -53,7 +59,8 @@ public class BookController {
         bookVO.add(linkTo(methodOn(BookController.class).get(bookVO.getKey())).withSelfRel());
         return bookVO;
     }
-     
+
+    @ApiOperation(value = "Update a specific book")
     @RequestMapping(method = RequestMethod.PUT,
     consumes = { "application/json", "application/xml", "application/x-yaml" })
     public BookVO update(@RequestBody BookVO book){
@@ -61,7 +68,8 @@ public class BookController {
         bookVO.add(linkTo(methodOn(BookController.class).get(bookVO.getKey())).withSelfRel());
         return bookVO;
     }
- 
+
+    @ApiOperation(value = "Delete a specific book by your ID")
     @RequestMapping(value = "/{id}",
     method = RequestMethod.DELETE)
     public ResponseEntity<?> delete(@PathVariable(value = "id") Long id){

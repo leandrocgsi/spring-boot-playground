@@ -15,7 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.erudio.data.vo.v1.PersonVO;
 import br.com.erudio.services.PersonService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
  
+@Api(value = "PersonEndpoint", description = "REST API for Person", tags = { "PersonEndpoint" })
 @RestController
 @RequestMapping("/api/person/v1")
 public class PersonController {
@@ -23,6 +26,7 @@ public class PersonController {
     @Autowired
     private PersonService personService;
      
+    @ApiOperation(value = "Find a specific person by your ID" )
     @RequestMapping(value = "/{id}",
     method = RequestMethod.GET, 
     produces = { "application/json", "application/xml", "application/x-yaml" })
@@ -31,7 +35,8 @@ public class PersonController {
         personVO.add(linkTo(methodOn(PersonController.class).get(id)).withSelfRel());
         return personVO;
     }
-     
+    
+    @ApiOperation(value = "Find all people" ) 
     @RequestMapping(method = RequestMethod.GET,
 	produces = { "application/json", "application/xml", "application/x-yaml" })
     public List<PersonVO> findAll(){
@@ -44,7 +49,8 @@ public class PersonController {
 			);
     	return persons;
     }
-     
+    
+    @ApiOperation(value = "Create a new person") 
     @RequestMapping(method = RequestMethod.POST,
     consumes = { "application/json", "application/xml", "application/x-yaml" },
     produces = { "application/json", "application/xml", "application/x-yaml" })
@@ -53,7 +59,8 @@ public class PersonController {
         personVO.add(linkTo(methodOn(PersonController.class).get(personVO.getKey())).withSelfRel());
         return personVO;
     }
-     
+
+    @ApiOperation(value = "Update a specific person")
     @RequestMapping(method = RequestMethod.PUT,
     consumes = { "application/json", "application/xml", "application/x-yaml" })
     public PersonVO update(@RequestBody PersonVO person){
@@ -61,7 +68,8 @@ public class PersonController {
         personVO.add(linkTo(methodOn(PersonController.class).get(personVO.getKey())).withSelfRel());
         return personVO;
     }
- 
+
+    @ApiOperation(value = "Delete a specific person by your ID")
     @RequestMapping(value = "/{id}",
     method = RequestMethod.DELETE)
     public ResponseEntity<?> delete(@PathVariable(value = "id") Long id){
