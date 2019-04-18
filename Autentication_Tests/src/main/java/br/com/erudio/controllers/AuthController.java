@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.erudio.repository.UserRepository;
 import br.com.erudio.security.jwt.JwtTokenProvider;
-import br.com.erudio.security.vo.AuthenticationRequestVO;
+import br.com.erudio.security.vo.AccountCredentialsVO;
 
 @RestController
 @RequestMapping("/auth")
@@ -37,7 +37,7 @@ public class AuthController {
     @SuppressWarnings("rawtypes")
 	@RequestMapping(method = RequestMethod.POST, value = "/signin", consumes = { "application/json", "application/xml", "application/x-yaml" },
     	    produces = { "application/json", "application/xml", "application/x-yaml" })
-    public ResponseEntity signin(@RequestBody AuthenticationRequestVO data) {
+    public ResponseEntity signin(@RequestBody AccountCredentialsVO data) {
 
         try {
             var username = data.getUsername();
@@ -57,6 +57,7 @@ public class AuthController {
             Map<Object, Object> model = new HashMap<>();
             model.put("username", username);
             model.put("token", token);
+            
             return ok(model);
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Invalid username/password supplied");
