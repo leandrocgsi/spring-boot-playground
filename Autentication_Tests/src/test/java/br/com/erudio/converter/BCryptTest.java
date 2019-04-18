@@ -4,13 +4,14 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-public class FooTest {
+public class BCryptTest {
 	
     @Test
-    public void parseEntityToVOTest() {
+    public void bCryptTest() {
     	BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(16);
-    	String result = encoder.encode("admin123");
-    	Assert.assertTrue(encoder.matches("admin123", result));
+    	String result = encoder.encode("admin234");
+    	System.out.println("My Hash " + result);
+    	Assert.assertTrue(encoder.matches("admin234", result));
     }
 
 }

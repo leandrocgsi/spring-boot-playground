@@ -13,7 +13,6 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,7 +35,8 @@ public class AuthController {
     @Autowired
     UserRepository repository;
 
-    @RequestMapping(method = RequestMethod.POST, value = "/signin", consumes = { "application/json", "application/xml", "application/x-yaml" },
+    @SuppressWarnings("rawtypes")
+	@RequestMapping(method = RequestMethod.POST, value = "/signin", consumes = { "application/json", "application/xml", "application/x-yaml" },
     	    produces = { "application/json", "application/xml", "application/x-yaml" })
     public ResponseEntity signin(@RequestBody AuthenticationRequestVO data) {
 

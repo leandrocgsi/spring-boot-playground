@@ -2,11 +2,9 @@ package br.com.erudio.config;
 
 import java.util.List;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -40,12 +38,6 @@ public class WebConfig implements WebMvcConfigurer {
 			.mediaType("xml", MediaType.APPLICATION_XML)
 			.mediaType("json", MediaType.APPLICATION_JSON)
 			.mediaType("x-yaml", MEDIA_TYPE_YML);
-	}
-	
-	@SuppressWarnings("deprecation")
-	@Bean
-	public static NoOpPasswordEncoder passwordEncoder() {
-		return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
 	}
 
 }
