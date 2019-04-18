@@ -1,46 +1,38 @@
-package br.com.erudio.data.models;
+package br.com.erudio.data.vo.v1;
  
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.springframework.hateoas.ResourceSupport;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.github.dozermapper.core.Mapping;
  
-@Entity
-@Table (name="person")
-public class Person implements Serializable{
+@JsonPropertyOrder({ "id", "firstName", "lastName", "address", "gender", "enabled" })
+public class PersonVO extends ResourceSupport implements Serializable{
      
     private static final long serialVersionUID = 1L;
      
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
-    @Column (name="first_name", nullable = false, length = 80 )
+    @Mapping("id")
+    @JsonProperty("id")
+    private Long key;
     private String firstName;
-    
-    @Column (name="last_name", nullable = false, length = 80 )
     private String lastName;
-    
-    @Column (name="address", nullable = false, length = 80 )
     private String address;
-    
-    
-    @Column (name="gender", nullable = false, length = 6 )
     private String gender;
-     
-    public Long getId() {
-        return id;
-    }
-     
-    public void setId(Long id) {
-        this.id = id;
-    }
-     
-    public String getFirstName() {
+    private Boolean enabled;    
+    
+    public PersonVO() {}
+        
+	public Long getKey() {
+		return key;
+	}
+
+	public void setKey(Long key) {
+		this.key = key;
+	}
+
+	public String getFirstName() {
         return firstName;
     }
      
@@ -72,14 +64,23 @@ public class Person implements Serializable{
 		this.gender = gender;
 	}
 
+	public Boolean getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
+		int result = super.hashCode();
 		result = prime * result + ((address == null) ? 0 : address.hashCode());
+		result = prime * result + ((enabled == null) ? 0 : enabled.hashCode());
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result + ((gender == null) ? 0 : gender.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((key == null) ? 0 : key.hashCode());
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
 		return result;
 	}
@@ -88,15 +89,20 @@ public class Person implements Serializable{
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
+		if (!super.equals(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Person other = (Person) obj;
+		PersonVO other = (PersonVO) obj;
 		if (address == null) {
 			if (other.address != null)
 				return false;
 		} else if (!address.equals(other.address))
+			return false;
+		if (enabled == null) {
+			if (other.enabled != null)
+				return false;
+		} else if (!enabled.equals(other.enabled))
 			return false;
 		if (firstName == null) {
 			if (other.firstName != null)
@@ -108,10 +114,10 @@ public class Person implements Serializable{
 				return false;
 		} else if (!gender.equals(other.gender))
 			return false;
-		if (id == null) {
-			if (other.id != null)
+		if (key == null) {
+			if (other.key != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!key.equals(other.key))
 			return false;
 		if (lastName == null) {
 			if (other.lastName != null)

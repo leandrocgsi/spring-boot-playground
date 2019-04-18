@@ -70,6 +70,15 @@ public class PersonController {
         personVO.add(linkTo(methodOn(PersonController.class).get(personVO.getKey())).withSelfRel());
         return personVO;
     }
+    
+    @ApiOperation(value = "Set a specific person by to disabled")
+    @RequestMapping(value = "/{id}",
+    method = RequestMethod.PATCH)
+    public PersonVO patch(@PathVariable(value = "id") Long id){
+    	PersonVO personVO = personService.disablePerson(id);
+        personVO.add(linkTo(methodOn(PersonController.class).get(personVO.getKey())).withSelfRel());
+        return personVO;
+    }
 
     @ApiOperation(value = "Delete a specific person by your ID")
     @RequestMapping(value = "/{id}",
