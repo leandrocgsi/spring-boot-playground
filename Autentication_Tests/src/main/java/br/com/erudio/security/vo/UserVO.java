@@ -1,7 +1,7 @@
-package br.com.erudio.data.vo.security;
+package br.com.erudio.security.vo;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 
 public class UserVO implements Serializable {
 
@@ -10,7 +10,7 @@ public class UserVO implements Serializable {
     private String userName;
     private String fullName;
     private Boolean enabled;
-    private Set<PermissionVO> permissions;
+    private List<PermissionVO> permissions;
     
 	public String getUserName() {
 		return userName;
@@ -36,11 +36,11 @@ public class UserVO implements Serializable {
 		this.enabled = enabled;
 	}
 	
-	public Set<PermissionVO> getPermissions() {
+	public List<PermissionVO> getPermissions() {
 		return permissions;
 	}
 	
-	public void setPermissions(Set<PermissionVO> permissions) {
+	public void setPermissions(List<PermissionVO> permissions) {
 		this.permissions = permissions;
 	}
 
@@ -86,4 +86,5 @@ public class UserVO implements Serializable {
 			return false;
 		return true;
 	}
+
 }

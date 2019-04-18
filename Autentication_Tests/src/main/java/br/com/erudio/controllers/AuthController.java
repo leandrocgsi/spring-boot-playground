@@ -2,7 +2,6 @@ package br.com.erudio.controllers;
 
 import static org.springframework.http.ResponseEntity.ok;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,9 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.erudio.data.vo.security.AuthenticationRequestVO;
 import br.com.erudio.repository.UserRepository;
 import br.com.erudio.security.jwt.JwtTokenProvider;
+import br.com.erudio.security.vo.AuthenticationRequestVO;
 
 @RestController
 @RequestMapping("/auth")
@@ -41,19 +40,16 @@ public class AuthController {
     public ResponseEntity signin(@RequestBody AuthenticationRequestVO data) {
 
         try {
-            String username = data.getUsername();
+            var username = data.getUsername();
+            var password = data.getPassword();
             
-            UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(username, data.getPassword());
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
 
-            
-            authenticationManager.authenticate(usernamePasswordAuthenticationToken);
-            //String token = jwtTokenProvider.createToken(username, this.repository.findByLogin(username).orElseThrow(() -> new UsernameNotFoundException("Username " + username + "not found")).getRoles());
             var user = this.repository.findByUsername(username);
             var token = "";
             
-            //TODO
             if (user != null) {
-                token = tokenProvider.createToken(username, Arrays.asList( "ADMIN"));
+                token = tokenProvider.createToken(username, user.getRoles());
             } else {
                 throw new UsernameNotFoundException("Username " + username + "not found");
             }

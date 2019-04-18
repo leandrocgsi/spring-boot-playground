@@ -1,8 +1,5 @@
 package br.com.erudio.exception.handler;
 
-import static org.springframework.http.HttpStatus.UNAUTHORIZED;
-import static org.springframework.http.ResponseEntity.status;
-
 import java.util.Date;
 
 import org.springframework.http.HttpStatus;
@@ -43,9 +40,13 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
 	}
 
 
-    @SuppressWarnings("rawtypes")
 	@ExceptionHandler(InvalidJwtAuthenticationException.class)
-    public ResponseEntity invalidJwtAuthentication(InvalidJwtAuthenticationException ex, WebRequest request) {
-        return status(UNAUTHORIZED).build();
+    public final ResponseEntity<ExceptionResponse> invalidJwtAuthentication(InvalidJwtAuthenticationException ex, WebRequest request) {
+		ExceptionResponse exceptionResponse = 
+				new ExceptionResponse(
+						new Date(),
+						ex.getMessage(),
+						request.getDescription(false));
+		return new ResponseEntity<>(exceptionResponse, HttpStatus.UNAUTHORIZED);
     }
 }

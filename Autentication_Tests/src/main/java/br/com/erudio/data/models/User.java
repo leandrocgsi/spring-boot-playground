@@ -1,8 +1,9 @@
 package br.com.erudio.data.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -53,7 +54,7 @@ public class User implements UserDetails, Serializable {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_permission", joinColumns = { @JoinColumn(name = "id_user") },
             inverseJoinColumns = { @JoinColumn(name = "id_permission") })
-    private Set<Permission> permissions;
+    private List<Permission> permissions;
 
 	public Long getId() {
 		return id;
@@ -115,12 +116,20 @@ public class User implements UserDetails, Serializable {
 		this.enabled = enabled;
 	}
 
-	public Set<Permission> getPermissions() {
+	public List<Permission> getPermissions() {
 		return permissions;
 	}
 
-	public void setPermissions(Set<Permission> permissions) {
+	public void setPermissions(List<Permission> permissions) {
 		this.permissions = permissions;
+	}
+	
+	public List<String> getRoles() {
+		List<String> roles = new ArrayList<>();
+		for (Permission permission : this.permissions) {
+			roles.add(permission.getDescription());
+		}
+		return roles;
 	}
 
 	@Override
@@ -230,4 +239,5 @@ public class User implements UserDetails, Serializable {
 			return false;
 		return true;
 	}
+
 }
