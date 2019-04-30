@@ -6,7 +6,7 @@
 
 # How to restore database
 
-You just need create an empty database in MySQL with name "_spring_boot_playground_", check if your credentials are "root" and "root" and execute following command in pom.xml folder.
+You just need create an empty database in MySQL with name "_spring_boot_playground_", check if your credentials are "root" and "root" and execute following command in pom.xml folder. If everything is OK the database was restored.
 
 ```sh
 mvn flyway:migrate
