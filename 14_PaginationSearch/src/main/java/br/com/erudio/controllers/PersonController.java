@@ -6,11 +6,14 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.erudio.data.vo.v1.PersonVO;
@@ -41,8 +44,12 @@ public class PersonController {
     //@CrossOrigin(origins = {"http://localhost:8080", "http://www.erudio.com.br"})
     @RequestMapping(method = RequestMethod.GET,
 	produces = { "application/json", "application/xml", "application/x-yaml" })
-    public List<PersonVO> findAll(){
-    	List<PersonVO> persons = personService.findAll();
+    public List<PersonVO> findAll(@RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "limit", defaultValue = "30") int limit){
+    	
+    	Pageable pageableRequest = PageRequest.of(page, limit);
+    	List<PersonVO> persons = personService.findAll(pageableRequest);
+
     	persons
     		.stream()
     		.forEach(p -> p.add(
