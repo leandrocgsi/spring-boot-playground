@@ -8,6 +8,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -41,13 +43,17 @@ public class PersonController {
     }
     
     @ApiOperation(value = "Find all people" ) 
-    //@CrossOrigin(origins = {"http://localhost:8080", "http://www.erudio.com.br"})
     @RequestMapping(method = RequestMethod.GET,
 	produces = { "application/json", "application/xml", "application/x-yaml" })
     public List<PersonVO> findAll(@RequestParam(value = "page", defaultValue = "0") int page,
-            @RequestParam(value = "limit", defaultValue = "30") int limit){
+            @RequestParam(value = "limit", defaultValue = "30") int limit,
+            @RequestParam(value = "direction", defaultValue = "asc") String direction){
     	
-    	Pageable pageableRequest = PageRequest.of(page, limit);
+    	var sortDirection = "desc".equalsIgnoreCase(direction) ? Direction.DESC : Direction.ASC;
+    	
+    	Pageable pageableRequest = PageRequest.of(page, limit, Sort.by(sortDirection, "firstName"));
+    	
+    	
     	List<PersonVO> persons = personService.findAll(pageableRequest);
 
     	persons
