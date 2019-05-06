@@ -10,10 +10,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
-import org.springframework.data.web.PagedResourcesAssembler;
-import org.springframework.hateoas.PagedResources;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -49,10 +45,9 @@ public class PersonController {
     @ApiOperation(value = "Find all people" ) 
     @RequestMapping(method = RequestMethod.GET,
 	produces = { "application/json", "application/xml", "application/x-yaml" })
-    public ResponseEntity<PagedResources<PersonVO>> findAll(@RequestParam(value = "page", defaultValue = "0") int page,
+    public List<PersonVO> findAll(@RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "limit", defaultValue = "30") int limit,
-            @RequestParam(value = "direction", defaultValue = "asc") String direction,
-            PagedResourcesAssembler assembler){
+            @RequestParam(value = "direction", defaultValue = "asc") String direction){
     	
     	var sortDirection = "desc".equalsIgnoreCase(direction) ? Direction.DESC : Direction.ASC;
     	
@@ -61,10 +56,13 @@ public class PersonController {
     	
     	List<PersonVO> persons = personService.findAll(pageableRequest);
 
-    	PagedResources <PersonVO> pr = assembler.toResource(persons, linkTo(PersonController.class).slash("/persons").withSelfRel());
-    	HttpHeaders responseHeaders = new HttpHeaders();
-    	responseHeaders.add("Link", createLinkHeader(pr));
-    	return new ResponseEntity < > (assembler.toResource(persons, linkTo(PersonController.class).slash("/persons").withSelfRel()), responseHeaders, HttpStatus.OK);
+    	persons
+    		.stream()
+    		.forEach(p -> p.add(
+    				linkTo(methodOn(PersonController.class).get(p.getKey())).withSelfRel()
+				)
+			);
+    	return persons;
     }
     
     @ApiOperation(value = "Create a new person") 
@@ -102,16 +100,4 @@ public class PersonController {
         personService.delete(id);
         return ResponseEntity.ok().build();
     }
-    
-	private String createLinkHeader(PagedResources<PersonVO> pr) {
-		final StringBuilder linkHeader = new StringBuilder();
-		linkHeader.append(buildLinkHeader(pr.getLinks("first").get(0).getHref(), "first"));
-		linkHeader.append(", ");
-		linkHeader.append(buildLinkHeader(pr.getLinks("next").get(0).getHref(), "next"));
-		return linkHeader.toString();
-	}
-
-	public static String buildLinkHeader(final String uri, final String rel) {
-		return "<" + uri + ">; rel=\"" + rel + "\"";
-	}
 }
