@@ -3,6 +3,7 @@ package br.com.erudio.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -62,9 +63,9 @@ public class PersonService {
 		repository.delete(person);
     }
 
-	public List<PersonVO> findAll(Pageable pageableRequest) {
-		var entities = repository.findAll(pageableRequest).getContent();
+	public Page<Person> findAll(Pageable pageableRequest) {
+		//var entities = repository.findAll(pageableRequest).getContent();
 		
-		return DozerConverter.parserListObjects(entities, PersonVO.class);
+		return repository.findAll(pageableRequest);
 	}
 }
