@@ -63,9 +63,27 @@ public class PersonService {
 		repository.delete(person);
     }
 
-	public Page<Person> findAll(Pageable pageableRequest) {
-		//var entities = repository.findAll(pageableRequest).getContent();
-		
-		return repository.findAll(pageableRequest);
+	public Page<PersonVO> findAll(Pageable pageableRequest) {
+		/*var entities = repository.findAll(pageableRequest);
+		Page<PersonVO> dtoPage = entities.map(new Function<Person, PersonVO>() {
+		    @Override
+		    public PersonVO apply(Person entity) {
+		        PersonVO dto = new PersonVO();
+		        // Conversion logic
+
+		        return dto;
+		    }
+		});
+		//return repository.findAll(pageableRequest);*/
+		return toPagePersonVO(repository.findAll(pageableRequest));
+	}
+	
+	public Page<PersonVO> toPagePersonVO(Page<Person> objects) {
+	    Page<PersonVO> dtos  = objects.map(this::convertToPersonVO);
+	    return dtos;
+	}
+
+	private PersonVO convertToPersonVO(Person entity) {
+	    return DozerConverter.parseObject(entity, PersonVO.class);
 	}
 }
