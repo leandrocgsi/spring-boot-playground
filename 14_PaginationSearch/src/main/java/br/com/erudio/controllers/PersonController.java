@@ -49,7 +49,7 @@ public class PersonController {
     @ApiOperation(value = "Find all people" ) 
     @RequestMapping(method = RequestMethod.GET,
 	produces = { "application/json", "application/xml", "application/x-yaml" })
-    public HttpEntity<PagedResources<Person>> findAll(@RequestParam(value = "page", defaultValue = "0") int page,
+    public HttpEntity<PagedResources<PersonVO>> findAll(@RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "limit", defaultValue = "30") int limit,
             @RequestParam(value = "direction", defaultValue = "asc") String direction, 
             PagedResourcesAssembler assembler){
@@ -59,7 +59,7 @@ public class PersonController {
     	Pageable pageableRequest = PageRequest.of(page, limit, Sort.by(sortDirection, "firstName"));
     	
     	
-    	Page<Person> persons = personService.findAll(pageableRequest);
+    	Page<PersonVO> persons = personService.findAll(pageableRequest);
 
     	/*persons
     		.stream()
