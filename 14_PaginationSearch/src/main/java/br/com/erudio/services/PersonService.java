@@ -68,16 +68,6 @@ public class PersonService {
     }
 
 	public Page<PersonVO> findAll(Pageable pageableRequest) {
-		/*var entities = repository.findAll(pageableRequest);
-		Page<PersonVO> dtoPage = entities.map(new Function<Person, PersonVO>() {
-		    @Override
-		    public PersonVO apply(Person entity) {
-		        PersonVO dto = new PersonVO();
-		        // Conversion logic
-
-		        return dto;
-		    }
-		});
 		//return repository.findAll(pageableRequest);*/
 		return toPagePersonVO(repository.findAll(pageableRequest));
 	}
