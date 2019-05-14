@@ -68,15 +68,11 @@ public class PersonService {
     }
 
 	public Page<PersonVO> findAll(Pageable pageableRequest) {
-		//return repository.findAll(pageableRequest);*/
-		return toPagePersonVO(repository.findAll(pageableRequest));
+		var entities = repository.findAll(pageableRequest);
+		
+	    return entities.map(this::convertToPersonVO);
 	}
 	
-	public Page<PersonVO> toPagePersonVO(Page<Person> objects) {
-	    Page<PersonVO> dtos  = objects.map(this::convertToPersonVO);
-	    return dtos;
-	}
-
 	private PersonVO convertToPersonVO(Person entity) {
 	    var vo = DozerConverter.parseObject(entity, PersonVO.class);
 	    vo.add(linkTo(methodOn(PersonController.class).get(vo.getKey())).withSelfRel());
