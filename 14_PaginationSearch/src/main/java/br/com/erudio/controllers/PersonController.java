@@ -60,12 +60,10 @@ public class PersonController {
     	
     	Page<PersonVO> persons = personService.findAll(pageableRequest);
 
-    	/*persons
-    		.stream()
-    		.forEach(p -> p.add(
+    	persons.forEach(p -> p.add(
     				linkTo(methodOn(PersonController.class).get(p.getKey())).withSelfRel()
 				)
-			);*/
+			);
     	return new ResponseEntity<>(assembler.toResource(persons), HttpStatus.OK);
     }
     
