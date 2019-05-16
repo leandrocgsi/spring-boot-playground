@@ -75,7 +75,7 @@ public class PersonService {
 	
 	private PersonVO convertToPersonVO(Person entity) {
 	    var vo = DozerConverter.parseObject(entity, PersonVO.class);
-	    vo.add(linkTo(methodOn(PersonController.class).get(vo.getKey())).withSelfRel());
+	    //vo.add(linkTo(methodOn(PersonController.class).get(vo.getKey())).withSelfRel());
 	    return vo;
 	}
 }
