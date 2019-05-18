@@ -8,15 +8,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.erudio.controllers.PersonController;
 import br.com.erudio.converter.DozerConverter;
 import br.com.erudio.data.models.Person;
 import br.com.erudio.data.vo.v1.PersonVO;
 import br.com.erudio.exception.ResourceNotFoundException;
 import br.com.erudio.repository.PersonRepository;
-
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
  
 @Service
 public class PersonService {
@@ -74,8 +70,6 @@ public class PersonService {
 	}
 	
 	private PersonVO convertToPersonVO(Person entity) {
-	    var vo = DozerConverter.parseObject(entity, PersonVO.class);
-	    //vo.add(linkTo(methodOn(PersonController.class).get(vo.getKey())).withSelfRel());
-	    return vo;
+	    return DozerConverter.parseObject(entity, PersonVO.class);
 	}
 }
