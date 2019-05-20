@@ -65,7 +65,6 @@ public class PersonService {
 
 	public Page<PersonVO> findAll(Pageable pageableRequest) {
 		var entities = repository.findAll(pageableRequest);
-		
 	    return entities.map(this::convertToPersonVO);
 	}
 	
