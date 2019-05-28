@@ -11,7 +11,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.PagedResources;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -59,6 +58,31 @@ public class PersonController {
     	
     	
     	Page<PersonVO> persons = personService.findAll(pageableRequest);
+
+    	persons.forEach(p -> p.add(
+    				linkTo(methodOn(PersonController.class).get(p.getKey())).withSelfRel()
+				)
+			);
+    	return new ResponseEntity<>(assembler.toResource(persons), HttpStatus.OK);
+    }
+    
+    @ApiOperation(value = "Find a specific person by name" ) 
+    @RequestMapping(value = "/findPersonByName/{firstName}",
+    method = RequestMethod.GET,
+	produces = { "application/json", "application/xml", "application/x-yaml" })
+    public ResponseEntity<PagedResources<PersonVO>> findPersonByName(
+    		@PathVariable(value = "firstName") String firstName,
+    		@RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "limit", defaultValue = "30") int limit,
+            @RequestParam(value = "direction", defaultValue = "asc") String direction, 
+            PagedResourcesAssembler assembler){
+    	
+    	var sortDirection = "desc".equalsIgnoreCase(direction) ? Direction.DESC : Direction.ASC;
+    	
+    	Pageable pageableRequest = PageRequest.of(page, limit, Sort.by(sortDirection, "firstName"));
+    	
+    	
+    	Page<PersonVO> persons = personService.findPersonByName(firstName, pageableRequest);
 
     	persons.forEach(p -> p.add(
     				linkTo(methodOn(PersonController.class).get(p.getKey())).withSelfRel()
