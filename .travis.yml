@@ -9,4 +9,4 @@ before_install:
 script:
  - cd 06_Migrations 
  - echo "Entered 06_Migrations."
- - docker-compose up -d --build
+ - docker-compose up --build
