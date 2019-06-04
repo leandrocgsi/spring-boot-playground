@@ -5,12 +5,12 @@ jdk:
 before_install:
   - cd 16\ Docker/
   - echo "We are in the Docker folder."
+  - echo '$DOCKER_PASSWORD' | docker login -u '$DOCKER_USERNAME' --password-stdin
 install: true
 script:
   - docker-compose build 
 after_success:
   - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
-      docker login docker.io -p '$DOCKER_PASSWORD' -u '$DOCKER_USERNAME';
       docker tag firstimage leandrocgsi/udemy-mysql-spring;
       docker push leandrocgsi/udemy-mysql-spring;
     fi
