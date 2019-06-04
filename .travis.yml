@@ -7,9 +7,9 @@ services:
 before_install:
   - cd 16\ Docker/
   - echo "We are in the Docker folder."
-  - echo '$DOCKER_PASSWORD' | docker login -u '$DOCKER_USERNAME' --password-stdin
 install: true
 script:
+  - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
   - docker-compose build 
 deploy:
   provider: script
