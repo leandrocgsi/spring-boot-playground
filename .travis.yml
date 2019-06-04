@@ -10,7 +10,7 @@ script:
   - docker-compose build 
 after_success:
   - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
-      docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD ;
+      docker login docker.io -p '$DOCKER_PASSWORD' -u '$DOCKER_USERNAME';
       docker tag firstimage leandrocgsi/udemy-mysql-spring;
       docker push leandrocgsi/udemy-mysql-spring;
     fi
