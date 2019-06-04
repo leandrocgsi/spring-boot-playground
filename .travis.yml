@@ -3,5 +3,4 @@ before_install:
   - cd 16_Docker 
   - echo "Entered 16_Docker."
 install:
-  - docker-compose up -d
-  - sleep 10
+  - docker-compose up --build
