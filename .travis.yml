@@ -1,4 +1,5 @@
 services: docker
+language: java
 before_install:
   - cd 16_Docker 
   - echo "Entered 16_Docker."
