@@ -3,5 +3,5 @@ install:
   - docker-compose up -d
   - sleep 10
 script:
-  - cd 06_Migrations 
+  - cd 16_Docker 
   - echo "Entered 06_Migrations."
