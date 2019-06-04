@@ -1,18 +1,21 @@
-services: docker
+sudo: required
 language: java
 jdk:
   - oraclejdk11
+services:
+  - docker
 before_install:
   - cd 16\ Docker/
   - echo "We are in the Docker folder."
-  - echo '$DOCKER_PASSWORD' | docker login -u '$DOCKER_USERNAME' --password-stdin
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 install: true
 script:
   - docker-compose build 
-after_success:
-  - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
-      docker tag firstimage leandrocgsi/udemy-mysql-spring;
-      docker push leandrocgsi/udemy-mysql-spring;
-    fi
+deploy:
+  provider: script
+  script:
+    docker push leandrocgsi/udemy-mysql-spring;
+  on:
+    branch: master
 notifications:
   email: false
