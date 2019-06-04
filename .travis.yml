@@ -5,5 +5,6 @@ jdk:
 before_install:
   - cd 16_Docker 
   - echo "Entered 16_Docker."
-install:
-  - docker-compose build
+install: true
+script:
+   - docker-compose build
