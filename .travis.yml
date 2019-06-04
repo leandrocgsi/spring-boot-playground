@@ -1,7 +1,7 @@
 services: docker
+before_install:
+  - cd 16_Docker 
+  - echo "Entered 16_Docker."
 install:
   - docker-compose up -d
   - sleep 10
-script:
-  - cd 16_Docker 
-  - echo "Entered 06_Migrations."
