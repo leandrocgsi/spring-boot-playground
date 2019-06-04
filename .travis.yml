@@ -10,9 +10,8 @@ script:
   - docker-compose build 
 after_success:
   - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
-      docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD ;
+      docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD docker.io;
       docker push leandrocgsi/udemy-mysql-spring:branch;
-      echo "Image pushed.";
     fi
 notifications:
   email: false
