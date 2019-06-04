@@ -3,15 +3,17 @@ language: java
 jdk:
   - oraclejdk11
 before_install:
-  - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin;
   - cd 16\ Docker/
   - echo "We are in the Docker folder."
 install: true
 script:
-  - docker-compose build
-deploy:
-  provider: script
-  script:
-    # push to dockerhub
-    docker push leandrocgsi/udemy-mysql-spring;
-  branch: master   
+  - docker-compose build 
+after_success:
+  - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
+      docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD ;
+      docker push leandrocgsi/udemy-mysql-spring;
+    fi
+
+# don't notify me when things fail
+notifications:
+  email: false
