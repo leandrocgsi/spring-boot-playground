@@ -3,8 +3,8 @@ language: java
 jdk:
   - oraclejdk11
 before_install:
-  - cd 16_Docker 
-  - echo "Entered 16_Docker."
+  - cd 16\ Docker/
+  - echo "We are in the Docker folder."
 install: true
 script:
    - docker-compose build
