@@ -9,9 +9,10 @@ install: true
 script:
   - docker-compose build 
 after_success:
-  - if [[ $TRAVIS_PULL_REQUEST == "false" ]] && [[ "$TRAVIS_TAG" != "" ]]; then
-    docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-    docker tag "leandrocgsi/udemy-mysql-spring:latest" "leandrocgsi/udemy-mysql-spring:$TRAVIS_TAG" && docker push "leandrocgsi/udemy-mysql-spring:$TRAVIS_TAG" && docker push "leandrocgsi/udemy-mysql-spring:latest" ;
+  - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
+      docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD ;
+      docker tag firstimage leandrocgsi/udemy-mysql-spring;
+      docker push leandrocgsi/udemy-mysql-spring;
     fi
 notifications:
   email: false
