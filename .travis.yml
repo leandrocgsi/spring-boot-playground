@@ -1,13 +1,12 @@
-language: java
-sudo: required
-jdk:
-  - oraclejdk8
-notifications:
-  - emails: false
+env:
+  - DOCKER_COMPOSE_VERSION=1.4.2
+
+before_install:
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
 script:
  - cd 06_Migrations 
  - echo "Entered 06_Migrations."
- - mvn clean
- - sudo rm -rf target
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
+ - docker-compose up -d --build
