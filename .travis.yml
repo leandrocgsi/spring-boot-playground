@@ -1,22 +1,14 @@
-sudo: required
-language: java
-jdk:
-  - oraclejdk11
-services:
-  - docker
+language: bash
+services: docker
 env:
   COMPOSE_VERSION: 3.4  
 before_install:
-  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-  - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-  - sudo apt-get update
-  - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
   - cd 16\ Docker/
   - echo "We are in the Docker folder."
-install: true
 script:
-  - echo winpty "$DOCKER_PASSWORD" | winpty docker login --username "$DOCKER_USERNAME" --password-stdin
   - docker-compose build 
+before_deploy:
+  - echo "${DOCKER_PASSWORD}" | docker login --username "${DOCKER_USERNAME}" --password-stdin  
 deploy:
   provider: script
   script:
