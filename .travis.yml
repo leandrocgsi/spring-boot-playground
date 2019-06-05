@@ -1,10 +1,17 @@
+language: bash
 services: docker
-language: java
-jdk:
-  - oraclejdk11
 before_install:
   - cd 16\ Docker/
   - echo "We are in the Docker folder."
-install: true
 script:
-   - docker-compose build
+  - docker-compose build 
+before_deploy:
+  - echo "${DOCKER_PASSWORD}" | docker login --username "${DOCKER_USERNAME}" --password-stdin  
+deploy:
+  provider: script
+  script:
+    docker push leandrocgsi/udemy-mysql-spring;
+  on:
+    branch: master
+notifications:
+  email: false
