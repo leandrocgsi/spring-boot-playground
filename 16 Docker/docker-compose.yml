@@ -19,6 +19,7 @@ services:
       - udemy-network
   
   spring-boot-playground:
+    image: leandrocgsi/spring-boot-playground
     restart: always
     build: ./SpringBootPlayground
     working_dir: /SpringBootPlayground
