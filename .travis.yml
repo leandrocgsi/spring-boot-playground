@@ -1,7 +1,5 @@
 language: bash
 services: docker
-env:
-  COMPOSE_VERSION: 3.4  
 before_install:
   - cd 16\ Docker/
   - echo "We are in the Docker folder."
