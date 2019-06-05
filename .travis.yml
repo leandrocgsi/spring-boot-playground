@@ -15,7 +15,7 @@ before_install:
   - echo "We are in the Docker folder."
 install: true
 script:
-  - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
+  - echo winpty "$DOCKER_PASSWORD" | winpty docker login --username "$DOCKER_USERNAME" --password-stdin
   - docker-compose build 
 deploy:
   provider: script
