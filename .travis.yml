@@ -10,7 +10,8 @@ before_deploy:
 deploy:
   provider: script
   script:
-    docker push leandrocgsi/udemy-mysql-spring;
+    docker push leandrocgsi/udemy-mysql-spring-plg;
+    docker push leandrocgsi/spring-boot-playground;
   on:
     branch: master
 notifications:
