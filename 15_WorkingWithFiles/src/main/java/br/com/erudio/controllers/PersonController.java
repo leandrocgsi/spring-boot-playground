@@ -10,11 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PagedResourcesAssembler;
-import org.springframework.hateoas.EntityLinks;
-import org.springframework.hateoas.Link;
 import org.springframework.hateoas.PagedResources;
-import org.springframework.hateoas.Resource;
-import org.springframework.hateoas.ResourceSupport;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,12 +33,10 @@ public class PersonController {
     @Autowired
     private PersonService personService;
       
-	/*
-	 * @Autowired private PagedResourcesAssembler<PersonVO> assembler;
-	 */
+	@Autowired
+	private PagedResourcesAssembler<PersonVO> assembler;
      
     @ApiOperation(value = "Find a specific person by your ID" )
-    //@CrossOrigin(origins = "http://localhost:8080")
     @RequestMapping(value = "/{id}",
     method = RequestMethod.GET, 
     produces = { "application/json", "application/xml", "application/x-yaml" })
@@ -57,8 +51,7 @@ public class PersonController {
 	produces = { "application/json", "application/xml", "application/x-yaml" })
     public ResponseEntity<?> findAll(@RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "limit", defaultValue = "30") int limit,
-            @RequestParam(value = "direction", defaultValue = "asc") String direction,
-            PagedResourcesAssembler<PersonVO> assembler){
+            @RequestParam(value = "direction", defaultValue = "asc") String direction){
     	
     	var sortDirection = "desc".equalsIgnoreCase(direction) ? Direction.DESC : Direction.ASC;
     	
