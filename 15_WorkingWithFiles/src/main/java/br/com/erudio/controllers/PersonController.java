@@ -11,7 +11,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.PagedResources;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -74,12 +73,11 @@ public class PersonController {
     @RequestMapping(value = "/findPersonByName/{firstName}",
     method = RequestMethod.GET,
 	produces = { "application/json", "application/xml", "application/x-yaml" })
-    public ResponseEntity<PagedResources<PersonVO>> findPersonByName(
+    public ResponseEntity<?> findPersonByName(
     		@PathVariable(value = "firstName") String firstName,
     		@RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "limit", defaultValue = "30") int limit,
-            @RequestParam(value = "direction", defaultValue = "asc") String direction, 
-            PagedResourcesAssembler assembler){
+            @RequestParam(value = "direction", defaultValue = "asc") String direction){
     	
     	var sortDirection = "desc".equalsIgnoreCase(direction) ? Direction.DESC : Direction.ASC;
     	
@@ -92,7 +90,9 @@ public class PersonController {
     				linkTo(methodOn(PersonController.class).get(p.getKey())).withSelfRel()
 				)
 			);
-    	return new ResponseEntity<>(assembler.toResource(persons), HttpStatus.OK);
+        PagedResources<?> resources = assembler.toResource(persons);
+
+        return ResponseEntity.ok(resources);
     }
     
     @ApiOperation(value = "Create a new person") 
