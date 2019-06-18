@@ -6,6 +6,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,7 +26,10 @@ public class BookController {
      
     @Autowired
     private BookService bookService;
-     
+    
+	@Autowired
+	private PagedResourcesAssembler<BookVO> assembler;
+	
     @ApiOperation(value = "Find a specific book by your ID" )
     @RequestMapping(value = "/{id}",
     method = RequestMethod.GET, 
