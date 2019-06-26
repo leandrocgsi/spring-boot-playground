@@ -7,7 +7,7 @@ script:
   - docker-compose build 
 before_deploy:
   - echo "${DOCKER_PASSWORD}" | docker login --username "${DOCKER_USERNAME}" --password-stdin  
-deploy:
+after_success:
   provider: script
   script:
     docker push leandrocgsi/mysql-spring-boot-playground;
