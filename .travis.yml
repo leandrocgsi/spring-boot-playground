@@ -9,5 +9,19 @@ after_success:
   - echo "${DOCKER_PASSWORD}" | docker login --username "${DOCKER_USERNAME}" --password-stdin
   - docker push leandrocgsi/mysql-spring-boot-playground
   - docker push leandrocgsi/spring-boot-playground
+  
+deploy:
+  provider: elasticbeanstalk
+  region: "us-west-1"
+  app: "docker-web-app"
+  env: "DockerWebApp-env "
+  bucket_name: "elasticbeanstalk-us-west-1-882324140720"
+  bucket_path: "docker-web-app"
+  on:
+    branch: master
+  access_key_id: "${AWS_ACCESS_KEY}"
+  secret_access_key:
+    secure: "${AWS_SECRET_KEY}"
+    
 notifications:
   email: false
