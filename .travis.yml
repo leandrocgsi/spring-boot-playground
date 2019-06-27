@@ -4,16 +4,10 @@ before_install:
   - cd 16\ Docker/
   - echo "We are in the Docker folder."
 script:
-  - mvn test
   - docker-compose build 
-before_deploy:
-  - echo "${DOCKER_PASSWORD}" | docker login --username "${DOCKER_USERNAME}" --password-stdin  
 after_success:
-  provider: script
-  script:
-    docker push leandrocgsi/mysql-spring-boot-playground;
-    docker push leandrocgsi/spring-boot-playground;
-  on:
-    branch: master
+  - echo "${DOCKER_PASSWORD}" | docker login --username "${DOCKER_USERNAME}" --password-stdin
+  - docker push leandrocgsi/mysql-spring-boot-playground
+  - docker push leandrocgsi/spring-boot-playground
 notifications:
   email: false
