@@ -4,6 +4,7 @@ before_install:
   - cd 16\ Docker/
   - echo "We are in the Docker folder."
 script:
+  - mvn test
   - docker-compose build 
 before_deploy:
   - echo "${DOCKER_PASSWORD}" | docker login --username "${DOCKER_USERNAME}" --password-stdin  
