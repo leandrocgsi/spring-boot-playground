@@ -17,6 +17,7 @@ deploy:
 after_success:
   - pip install --user awscli
   - export PATH=$PATH:/$HOME/.local/bin
+  - aws ecr create-repository --repository-name $AWS_REPO/rest-with-spring-boot-udemy2 --region us-east-2
   - eval $(aws ecr get-login --no-include-email --region us-east-2)
   - docker tag leandrocgsi/spring-boot-playground:latest $AWS_REPO/rest-with-spring-boot-udemy:latest
   - echo "Deploy to AWS Starting!"
