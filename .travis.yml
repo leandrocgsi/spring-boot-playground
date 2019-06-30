@@ -10,15 +10,15 @@ before_deploy:
 deploy:
   provider: script
   script:
-    docker push leandrocgsi/mysql-rest-with-spring-boot-udemy;
-    docker push leandrocgsi/rest-with-spring-boot-udemy;
+    docker push leandrocgsi/mysql-spring-boot-playground;
+    docker push leandrocgsi/spring-boot-playground;
   on:
     branch: master
 after_success:
   - pip install --user awscli
   - export PATH=$PATH:/$HOME/.local/bin
   - eval $(aws ecr get-login --no-include-email --region us-east-2)
-  - docker tag leandrocgsi/rest-with-spring-boot-udemy:latest $AWS_REPO/rest-with-spring-boot-udemy:latest
+  - docker tag leandrocgsi/spring-boot-playground:latest $AWS_REPO/rest-with-spring-boot-udemy:latest
   - docker push $AWS_REPO/rest-with-spring-boot-udemy:latest
 notifications:
   email: false
