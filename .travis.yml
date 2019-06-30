@@ -1,27 +1,24 @@
 language: bash
 services: docker
 before_install:
-  - cd 16\ Docker/
-  - echo "We are in the Docker folder."
+  - cd 17\ CIWithAWS/
+  - echo "OK! Here we go!"
 script:
   - docker-compose build 
-after_success:
+before_deploy:
   - echo "${DOCKER_PASSWORD}" | docker login --username "${DOCKER_USERNAME}" --password-stdin
-  - docker push leandrocgsi/mysql-spring-boot-playground
-  - docker push leandrocgsi/spring-boot-playground
-  
 deploy:
-  provider: elasticbeanstalk
-  region: "us-west-1"
-  app: "docker-web-app"
-  env: "DockerWebApp-env "
-  bucket_name: "elasticbeanstalk-us-west-1-882324140720"
-  bucket_path: "docker-web-app"
+  provider: script
+  script:
+    docker push leandrocgsi/mysql-rest-with-spring-boot-udemy;
+    docker push leandrocgsi/rest-with-spring-boot-udemy;
   on:
     branch: master
-  access_key_id: "${AWS_ACCESS_KEY}"
-  secret_access_key:
-    secure: "${AWS_SECRET_KEY}"
-    
+after_success:
+  - pip install --user awscli
+  - export PATH=$PATH:/$HOME/.local/bin
+  - eval $(aws ecr get-login --no-include-email --region us-east-2)
+  - docker tag leandrocgsi/rest-with-spring-boot-udemy:latest $AWS_REPO/rest-with-spring-boot-udemy:latest
+  - docker push $AWS_REPO/rest-with-spring-boot-udemy:latest
 notifications:
   email: false
