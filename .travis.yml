@@ -19,6 +19,7 @@ after_success:
   - export PATH=$PATH:/$HOME/.local/bin
   - eval $(aws ecr get-login --no-include-email --region us-east-2)
   - docker tag leandrocgsi/spring-boot-playground:latest $AWS_REPO/rest-with-spring-boot-udemy:latest
+  - echo "Deploy to AWS Starting!"
   - docker push $AWS_REPO/rest-with-spring-boot-udemy:latest
 notifications:
   email: false
