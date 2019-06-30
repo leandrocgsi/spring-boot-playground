@@ -21,5 +21,7 @@ after_success:
   - docker tag leandrocgsi/spring-boot-playground:latest $AWS_REPO/rest-with-spring-boot-udemy:latest
   - echo "Deploy to AWS Starting!"
   - docker push $AWS_REPO/rest-with-spring-boot-udemy:latest
+  # update an AWS ECS service with the new image
+  # - ecs-deploy -c $CLUSTER_NAME -n $SERVICE_NAME -i $AWS_REPO/rest-with-spring-boot-udemy:latest
 notifications:
   email: false
