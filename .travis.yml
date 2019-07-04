@@ -2,13 +2,12 @@ language: java
 
 services: docker
 before_install:
-  - cd 17\ CIWithAWS/
-  - echo "OK! Here we go!"
-script:
-  - cd /SpringBootPlayground/
-  - echo "I'll Be Back!"
+  - cd 17\ CIWithAWS/SpringBootPlayground/
+  - echo "Let's start Maven Package"
   - mvn clean package
   - cd ..
+  - echo "We are in the Docker folder!"
+script:
   - echo "OK! Here we go!"
   - docker-compose build 
 before_deploy:
