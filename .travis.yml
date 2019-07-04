@@ -2,7 +2,7 @@ language: java
 
 services: docker
 before_install:
-  - cd 17\ CIWithAWS\SpringBootPlayground/
+  - cd 17\ CIWithAWS/SpringBootPlayground/
   - echo "I'll Be Back!"
   - mvn clean install
   - cd ..
