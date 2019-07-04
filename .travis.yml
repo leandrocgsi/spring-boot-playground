@@ -1,8 +1,10 @@
-language: bash
+language: java
+
 services: docker
 before_install:
   - cd 17\ CIWithAWS/
   - echo "OK! Here we go!"
+  - mvn clean install
 script:
   - docker-compose build 
 before_deploy:
