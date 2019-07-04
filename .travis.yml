@@ -1,7 +1,9 @@
 language: java
-
+jdk:
+  - oraclejdk11
 services: docker
 before_install:
+  - sudo apt-get update
   - cd 17\ CIWithAWS/SpringBootPlayground/
   - echo "Let's start Maven Package"
   - mvn clean package
