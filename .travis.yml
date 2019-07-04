@@ -5,7 +5,7 @@ before_install:
   - cd 17\ CIWithAWS/
   - echo "OK! Here we go!"
 script:
-  - cd 17\ CIWithAWS/SpringBootPlayground/
+  - cd /SpringBootPlayground/
   - echo "I'll Be Back!"
   - mvn clean package
   - cd ..
