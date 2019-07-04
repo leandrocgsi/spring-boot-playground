@@ -6,7 +6,7 @@ before_install:
   - sudo apt-get update
   - cd 17\ CIWithAWS/SpringBootPlayground/
   - echo "Let's start Maven Package"
-  - mvn clean package
+  - mvn clean package -DskipTests=true
   - cd ..
   - echo "We are in the Docker folder!"
 script:
