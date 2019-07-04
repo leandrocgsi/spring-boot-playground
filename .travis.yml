@@ -2,12 +2,14 @@ language: java
 
 services: docker
 before_install:
-  - cd 17\ CIWithAWS/SpringBootPlayground/
-  - echo "I'll Be Back!"
-  - mvn clean install
-  - cd ..
+  - cd 17\ CIWithAWS/
   - echo "OK! Here we go!"
 script:
+  - cd 17\ CIWithAWS/SpringBootPlayground/
+  - echo "I'll Be Back!"
+  - mvn clean package
+  - cd ..
+  - echo "OK! Here we go!"
   - docker-compose build 
 before_deploy:
   - echo "${DOCKER_PASSWORD}" | docker login --username "${DOCKER_USERNAME}" --password-stdin
