@@ -14,7 +14,7 @@ services:
       MYSQL_PASSWORD: docker
       MYSQL_DATABASE: rest_with_spring_boot_udemy
     ports:
-      - "3308:3308"
+      - "3308:3306"
     networks:
       - udemy-network
   
