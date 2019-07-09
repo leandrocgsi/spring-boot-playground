@@ -11,7 +11,7 @@ services: docker
 before_install:
   - bash install_awscli.sh
   - bash run_maven_package.sh
-  - cd ..
+  - cd 18_DeployInAWS/
 services:
   - docker
 script:
