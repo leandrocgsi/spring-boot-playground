@@ -1,6 +1,10 @@
-language: java
+language: 
+  - java
+  - python
 jdk:
   - oraclejdk11
+python:
+  - "3.6"  
 before_install:
   # Build Maven Project
   - sudo apt-get update  
