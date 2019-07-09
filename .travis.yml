@@ -7,7 +7,7 @@ jdk:
 addons:
   apt:
     packages:
-      - openjdk11
+      - oraclejdk11
 before_install:
   # Build Maven Project
   - sudo apt-get update  
