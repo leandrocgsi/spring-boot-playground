@@ -22,7 +22,7 @@ echo "We are pushing to AWS ECR!"
 eval $(aws ecr get-login --no-include-email --region us-east-2)
 docker tag leandrocgsi/rest-with-spring-boot-udemy:latest $IMAGE_REPO_URL:latest
 echo "Deploy to AWS are Started!" 
-docker push $IMAGE_REPO_URL:latest
+# docker push $IMAGE_REPO_URL:latest
 
 # Push to Amazon AWS ECS
 ecs-deploy -c $CLUSTER_NAME -n $SERVICE_NAME -i $IMAGE_REPO_URL:latest 
