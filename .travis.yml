@@ -14,18 +14,16 @@ before_install:
   - cd ..
 services:
   - docker
-install:
-  - pip install --user pysay
-  - export PATH=$PATH:~/.local/bin/
+# install:
+  # - pip install --user pysay
+  # - export PATH=$PATH:~/.local/bin/
 script:
   - docker-compose build
 before_deploy:
   - echo "${DOCKER_PASSWORD}" | docker login --username "${DOCKER_USERNAME}" --password-stdin  
 deploy:
   provider: script
-  script: 
-    - python --version
-    - bash deploy.sh
+  script: bash deploy.sh
   on:
     branch: master
 notifications:
