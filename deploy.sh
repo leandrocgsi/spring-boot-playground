@@ -8,18 +8,7 @@ apt-get install jq -y
 curl https://raw.githubusercontent.com/silinternational/ecs-deploy/master/ecs-deploy | sudo tee -a /usr/bin/ecs-deploy
 sudo chmod +x /usr/bin/ecs-deploy
 
-
-echo "We are in the Docker folder!"
-# Starting Docker Compose Build!"
-
-docker-compose build
-
-# Use this for AWS ECR
-# eval $(aws ecr get-login --region us-east-1)
-
-# Push to Docker Hub
-echo "${DOCKER_PASSWORD}" | docker login --username "${DOCKER_USERNAME}" --password-stdin
-docker push leandrocgsi/rest-with-spring-boot-udemy
+echo "We are pushing to AWS ECR!"
 
 # Push to Amazon AWS ECR
 eval $(aws ecr get-login --no-include-email --region us-east-2)
