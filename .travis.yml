@@ -24,8 +24,8 @@ before_install:
   - echo "Let's start Maven Package!"
   - mvn clean package
   - cd ..
-install:
-  - sudo pip3 install -r requirements.txt  
+#install:
+#  - sudo pip3 install -r requirements.txt  
 services:
   - docker
 # install:
