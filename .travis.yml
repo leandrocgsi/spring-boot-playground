@@ -10,8 +10,8 @@ jdk:
 services: docker
 before_install:
   script: 
-    bash install_awscli.sh;
-    bash run_maven_package.sh;
+    - bash install_awscli.sh
+    - bash run_maven_package.sh
 services:
   - docker
 script:
