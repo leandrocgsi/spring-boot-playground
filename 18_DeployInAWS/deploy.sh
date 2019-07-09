@@ -1,3 +1,5 @@
+pip3 uninstall wheel
+pip3 install wheel
 pip3 install awscli --upgrade --user
 # pip install --user awscli
 
