@@ -8,11 +8,7 @@ apt-get install jq -y
 curl https://raw.githubusercontent.com/silinternational/ecs-deploy/master/ecs-deploy | sudo tee -a /usr/bin/ecs-deploy
 sudo chmod +x /usr/bin/ecs-deploy
 
-# Build Maven Project
-cd RestWithSpringBootUdemy/
-echo "Let's start Maven Package!"
-mvn clean package
-cd ..
+
 echo "We are in the Docker folder!"
 # Starting Docker Compose Build!"
 

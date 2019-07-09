@@ -2,7 +2,12 @@ language: java
 jdk:
   - oraclejdk11
 before_install:
-  - cd 18_DeployInAWS/
+  # Build Maven Project
+  - sudo apt-get update  
+  - cd 18_DeployInAWS/RestWithSpringBootUdemy/
+  - echo "Let's start Maven Package!"
+  - mvn clean package
+  - cd ..
 services:
   - docker
 deploy:
