@@ -1,6 +1,8 @@
 language: java
 jdk:
   - oraclejdk11
+before_install:
+  - cd 18_DeployInAWS/RestWithSpringBootUdemy/
 services:
   - docker
 deploy:
