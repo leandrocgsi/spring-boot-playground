@@ -1,34 +1,12 @@
 language: java
 jdk:
   - oraclejdk11
-services: docker
-before_install:
-  - sudo apt-get update
-  - cd 17\ CIWithAWS/SpringBootPlayground/
-  - echo "Let's start Maven Package"
-  - mvn clean package -DskipTests=true
-  - cd ..
-  - echo "We are in the Docker folder!"
-script:
-  - echo "OK! Here we go!"
-  - docker-compose build 
-before_deploy:
-  - echo "${DOCKER_PASSWORD}" | docker login --username "${DOCKER_USERNAME}" --password-stdin
+services:
+  - docker
 deploy:
   provider: script
-  script:
-    docker push leandrocgsi/mysql-spring-boot-playground;
-    docker push leandrocgsi/spring-boot-playground;
+  script: bash deploy.sh
   on:
     branch: master
-after_success:
-  - pip install --user awscli
-  - export PATH=$PATH:/$HOME/.local/bin
-  - eval $(aws ecr get-login --no-include-email --region us-east-2)
-  - docker tag leandrocgsi/spring-boot-playground:latest $AWS_REPO/rest-with-spring-boot-udemy:latest
-  - echo "Deploy to AWS are Started!"
-  - docker push $AWS_REPO/rest-with-spring-boot-udemy:latest
-  # update an AWS ECS service with the new image
-  # - ecs-deploy -c $CLUSTER_NAME -n $SERVICE_NAME -i $AWS_REPO/rest-with-spring-boot-udemy:latest
 notifications:
   email: false
