@@ -5,7 +5,8 @@ python:
 addons:
   apt:
     packages:
-      - oracle-java11-installer
+      # - oracle-java11-installer
+      - oraclejdk11
 before_install:
   # Build Maven Project
   - sudo apt-get update  
