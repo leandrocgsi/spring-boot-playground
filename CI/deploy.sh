@@ -7,4 +7,5 @@ echo "Deploy to AWS are Started!"
 # Push to Amazon AWS ECS
 # echo "ecs-deploy -c $CLUSTER_NAME -n $SERVICE_NAME -i $IMAGE_REPO_URL:latest"
 # ecs-deploy -c $CLUSTER_NAME -n $SERVICE_NAME -i $IMAGE_REPO_URL:latest 
-ecs-deploy -d $TASK_DEFINITION_NAME -i $IMAGE_REPO_URL:latest
+# ecs-deploy -d $TASK_DEFINITION_NAME -i $IMAGE_REPO_URL:latest
+ecs-deploy -c AutomatedCluster -n AutomatedService -i $IMAGE_REPO_URL:latest
