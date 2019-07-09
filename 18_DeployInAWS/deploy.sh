@@ -1,4 +1,9 @@
 pip install --user awscli
+
+sudo pip install pyOpenSSL cryptography idna certifi --upgrade
+sudo pip install urllib3[secure] --upgrade
+sudo pip install requests[security] --upgrade
+
 export PATH=$PATH:$HOME/.local/bin
 
 add-apt-repository ppa:eugenesan/ppa
