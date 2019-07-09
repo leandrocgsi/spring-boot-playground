@@ -1,5 +1,5 @@
-# pip3 install awscli --upgrade --user
-pip install --user awscli
+pip3 install awscli --upgrade --user
+# pip install --user awscli
 
 # sudo pip install pyOpenSSL cryptography idna certifi --upgrade
 # sudo pip install urllib3[secure] --upgrade
