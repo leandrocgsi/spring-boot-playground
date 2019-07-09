@@ -9,7 +9,6 @@ jdk:
   - oraclejdk11
 services: docker
 before_install:
-  - bash install_awscli.sh
   - bash run_maven_package.sh
   - cd 18_DeployInAWS/
 services:
@@ -22,6 +21,7 @@ deploy:
   provider: script
   script:
     docker push leandrocgsi/rest-with-spring-boot-udemy;
+    bash install_awscli.sh
     bash deploy.sh;
   on:
     branch: master
