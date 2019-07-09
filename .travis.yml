@@ -1,10 +1,11 @@
 language: 
   - python
-  - java
 python:
   - "3.6"  
-jdk:
-  - oraclejdk11
+addons:
+  apt:
+    packages:
+      - oracle-java11-installer
 before_install:
   # Build Maven Project
   - sudo apt-get update  
