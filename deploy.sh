@@ -9,7 +9,7 @@ curl https://raw.githubusercontent.com/silinternational/ecs-deploy/master/ecs-de
 sudo chmod +x /usr/bin/ecs-deploy
 
 # Build Maven Project
-
+cd RestWithSpringBootUdemy/
 echo "Let's start Maven Package!"
 mvn clean package
 cd ..
