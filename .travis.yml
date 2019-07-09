@@ -21,7 +21,7 @@ deploy:
   provider: script
   script:
     docker push leandrocgsi/rest-with-spring-boot-udemy;
-    bash install_awscli.sh
+    bash install_awscli.sh;
     bash deploy.sh;
   on:
     branch: master
