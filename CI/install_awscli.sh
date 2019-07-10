@@ -3,10 +3,9 @@ sudo pip3 install -U setuptools
 sudo pip3 install -U virtualenvwrapper
 python3 -V
 pip3 -V
-  
-pip3 uninstall wheel
-pip3 install wheel
-pip3 install awscli --upgrade --user
+
+sudo pip3 install wheel
+sudo pip3 install awscli --upgrade --user
 
 export PATH=$PATH:$HOME/.local/bin
 
@@ -17,4 +16,6 @@ apt-get install jq -y
 curl https://raw.githubusercontent.com/silinternational/ecs-deploy/master/ecs-deploy | sudo tee -a /usr/bin/ecs-deploy
 sudo chmod +x /usr/bin/ecs-deploy
 
+echo "==========================="
 echo "AWS ECS-Deploy Setup is Configured!"
+echo "==========================="

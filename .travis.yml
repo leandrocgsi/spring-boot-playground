@@ -9,8 +9,7 @@ jdk:
   - oraclejdk11
 services: docker
 before_install:
-  - bash CI/run_maven_package.sh
-  - cd 18_DeployInAWS/
+  - sudo apt-get update
 services:
   - docker
 script:
@@ -18,9 +17,10 @@ script:
 deploy:
   provider: script
   script:
+    bash ../CI/run_maven_package.sh
     bash ../CI/push_images_to_docker_hub.sh;
     bash ../CI/install_awscli.sh;
-    bash ../CI/deploy.sh;
+    bash ../CI/deploy_to_aws_ecr_and_ecs.sh;
   on:
     branch: master
 notifications:
