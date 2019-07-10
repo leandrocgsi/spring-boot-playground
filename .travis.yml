@@ -17,7 +17,7 @@ deploy:
   provider: script
   script:
     bash CI/push_images_to_docker_hub.sh;
-    bash CI/install_awscli.sh;
+    # bash CI/install_awscli.sh;
     bash CI/deploy_to_aws_ecr_and_ecs.sh;
   on:
     branch: master
