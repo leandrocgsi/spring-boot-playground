@@ -13,8 +13,8 @@ before_install:
 services:
   - docker
 install:
-  - bash ../CI/run_maven_package.sh
-  - bash ../CI/run_docker_compose_build.sh
+  - bash CI/run_maven_package.sh
+  - bash CI/run_docker_compose_build.sh
 deploy:
   provider: script
   script:
