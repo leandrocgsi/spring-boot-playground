@@ -1,4 +1,4 @@
 sudo apt-get update  
-cd $MAVEN_DIR
+cd 18_DeployInAWS/RestWithSpringBootUdemy/
 echo "Let's start Maven Package!"
 mvn clean package

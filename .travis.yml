@@ -14,13 +14,11 @@ before_install:
 services:
   - docker
 script:
-  - docker-compose build
-before_deploy:
-  - echo "${DOCKER_PASSWORD}" | docker login --username "${DOCKER_USERNAME}" --password-stdin  
+  - docker-compose build  
 deploy:
   provider: script
   script:
-    docker push leandrocgsi/rest-with-spring-boot-udemy;
+    bash ../CI/push_images_to_docker_hub.sh;
     bash ../CI/install_awscli.sh;
     bash ../CI/deploy.sh;
   on:
