@@ -12,7 +12,7 @@ before_install:
   - sudo apt-get update
 services:
   - docker
-install:
+script:
   - bash CI/run_maven_package.sh
   - bash CI/run_docker_compose_build.sh
 deploy:
