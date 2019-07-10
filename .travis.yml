@@ -9,7 +9,7 @@ jdk:
   - oraclejdk11
 services: docker
 before_install:
-  - bash /CI/run_maven_package.sh
+  - bash CI/run_maven_package.sh
   - cd 18_DeployInAWS/
 services:
   - docker
