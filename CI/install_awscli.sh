@@ -4,6 +4,7 @@ sudo pip3 install -U virtualenvwrapper
 python3 -V
 pip3 -V
 
+sudo pip3 uninstall wheel
 sudo pip3 install wheel
 sudo pip3 install awscli --upgrade --user
 
