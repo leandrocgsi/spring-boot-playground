@@ -13,11 +13,11 @@ before_install:
 services:
   - docker
 script:
-  - docker-compose build  
 deploy:
   provider: script
   script:
     bash ../CI/run_maven_package.sh
+    bash ../CI/run_docker_compose_build.sh
     bash ../CI/push_images_to_docker_hub.sh;
     bash ../CI/install_awscli.sh;
     bash ../CI/deploy_to_aws_ecr_and_ecs.sh;
