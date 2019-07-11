@@ -1,0 +1,25 @@
+sudo: required
+dist: bionic
+language: java
+jdk:
+  - oraclejdk11
+python:
+  - "3.6"  
+services: docker
+before_install:
+  - sudo apt-get update
+services:
+  - docker
+script:
+  - bash CI/run_maven_package.sh
+  - bash CI/run_docker_compose_build.sh
+deploy:
+  provider: script
+  script:
+    bash CI/push_images_to_docker_hub.sh;
+    # bash CI/install_awscli.sh;
+    bash CI/deploy_to_aws_ecr_and_ecs.sh;
+  on:
+    branch: master
+notifications:
+  email: false

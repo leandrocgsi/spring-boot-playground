@@ -5,20 +5,24 @@ jdk:
   - oraclejdk11
 python:
   - "3.6"  
+jdk:
+  - oraclejdk11
 services: docker
 before_install:
-  - sudo apt-get update
+  - bash run_maven_package.sh
+  - cd 18_DeployInAWS/
 services:
   - docker
 script:
-  - bash CI/run_maven_package.sh
-  - bash CI/run_docker_compose_build.sh
+  - docker-compose build
+before_deploy:
+  - echo "${DOCKER_PASSWORD}" | docker login --username "${DOCKER_USERNAME}" --password-stdin  
 deploy:
   provider: script
   script:
-    bash CI/push_images_to_docker_hub.sh;
-    # bash CI/install_awscli.sh;
-    bash CI/deploy_to_aws_ecr_and_ecs.sh;
+    docker push leandrocgsi/rest-with-spring-boot-udemy;
+    bash install_awscli.sh;
+    bash deploy.sh;
   on:
     branch: master
 notifications:
