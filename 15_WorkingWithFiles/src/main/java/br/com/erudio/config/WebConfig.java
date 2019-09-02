@@ -29,29 +29,6 @@ public class WebConfig implements WebMvcConfigurer {
 
 	@Override
 	public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
-		
-		// Via EXTENSION. localhost:8080/person.x-yaml
-		/*configurer.favorParameter(false)
-	    	.ignoreAcceptHeader(false)
-			.defaultContentType(MediaType.APPLICATION_JSON)
-			.mediaType("xml", MediaType.APPLICATION_XML)
-			.mediaType("json", MediaType.APPLICATION_JSON)
-			.mediaType("x-yaml", MEDIA_TYPE_YML);*/
-
-		
-		// Via PATH. localhost:8080/person?mediaType=xml 
-		/*configurer
-			.favorPathExtension(false)
-			.favorParameter(true)
-			.parameterName("mediaType")
-			.ignoreAcceptHeader(true)
-			.useRegisteredExtensionsOnly(false)
-			.defaultContentType(MediaType.APPLICATION_JSON)
-			.mediaType("xml", MediaType.APPLICATION_XML)
-			.mediaType("json", MediaType.APPLICATION_JSON)
-			.mediaType("x-yaml", MEDIA_TYPE_YML);*/
-		
-	    // Via HEADER. localhost:8080/person Accept:application/x-yaml Content-Type:application/x-yaml
 		configurer
 			.favorPathExtension(false)
 			.favorParameter(false)
