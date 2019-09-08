@@ -2,7 +2,8 @@ package br.com.erudio.services.implementations;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +14,7 @@ import br.com.erudio.services.PersonService;
 @Service
 public class PersonServiceImpl implements PersonService {
 	
-	private static final Logger LOGGER = Logger.getLogger(PersonServiceImpl.class);
+	 private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
     
     @Autowired
     private PersonRepository personRepository;
@@ -55,6 +56,6 @@ public class PersonServiceImpl implements PersonService {
     	if (LOGGER.isDebugEnabled()) {
     		LOGGER.info("Deleting a person");
     	}
-    	personRepository.delete(personId);
+    	personRepository.delete(new Person());
     }
 }
