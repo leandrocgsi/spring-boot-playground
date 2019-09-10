@@ -13,7 +13,6 @@ import com.mangofactory.swagger.plugin.SwaggerSpringMvcPlugin;
 
 
 
-@EnableAutoConfiguration
 @EnableSwagger
 @ComponentScan(basePackages = {"br.com.erudio"})
 @SpringBootApplication
