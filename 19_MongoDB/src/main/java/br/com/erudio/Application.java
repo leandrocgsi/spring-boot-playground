@@ -16,9 +16,6 @@ import com.mangofactory.swagger.plugin.SwaggerSpringMvcPlugin;
 @EnableSwagger
 @ComponentScan(basePackages = {"br.com.erudio"})
 @SpringBootApplication
-@EnableConfigurationProperties({
-    FileStorageConfig.class
-})
 @EnableAutoConfiguration
 @ComponentScan
 public class Application {
