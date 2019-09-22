@@ -53,9 +53,10 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void delete(String customerId) {
+    	var customer = customerRepository.findByIdCustomer(customerId);
     	if (LOGGER.isDebugEnabled()) {
     		LOGGER.info("Deleting a customer");
     	}
-    	customerRepository.delete(new Customer());;
+    	customerRepository.delete(customer);
     }
 }
