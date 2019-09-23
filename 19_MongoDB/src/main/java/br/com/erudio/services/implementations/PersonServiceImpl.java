@@ -53,9 +53,10 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public void delete(String personId) {
+    	var person = personRepository.findByIdPerson(personId);
     	if (LOGGER.isDebugEnabled()) {
     		LOGGER.info("Deleting a person");
     	}
-    	personRepository.delete(new Person());
+    	personRepository.delete(person);
     }
 }
