@@ -28,11 +28,11 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer findById(String customerId) {
+    public Customer findById(String id) {
     	if (LOGGER.isDebugEnabled()) {
     		LOGGER.info("Finding a customer by ID");
     	}
-        return customerRepository.findByIdCustomer(customerId);
+        return customerRepository.findByIdCustomer(id);
     }
 
     @Override
@@ -52,8 +52,8 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void delete(String customerId) {
-    	var customer = customerRepository.findByIdCustomer(customerId);
+    public void delete(String id) {
+    	var customer = customerRepository.findByIdCustomer(id);
     	if (LOGGER.isDebugEnabled()) {
     		LOGGER.info("Deleting a customer");
     	}
