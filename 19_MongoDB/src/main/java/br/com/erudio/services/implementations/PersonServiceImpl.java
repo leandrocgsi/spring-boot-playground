@@ -28,11 +28,11 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public Person findById(String personId) {
+    public Person findById(String id) {
     	if (LOGGER.isDebugEnabled()) {
     		LOGGER.info("Finding a person by ID");
     	}
-        return personRepository.findByIdPerson(personId);
+        return personRepository.findByIdPerson(id);
     }
 
     @Override
@@ -52,8 +52,8 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public void delete(String personId) {
-    	var person = personRepository.findByIdPerson(personId);
+    public void delete(String id) {
+    	var person = personRepository.findByIdPerson(id);
     	if (LOGGER.isDebugEnabled()) {
     		LOGGER.info("Deleting a person");
     	}
