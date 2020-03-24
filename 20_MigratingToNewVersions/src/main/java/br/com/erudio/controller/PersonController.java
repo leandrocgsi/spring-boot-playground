@@ -1,7 +1,7 @@
 package br.com.erudio.controller;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+import static org.springframework.hateoas.server.reactive.WebFluxLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.reactive.WebFluxLinkBuilder.methodOn;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -10,7 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PagedResourcesAssembler;
-import org.springframework.hateoas.PagedResources;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -59,7 +59,7 @@ public class PersonController {
 				)
 			);
 		
-		PagedResources<?> resources = assembler.toResource(persons);
+		PagedModel<?> resources = assembler.toResource(persons);
 		
 		return new ResponseEntity<>(resources, HttpStatus.OK);
 	}	
@@ -85,7 +85,7 @@ public class PersonController {
 				)
 			);
 		
-		PagedResources<?> resources = assembler.toResource(persons);
+		PagedModel<?> resources = assembler.toResource(persons);
 		
 		return new ResponseEntity<>(resources, HttpStatus.OK);
 	}	
