@@ -17,6 +17,7 @@ public class OpenApiConfiguration {
                 .components(new Components())
                 .info(new Info().title("RESTful API With Spring Boot 2.1.3")
 						.description("Some description about your API.").version("v1")
-						.license(new License().name("Apache 2.0").url("www.erudio.com.br")));
+						.license(new License().name("Apache 2.0").url("www.erudio.com.br"))
+						.version("v1"));
     }
 }

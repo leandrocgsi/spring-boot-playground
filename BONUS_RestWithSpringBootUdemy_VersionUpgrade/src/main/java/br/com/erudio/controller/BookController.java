@@ -9,9 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
-import org.springframework.data.web.PagedResourcesAssembler;
-import org.springframework.hateoas.PagedModel;
-import org.springframework.http.HttpStatus;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,13 +33,10 @@ public class BookController {
 	
 	@Autowired
 	private BookServices service;
-	
-	@Autowired
-	private PagedResourcesAssembler<BookVO> assembler;
-	
+		
 	@Operation(summary = "Find all books" )
 	@GetMapping(produces = { "application/json", "application/xml", "application/x-yaml" })
-	public ResponseEntity<?> findAll(
+	public ResponseEntity<CollectionModel<BookVO>> findAll(
 			@RequestParam(value="page", defaultValue = "0") int page,
 			@RequestParam(value="limit", defaultValue = "12") int limit,
 			@RequestParam(value="direction", defaultValue = "asc") String direction) {
@@ -59,10 +54,7 @@ public class BookController {
 				)
 			);
 		
-		//PagedModel<?> resources = assembler.toCollectionModel(books);
-
-		//return new ResponseEntity<>(resources, HttpStatus.OK);
-		return new ResponseEntity<>(null, HttpStatus.OK);
+		return ResponseEntity.ok(CollectionModel.of(books));
 	}	
 	
 	@Operation(summary = "Find a specific book by your ID" )
