@@ -33,7 +33,7 @@ public class BookController {
 	
 	@Autowired
 	private BookServices service;
-		
+	
 	@Operation(summary = "Find all books" )
 	@GetMapping(produces = { "application/json", "application/xml", "application/x-yaml" })
 	public ResponseEntity<CollectionModel<BookVO>> findAll(
@@ -53,7 +53,7 @@ public class BookController {
 					linkTo(methodOn(BookController.class).findById(p.getKey())).withSelfRel()
 				)
 			);
-		
+				
 		return ResponseEntity.ok(CollectionModel.of(books));
 	}	
 	

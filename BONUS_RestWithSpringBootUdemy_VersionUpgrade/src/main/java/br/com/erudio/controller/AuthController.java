@@ -23,7 +23,7 @@ import br.com.erudio.security.jwt.JwtTokenProvider;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-@Tag(name = "Authentication Endpoint") 
+@Tag(name = "AuthenticationEndpoint") 
 @RestController
 @RequestMapping("/auth")
 public class AuthController {

@@ -10,7 +10,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.Link;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,7 +34,7 @@ public class PersonController {
 	
 	@Autowired
 	private PersonServices service;
-	
+		
 	@Operation(summary = "Find all people" ) 
 	@GetMapping(produces = { "application/json", "application/xml", "application/x-yaml" })
 	public ResponseEntity<CollectionModel<PersonVO>> findAll(
@@ -43,23 +42,21 @@ public class PersonController {
 			@RequestParam(value="limit", defaultValue = "12") int limit,
 			@RequestParam(value="direction", defaultValue = "asc") String direction) {
 		
-        var sortDirection = "desc".equalsIgnoreCase(direction) ? Direction.DESC : Direction.ASC;
-        
-        Pageable pageable = PageRequest.of(page, limit, Sort.by(sortDirection, "firstName"));
-        
-        Page<PersonVO> persons =  service.findAll(pageable);
-        persons
-            .stream()
-            .forEach(p -> p.add(
-                    linkTo(methodOn(PersonController.class).findById(p.getKey())).withSelfRel()
-                )
-            );
-        
-        Link findAllLink = linkTo(methodOn(PersonController.class).findAll(page, limit, direction)).withSelfRel();
-        
-        
-        return ResponseEntity.ok(CollectionModel.of(persons, findAllLink));
+		var sortDirection = "desc".equalsIgnoreCase(direction) ? Direction.DESC : Direction.ASC;
+		
+		Pageable pageable = PageRequest.of(page, limit, Sort.by(sortDirection, "firstName"));
+		
+		Page<PersonVO> persons =  service.findAll(pageable);
+		persons
+			.stream()
+			.forEach(p -> p.add(
+					linkTo(methodOn(PersonController.class).findById(p.getKey())).withSelfRel()
+				)
+			);
+				
+		return ResponseEntity.ok(CollectionModel.of(persons));
 	}	
+	
 	
 	@Operation(summary = "Find a specific person by name" ) 
 	@GetMapping(value = "/findPersonByName/{firstName}", produces = { "application/json", "application/xml", "application/x-yaml" })
@@ -80,8 +77,8 @@ public class PersonController {
 					linkTo(methodOn(PersonController.class).findById(p.getKey())).withSelfRel()
 				)
 			);
-
-        return ResponseEntity.ok(CollectionModel.of(persons));
+				
+		return ResponseEntity.ok(CollectionModel.of(persons));
 	}	
 	
 	@Operation(summary = "Find a specific person by your ID" )
