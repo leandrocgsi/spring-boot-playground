@@ -79,25 +79,12 @@
         </dependency>
         
         
-        <!-- for Swagger Endpoints support -->
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-ui</artifactId>
-            <version>1.2.32</version>
-        </dependency>
-                
-        <!-- for Swagger UI support -->
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-ui</artifactId>
-            <version>1.2.32</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-data-rest</artifactId>
-            <version>1.2.32</version>
-        </dependency>
+        <!-- for Swagger Endpoints support -->		
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-ui</artifactId>
+			<version>1.4.6</version>
+		</dependency>
         
         <!-- for Security support -->
         <dependency>

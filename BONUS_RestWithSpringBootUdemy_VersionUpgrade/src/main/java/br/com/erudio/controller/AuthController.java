@@ -20,9 +20,10 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.erudio.repository.UserRepository;
 import br.com.erudio.security.AccountCredentialsVO;
 import br.com.erudio.security.jwt.JwtTokenProvider;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-@Tag(name = "AuthenticationEndpoint") 
+@Tag(name = "Authentication Endpoint") 
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
@@ -36,7 +37,7 @@ public class AuthController {
 	@Autowired
 	UserRepository repository;
 	
-	@Tag(name = "Authenticates a user and returns a token")
+	@Operation(summary = "Authenticates a user and returns a token")
 	@SuppressWarnings("rawtypes")
 	@PostMapping(value = "/signin", produces = { "application/json", "application/xml", "application/x-yaml" }, 
 			consumes = { "application/json", "application/xml", "application/x-yaml" })
