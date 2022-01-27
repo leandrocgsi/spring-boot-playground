@@ -4,19 +4,21 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.6.0-M1</version>
+    <version>3.0.0-M1</version>
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
   
   <groupId>br.com.erudio</groupId>
-  <artifactId>rest-with-springboot-udemy</artifactId>
+  <artifactId>rest-with-springboot-erudio</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
   
   <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>  
-  		<java.version>16</java.version>
+		<maven.compiler.source>17</maven.compiler.source>
+	    <maven.compiler.target>17</maven.compiler.target>
+  		<java.version>17</java.version>
   </properties>
   
   <dependencies>
@@ -31,6 +33,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+ 		      
+		<dependency>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>rest-assured</artifactId>
+			<version>4.5.0</version>
 		</dependency>
  		      
       	<!-- for JPA support -->
@@ -95,11 +103,18 @@
 			<artifactId>jjwt</artifactId>
 			<version>0.9.1</version>
 		</dependency>
+		<!-- <dependency>
+		    <groupId>javax.servlet</groupId>
+		    <artifactId>servlet-api</artifactId>
+		    <version>2.5</version>
+		    <scope>provided</scope>
+		</dependency> -->
         
         <!-- for Unit Tests support -->
         <dependency>
-          <groupId>junit</groupId>
-          <artifactId>junit</artifactId>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<scope>test</scope>
         </dependency>
         <dependency>
         	<groupId>org.springframework.boot</groupId>
@@ -119,7 +134,7 @@
 				<groupId>org.flywaydb</groupId>
 				<artifactId>flyway-maven-plugin</artifactId>
 				<configuration>
-					<url>jdbc:mysql://localhost:3306/rest_with_spring_boot_udemy?useTimezone=true&amp;serverTimezone=UTC&amp;useSSL=false</url>
+					<url>jdbc:mysql://localhost:3306/rest_with_spring_boot_erudio?useTimezone=true&amp;serverTimezone=UTC&amp;useSSL=false</url>
 					<user>root</user>
 					<password>admin123</password>
 				</configuration>
