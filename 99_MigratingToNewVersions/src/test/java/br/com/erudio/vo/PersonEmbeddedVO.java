@@ -9,7 +9,7 @@ public class PersonEmbeddedVO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	@JsonProperty("personVoes")
+	@JsonProperty("personVOes")
 	private List<PersonVO> persons;
 
 	public PersonEmbeddedVO() {}

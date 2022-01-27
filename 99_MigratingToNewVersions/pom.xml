@@ -64,6 +64,12 @@
 		   <groupId>org.flywaydb</groupId>
 		   <artifactId>flyway-core</artifactId>
 		</dependency>  
+		
+        <!-- for Migrations support -->
+        <dependency>
+		   <groupId>org.flywaydb</groupId>
+		   <artifactId>flyway-mysql</artifactId>
+		</dependency>  
         
         <!-- for Model Mapper support -->
         <dependency>
@@ -87,8 +93,8 @@
 		<!-- for Open API support -->
 		<dependency>
 			<groupId>org.springdoc</groupId>
-			<artifactId>springdoc-openapi-ui</artifactId>
-			<version>1.4.6</version>
+			<artifactId>springdoc-openapi-webflux-ui</artifactId>
+			<version>1.6.5</version>
 		</dependency>
         
         <!-- for Security support -->
