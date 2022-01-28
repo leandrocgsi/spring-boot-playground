@@ -15,7 +15,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import br.com.erudio.security.AccountCredentialsVO;
+import br.com.erudio.data.vo.v1.security.AccountCredentialsVO;
 import br.com.erudio.vo.LoginResponseVO;
 import br.com.erudio.vo.PersonVO;
 import br.com.erudio.vo.WrapperPersonVO;
