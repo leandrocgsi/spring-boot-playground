@@ -7,9 +7,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import br.com.erudio.converter.mocks.MockPerson;
-import br.com.erudio.data.model.Person;
 import br.com.erudio.data.vo.v1.PersonVO;
 import br.com.erudio.mapper.DozerConverter;
+import br.com.erudio.model.Person;
 
 public class DozerConverterTest {
 	

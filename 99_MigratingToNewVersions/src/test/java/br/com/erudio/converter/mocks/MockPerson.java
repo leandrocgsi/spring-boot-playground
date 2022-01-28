@@ -3,8 +3,8 @@ package br.com.erudio.converter.mocks;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.erudio.data.model.Person;
 import br.com.erudio.data.vo.v1.PersonVO;
+import br.com.erudio.model.Person;
 
 public class MockPerson {
 
