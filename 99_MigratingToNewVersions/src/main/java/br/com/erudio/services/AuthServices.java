@@ -11,9 +11,9 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import br.com.erudio.data.vo.v1.security.AccountCredentialsVO;
+import br.com.erudio.data.vo.v1.security.LoginResponseVO;
 import br.com.erudio.repository.UserRepository;
-import br.com.erudio.security.AccountCredentialsVO;
-import br.com.erudio.security.LoginResponseVO;
 import br.com.erudio.security.jwt.JwtTokenProvider;
 
 @Service

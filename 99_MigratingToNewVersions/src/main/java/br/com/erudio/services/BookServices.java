@@ -5,10 +5,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import br.com.erudio.data.model.Book;
 import br.com.erudio.data.vo.v1.BookVO;
 import br.com.erudio.exception.ResourceNotFoundException;
 import br.com.erudio.mapper.DozerConverter;
+import br.com.erudio.model.Book;
 import br.com.erudio.repository.BookRepository;
 
 @Service

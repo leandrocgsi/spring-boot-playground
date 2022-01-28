@@ -6,10 +6,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.erudio.data.model.Person;
 import br.com.erudio.data.vo.v1.PersonVO;
 import br.com.erudio.exception.ResourceNotFoundException;
 import br.com.erudio.mapper.DozerConverter;
+import br.com.erudio.model.Person;
 import br.com.erudio.repository.PersonRepository;
 
 @Service
