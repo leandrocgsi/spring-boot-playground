@@ -1,4 +1,4 @@
-package br.com.erudio.security;
+package br.com.erudio.data.vo.v1.security;
 
 import java.io.Serializable;
 
