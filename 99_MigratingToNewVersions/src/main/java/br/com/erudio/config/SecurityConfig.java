@@ -22,28 +22,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Autowired
 	private JwtTokenProvider tokenProvider;
-	
-	/*
-	 * @Bean public BCryptPasswordEncoder passwordEncoder() { BCryptPasswordEncoder
-	 * bCryptPasswordEncoder = new BCryptPasswordEncoder(); return
-	 * bCryptPasswordEncoder; }
-	 */
-	
+
 	@Bean
 	public PasswordEncoder passwordEncoder() {
-		/*
-		 * PasswordEncoder encoder =
-		 * PasswordEncoderFactories.createDelegatingPasswordEncoder(); Map<String,
-		 * PasswordEncoder> encoders = new HashMap<>(); encoders.put("bcrypt", new
-		 * BCryptPasswordEncoder());
-		 * 
-		 * DelegatingPasswordEncoder passworEncoder = new DelegatingPasswordEncoder(
-		 * "bcrypt", encoders);
-		 * passworEncoder.setDefaultPasswordEncoderForMatches(encoder);
-		 */
-
-	    //return passworEncoder;
-	    //return PasswordEncoderFactories.createDelegatingPasswordEncoder();
 		Map<String, PasswordEncoder> encoders = new HashMap<>();
 		encoders.put("pbkdf2", new Pbkdf2PasswordEncoder());
         DelegatingPasswordEncoder passwordEncoder = new DelegatingPasswordEncoder("pbkdf2", encoders);
