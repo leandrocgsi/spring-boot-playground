@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.erudio.data.vo.v1.security.AccountCredentialsVO;
+import br.com.erudio.testcontainers.AbstractIntegrationTest;
 import br.com.erudio.vo.LoginResponseVO;
 import br.com.erudio.vo.PersonVO;
 import br.com.erudio.vo.WrapperPersonVO;
@@ -27,7 +28,7 @@ import io.restassured.specification.RequestSpecification;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @TestMethodOrder(OrderAnnotation.class)
-public class PersonControllerTest {
+public class PersonControllerTest extends AbstractIntegrationTest {
 
 	private static final String HEADER_PARAM = "Authorization";
 	private static final int SERVER_PORT = 8888;

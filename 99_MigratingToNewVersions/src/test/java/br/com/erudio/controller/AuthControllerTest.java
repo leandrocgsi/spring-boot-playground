@@ -6,10 +6,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import br.com.erudio.data.vo.v1.security.AccountCredentialsVO;
+import br.com.erudio.testcontainers.AbstractIntegrationTest;
 import br.com.erudio.vo.LoginResponseVO;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-class AuthControllerTest {
+class AuthControllerTest extends AbstractIntegrationTest {
 
 	public static final String HEADER_STRING = "Authorization";
 	public static final int SERVER_PORT = 8888;

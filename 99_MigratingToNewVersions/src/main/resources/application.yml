@@ -1,17 +1,15 @@
 file:
     upload-dir: /Code/UdemySpringBoot/UploadDir
-flyway:
-    password: admin123
-    schemas: rest_with_spring_boot_erudio
-    url: jdbc:mysql://localhost:3306/
-    user: root
-
 spring:
     datasource:
         driverClassName: com.mysql.cj.jdbc.Driver
         password: admin123
         url: jdbc:mysql://localhost:3306/rest_with_spring_boot_erudio?useTimezone=true&serverTimezone=UTC
         username: root
+    flyway:
+        url: jdbc:mysql://localhost:3306/rest_with_spring_boot_erudio?useTimezone=true&serverTimezone=UTC
+        user: root
+        password: admin123
     jackson:
         default-property-inclusion: NON_NULL
     jpa:
