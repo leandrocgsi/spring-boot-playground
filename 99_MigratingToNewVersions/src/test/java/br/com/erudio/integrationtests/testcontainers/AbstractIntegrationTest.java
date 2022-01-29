@@ -16,12 +16,7 @@ public class AbstractIntegrationTest {
 
 	static class Initializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 
-		static MySQLContainer<?> mysql = new MySQLContainer<>("mysql:8.0.28")
-				//.withDatabaseName("rest_with_spring_boot_erudio_test")
-				//.withCommand("--default-authentication-plugin=mysql_native_password")
-				//.withUsername("root").withPassword("admin123")
-				//.withEnv("MYSQL_ROOT_HOST", "%")
-				;
+		static MySQLContainer<?> mysql = new MySQLContainer<>("mysql:8.0.28");
 
 		private static void startContainers() {
 			Startables.deepStart(Stream.of(mysql)).join();
