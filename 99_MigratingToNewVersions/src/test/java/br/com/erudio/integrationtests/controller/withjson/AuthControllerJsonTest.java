@@ -1,4 +1,4 @@
-package br.com.erudio.controller;
+package br.com.erudio.integrationtests.controller.withjson;
 
 import static io.restassured.RestAssured.given;
 
@@ -6,11 +6,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import br.com.erudio.data.vo.v1.security.AccountCredentialsVO;
-import br.com.erudio.testcontainers.AbstractIntegrationTest;
-import br.com.erudio.vo.LoginResponseVO;
+import br.com.erudio.integrationtests.testcontainers.AbstractIntegrationTest;
+import br.com.erudio.integrationtests.vo.LoginResponseVO;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-class AuthControllerTest extends AbstractIntegrationTest {
+class AuthControllerJsonTest extends AbstractIntegrationTest {
 
 	public static final String HEADER_STRING = "Authorization";
 	public static final int SERVER_PORT = 8888;

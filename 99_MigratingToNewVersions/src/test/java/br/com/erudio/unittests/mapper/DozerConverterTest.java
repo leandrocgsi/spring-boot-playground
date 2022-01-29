@@ -1,4 +1,4 @@
-package br.com.erudio.converter;
+package br.com.erudio.unittests.mapper;
 
 import java.util.List;
 
@@ -6,10 +6,10 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import br.com.erudio.converter.mocks.MockPerson;
 import br.com.erudio.data.vo.v1.PersonVO;
 import br.com.erudio.mapper.DozerConverter;
 import br.com.erudio.model.Person;
+import br.com.erudio.unittests.mapper.mocks.MockPerson;
 
 public class DozerConverterTest {
 	

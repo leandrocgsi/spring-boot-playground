@@ -1,4 +1,4 @@
-package br.com.erudio.controller;
+package br.com.erudio.integrationtests.controller.withxml;
 
 import static io.restassured.RestAssured.given;
 
@@ -16,10 +16,10 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.erudio.data.vo.v1.security.AccountCredentialsVO;
-import br.com.erudio.testcontainers.AbstractIntegrationTest;
-import br.com.erudio.vo.LoginResponseVO;
-import br.com.erudio.vo.PersonVO;
-import br.com.erudio.vo.WrapperPersonVO;
+import br.com.erudio.integrationtests.testcontainers.AbstractIntegrationTest;
+import br.com.erudio.integrationtests.vo.LoginResponseVO;
+import br.com.erudio.integrationtests.vo.PersonVO;
+import br.com.erudio.integrationtests.vo.WrapperPersonVO;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.filter.log.RequestLoggingFilter;
@@ -28,7 +28,7 @@ import io.restassured.specification.RequestSpecification;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @TestMethodOrder(OrderAnnotation.class)
-public class PersonControllerTest extends AbstractIntegrationTest {
+public class PersonControllerXmlTest extends AbstractIntegrationTest {
 
 	private static final String HEADER_PARAM = "Authorization";
 	private static final int SERVER_PORT = 8888;

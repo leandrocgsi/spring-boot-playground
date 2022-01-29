@@ -1,4 +1,4 @@
-package br.com.erudio.vo;
+package br.com.erudio.integrationtests.vo;
 
 import java.io.Serializable;
 import java.util.Date;

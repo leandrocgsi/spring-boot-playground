@@ -1,4 +1,4 @@
-package br.com.erudio.testcontainers;
+package br.com.erudio.integrationtests.testcontainers;
 
 import java.util.Map;
 import java.util.stream.Stream;
@@ -17,10 +17,11 @@ public class AbstractIntegrationTest {
 	static class Initializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 
 		static MySQLContainer<?> mysql = new MySQLContainer<>("mysql:8.0.28")
-				.withDatabaseName("rest_with_spring_boot_erudio_test")
-				.withCommand("--default-authentication-plugin=mysql_native_password")
-				.withUsername("root").withPassword("admin123")
-				.withEnv("MYSQL_ROOT_HOST", "%");
+				//.withDatabaseName("rest_with_spring_boot_erudio_test")
+				//.withCommand("--default-authentication-plugin=mysql_native_password")
+				//.withUsername("root").withPassword("admin123")
+				//.withEnv("MYSQL_ROOT_HOST", "%")
+				;
 
 		private static void startContainers() {
 			Startables.deepStart(Stream.of(mysql)).join();
