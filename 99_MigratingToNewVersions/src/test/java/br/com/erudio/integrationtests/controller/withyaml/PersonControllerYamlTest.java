@@ -11,19 +11,21 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
+import br.com.erudio.integrationtests.controller.withyaml.mapper.YMLMapper;
 import br.com.erudio.integrationtests.testcontainers.AbstractIntegrationTest;
 import br.com.erudio.integrationtests.vo.AccountCredentialsVO;
 import br.com.erudio.integrationtests.vo.LoginResponseVO;
 import br.com.erudio.integrationtests.vo.PersonVO;
 import br.com.erudio.integrationtests.vo.WrapperPersonVO;
 import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.config.EncoderConfig;
+import io.restassured.config.RestAssuredConfig;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
+import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
@@ -34,14 +36,14 @@ public class PersonControllerYamlTest extends AbstractIntegrationTest {
 	public static final String CONTENT_TYPE_YML = "application/x-yaml";
 	private static final int SERVER_PORT = 8888;
 	private static RequestSpecification specification;
-	private static ObjectMapper objectMapper;
+
+	private static YMLMapper objectMapper;
 
 	private static PersonVO person;
 
 	@BeforeAll
 	public static void setup() {
-		objectMapper = new ObjectMapper();
-        objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+		objectMapper = new YMLMapper();
         
         person = new PersonVO();
 	}
@@ -55,17 +57,22 @@ public class PersonControllerYamlTest extends AbstractIntegrationTest {
 
 	    var token =
 	            given()
+	            	.config(
+            			RestAssuredConfig
+            				.config()
+            				.encoderConfig(EncoderConfig.encoderConfig()
+            						.encodeContentTypeAs(CONTENT_TYPE_YML, ContentType.TEXT)))
 	                .basePath("/auth/signin")
 	                .port(SERVER_PORT)
 	                .contentType(CONTENT_TYPE_YML)
-	                .body(user)
+	                .body(user, objectMapper)
 	                .when()
 	                	.post()
 	                .then()
 	                	.statusCode(200)
 	                .extract()
 	                .body()
-	                	.as(LoginResponseVO.class)
+	                	.as(LoginResponseVO.class, objectMapper)
 	                .getToken();
 
 	        specification =
@@ -83,18 +90,23 @@ public class PersonControllerYamlTest extends AbstractIntegrationTest {
 	void testCreate() throws JsonMappingException, JsonProcessingException {
 		mockPerson();
 
-		var content = given().spec(specification)
+		PersonVO createdPerson = given()
+	            	.config(
+            			RestAssuredConfig
+            				.config()
+            				.encoderConfig(EncoderConfig.encoderConfig()
+            						.encodeContentTypeAs(CONTENT_TYPE_YML, ContentType.TEXT)))
+	                .spec(specification)
 				.contentType(CONTENT_TYPE_YML)
-					.body(person)
+					.body(person, objectMapper)
 					.when()
 					.post()
                 .then()
             		.statusCode(200)
 			            .extract()
 			            .body()
-			            	.asString();
+			            	.as(PersonVO.class, objectMapper);
 		
-		PersonVO createdPerson = objectMapper.readValue(content, PersonVO.class);	
 		person = createdPerson;
 
 		Assertions.assertNotNull(createdPerson.getId());
@@ -115,19 +127,23 @@ public class PersonControllerYamlTest extends AbstractIntegrationTest {
 	void testUpdate() throws JsonMappingException, JsonProcessingException {
 		person.setLastName("Matthew Stallman");
 		
-		var content = given().spec(specification)
+		PersonVO updatedPerson = given()
+	            	.config(
+            			RestAssuredConfig
+            				.config()
+            				.encoderConfig(EncoderConfig.encoderConfig()
+            						.encodeContentTypeAs(CONTENT_TYPE_YML, ContentType.TEXT)))
+	                .spec(specification)
 				.contentType(CONTENT_TYPE_YML)
-					.body(person)
+					.body(person, objectMapper)
 					.when()
 					.post()
                 .then()
             		.statusCode(200)
 			            .extract()
 			            .body()
-			            	.asString();	
+			            	.as(PersonVO.class, objectMapper);
 		
-		PersonVO updatedPerson = objectMapper.readValue(content, PersonVO.class);		
-
 		Assertions.assertNotNull(updatedPerson.getId());
 		Assertions.assertNotNull(updatedPerson.getFirstName());
 		Assertions.assertNotNull(updatedPerson.getLastName());
@@ -146,7 +162,13 @@ public class PersonControllerYamlTest extends AbstractIntegrationTest {
 	void testDisablePerson() throws JsonMappingException, JsonProcessingException {
 		person.setEnabled(false);
 		
-		var content = given().spec(specification)
+		PersonVO patchedPerson = given()
+	            	.config(
+            			RestAssuredConfig
+            				.config()
+            				.encoderConfig(EncoderConfig.encoderConfig()
+            						.encodeContentTypeAs(CONTENT_TYPE_YML, ContentType.TEXT)))
+	                .spec(specification)
 				.contentType(CONTENT_TYPE_YML)
 					.pathParam("id", person.getId())
 					.when()
@@ -155,9 +177,7 @@ public class PersonControllerYamlTest extends AbstractIntegrationTest {
             		.statusCode(200)
 			            .extract()
 			            .body()
-			            	.asString();	
-		
-		PersonVO patchedPerson = objectMapper.readValue(content, PersonVO.class);		
+			            	.as(PersonVO.class, objectMapper);		
 
 		Assertions.assertNotNull(patchedPerson.getId());
 		Assertions.assertNotNull(patchedPerson.getFirstName());
@@ -175,7 +195,13 @@ public class PersonControllerYamlTest extends AbstractIntegrationTest {
 	@Test
 	@Order(5)
 	void testFindPersonByName() throws JsonMappingException, JsonProcessingException {
-		var content = given().spec(specification)
+		WrapperPersonVO wrapper = given()
+	            	.config(
+            			RestAssuredConfig
+            				.config()
+            				.encoderConfig(EncoderConfig.encoderConfig()
+            						.encodeContentTypeAs(CONTENT_TYPE_YML, ContentType.TEXT)))
+	                .spec(specification)
 				.contentType(CONTENT_TYPE_YML)
 					.pathParam("firstName", "Leandro")
 					.queryParams("page", 0 , "limit", 5, "direction", "asc")
@@ -185,9 +211,8 @@ public class PersonControllerYamlTest extends AbstractIntegrationTest {
             		.statusCode(200)
 			            .extract()
 			            .body()
-			            	.asString();	
+			            	.as(WrapperPersonVO.class, objectMapper);	
 		
-		WrapperPersonVO wrapper = objectMapper.readValue(content, WrapperPersonVO.class);
 		var persons = wrapper.getEmbedded().getPersons();
 
 		PersonVO foundPersonOne = persons.get(0);		
@@ -208,7 +233,13 @@ public class PersonControllerYamlTest extends AbstractIntegrationTest {
 	@Test
 	@Order(6)
 	void testFindById() throws JsonMappingException, JsonProcessingException {
-		var content = given().spec(specification)
+		PersonVO foundPerson = given()
+	            	.config(
+            			RestAssuredConfig
+            				.config()
+            				.encoderConfig(EncoderConfig.encoderConfig()
+            						.encodeContentTypeAs(CONTENT_TYPE_YML, ContentType.TEXT)))
+	                .spec(specification)
 				.contentType(CONTENT_TYPE_YML)
 					.pathParam("id", person.getId())
 					.when()
@@ -217,10 +248,8 @@ public class PersonControllerYamlTest extends AbstractIntegrationTest {
             		.statusCode(200)
 			            .extract()
 			            .body()
-			            	.asString();	
+			            	.as(PersonVO.class, objectMapper);
 		
-		PersonVO foundPerson = objectMapper.readValue(content, PersonVO.class);		
-
 		Assertions.assertNotNull(foundPerson.getId());
 		Assertions.assertNotNull(foundPerson.getFirstName());
 		Assertions.assertNotNull(foundPerson.getLastName());
@@ -237,7 +266,13 @@ public class PersonControllerYamlTest extends AbstractIntegrationTest {
 	@Test
 	@Order(7)
 	void testDelete() {
-		given().spec(specification)
+		given()
+    	.config(
+    			RestAssuredConfig
+    				.config()
+    				.encoderConfig(EncoderConfig.encoderConfig()
+    						.encodeContentTypeAs(CONTENT_TYPE_YML, ContentType.TEXT)))
+            .spec(specification)
 		.contentType(CONTENT_TYPE_YML)
 			.pathParam("id", person.getId())
 			.when()
@@ -249,7 +284,13 @@ public class PersonControllerYamlTest extends AbstractIntegrationTest {
 	@Test
 	@Order(8)
 	void testFindAll() throws JsonMappingException, JsonProcessingException {
-		var content = given().spec(specification)
+		WrapperPersonVO wrapper = given()
+	            	.config(
+            			RestAssuredConfig
+            				.config()
+            				.encoderConfig(EncoderConfig.encoderConfig()
+            						.encodeContentTypeAs(CONTENT_TYPE_YML, ContentType.TEXT)))
+	                .spec(specification)
 				.contentType(CONTENT_TYPE_YML)
 					.queryParams("page", 6 , "limit", 10, "direction", "asc")
 					.when()
@@ -258,9 +299,8 @@ public class PersonControllerYamlTest extends AbstractIntegrationTest {
             		.statusCode(200)
 			            .extract()
 			            .body()
-			            	.asString();
+		            		.as(WrapperPersonVO.class, objectMapper);
 		
-		WrapperPersonVO wrapper = objectMapper.readValue(content, WrapperPersonVO.class);
 		var people = wrapper.getEmbedded().getPersons();
 			
 		PersonVO foundPersonOne = people.get(0);		
@@ -304,7 +344,13 @@ public class PersonControllerYamlTest extends AbstractIntegrationTest {
 	                .addFilter(new ResponseLoggingFilter(LogDetail.ALL))
 	                .build();
 		
-		given().spec(specificationWithoutToken)
+		given()
+	    	.config(
+	    			RestAssuredConfig
+	    				.config()
+	    				.encoderConfig(EncoderConfig.encoderConfig()
+	    						.encodeContentTypeAs(CONTENT_TYPE_YML, ContentType.TEXT)))
+	            .spec(specificationWithoutToken)
 				.contentType(CONTENT_TYPE_YML)
 				.queryParams("page", 6 , "limit", 10, "direction", "asc")
 				.when()

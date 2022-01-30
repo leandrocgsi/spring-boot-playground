@@ -17,15 +17,19 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import br.com.erudio.integrationtests.controller.withyaml.mapper.YMLMapper;
 import br.com.erudio.integrationtests.testcontainers.AbstractIntegrationTest;
 import br.com.erudio.integrationtests.vo.AccountCredentialsVO;
 import br.com.erudio.integrationtests.vo.BookVO;
 import br.com.erudio.integrationtests.vo.LoginResponseVO;
 import br.com.erudio.integrationtests.vo.WrapperBookVO;
 import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.config.EncoderConfig;
+import io.restassured.config.RestAssuredConfig;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
+import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
@@ -36,15 +40,14 @@ public class BookControllerYamlTest extends AbstractIntegrationTest {
 	public static final String CONTENT_TYPE_YML = "application/x-yaml";
 	private static final int SERVER_PORT = 8888;
 	private static RequestSpecification specification;
-	private static ObjectMapper objectMapper;
+
+	private static YMLMapper objectMapper;
 
 	private static BookVO book;
 
 	@BeforeAll
 	public static void setup() {
-		objectMapper = new ObjectMapper();
-        objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-        
+		objectMapper = new YMLMapper();
         book = new BookVO();
 	}
 	
@@ -57,17 +60,22 @@ public class BookControllerYamlTest extends AbstractIntegrationTest {
 
 	    var token =
 	            given()
+	            	.config(
+            			RestAssuredConfig
+            				.config()
+            				.encoderConfig(EncoderConfig.encoderConfig()
+            						.encodeContentTypeAs(CONTENT_TYPE_YML, ContentType.TEXT)))
 	                .basePath("/auth/signin")
 	                .port(SERVER_PORT)
 	                .contentType(CONTENT_TYPE_YML)
-	                .body(user)
+	                .body(user, objectMapper)
 	                .when()
 	                	.post()
 	                .then()
 	                	.statusCode(200)
 	                .extract()
 	                .body()
-	                	.as(LoginResponseVO.class)
+	                	.as(LoginResponseVO.class, objectMapper)
 	                .getToken();
 
 	        specification =
@@ -86,18 +94,22 @@ public class BookControllerYamlTest extends AbstractIntegrationTest {
 		
 		mockBook();
 
-		var content = given().spec(specification)
+		book = given()
+	            	.config(
+            			RestAssuredConfig
+            				.config()
+            				.encoderConfig(EncoderConfig.encoderConfig()
+            						.encodeContentTypeAs(CONTENT_TYPE_YML, ContentType.TEXT)))
+	                .spec(specification)
 				.contentType(CONTENT_TYPE_YML)
-					.body(book)
+					.body(book, objectMapper)
 					.when()
 					.post()
                 .then()
             		.statusCode(200)
 			            .extract()
 			            .body()
-			            	.asString();
-		
-		book = objectMapper.readValue(content, BookVO.class);
+			            	.as(BookVO.class, objectMapper);
 		
 		Assertions.assertNotNull(book.getId());
 		Assertions.assertNotNull(book.getTitle());
@@ -115,18 +127,22 @@ public class BookControllerYamlTest extends AbstractIntegrationTest {
 		
 		book.setTitle("Docker Deep Dive - Updated");
 
-		var content = given().spec(specification)
+		BookVO bookUpdated = given()
+	            	.config(
+            			RestAssuredConfig
+            				.config()
+            				.encoderConfig(EncoderConfig.encoderConfig()
+            						.encodeContentTypeAs(CONTENT_TYPE_YML, ContentType.TEXT)))
+	                .spec(specification)
 				.contentType(CONTENT_TYPE_YML)
-					.body(book)
+					.body(book, objectMapper)
 					.when()
 					.put()
                 .then()
             		.statusCode(200)
 			            .extract()
 			            .body()
-			            	.asString();
-		
-		BookVO bookUpdated = objectMapper.readValue(content, BookVO.class);
+		            	.as(BookVO.class, objectMapper);
 		
 		Assertions.assertNotNull(bookUpdated.getId());
 		Assertions.assertNotNull(bookUpdated.getTitle());
@@ -141,7 +157,13 @@ public class BookControllerYamlTest extends AbstractIntegrationTest {
 	@Test
 	@Order(4)
 	public void testFindById() throws JsonMappingException, JsonProcessingException {
-		var content = given().spec(specification)
+		var foundBook = given()
+	            	.config(
+            			RestAssuredConfig
+            				.config()
+            				.encoderConfig(EncoderConfig.encoderConfig()
+            						.encodeContentTypeAs(CONTENT_TYPE_YML, ContentType.TEXT)))
+	                .spec(specification)
 				.contentType(CONTENT_TYPE_YML)
 					.pathParam("id", book.getId())
 					.when()
@@ -150,9 +172,7 @@ public class BookControllerYamlTest extends AbstractIntegrationTest {
             		.statusCode(200)
 			            .extract()
 			            .body()
-			            	.asString();
-		
-		BookVO foundBook = objectMapper.readValue(content, BookVO.class);
+		            	.as(BookVO.class, objectMapper);
 		
 		Assertions.assertNotNull(foundBook.getId());
 		Assertions.assertNotNull(foundBook.getTitle());
@@ -167,7 +187,13 @@ public class BookControllerYamlTest extends AbstractIntegrationTest {
 	@Test
 	@Order(5)
 	public void testDelete() {
-		given().spec(specification)
+		given()
+    		.config(
+    			RestAssuredConfig
+    				.config()
+    				.encoderConfig(EncoderConfig.encoderConfig()
+    						.encodeContentTypeAs(CONTENT_TYPE_YML, ContentType.TEXT)))
+            .spec(specification)
 				.contentType(CONTENT_TYPE_YML)
 					.pathParam("id", book.getId())
 					.when()
@@ -180,7 +206,13 @@ public class BookControllerYamlTest extends AbstractIntegrationTest {
 	@Order(6)
 	public void testFindAll() throws JsonMappingException, JsonProcessingException {
 		
-		var content = given().spec(specification)
+		WrapperBookVO wrapper = given()
+	            	.config(
+            			RestAssuredConfig
+            				.config()
+            				.encoderConfig(EncoderConfig.encoderConfig()
+            						.encodeContentTypeAs(CONTENT_TYPE_YML, ContentType.TEXT)))
+	                .spec(specification)
 				.contentType(CONTENT_TYPE_YML)
 					.queryParams("page", 0 , "limit", 5, "direction", "asc")
 					.when()
@@ -189,9 +221,8 @@ public class BookControllerYamlTest extends AbstractIntegrationTest {
             		.statusCode(200)
 			            .extract()
 			            .body()
-			            	.asString();
+		            	.as(WrapperBookVO.class, objectMapper);
 		
-		WrapperBookVO wrapper = objectMapper.readValue(content, WrapperBookVO.class);
 		var books = wrapper.getEmbedded().getBooks();
 
 		BookVO foundBookOne = books.get(0);
