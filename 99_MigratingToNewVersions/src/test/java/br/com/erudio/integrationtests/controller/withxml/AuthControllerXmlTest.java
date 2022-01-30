@@ -13,6 +13,7 @@ import br.com.erudio.integrationtests.vo.LoginResponseVO;
 class AuthControllerXmlTest extends AbstractIntegrationTest {
 
 	public static final String HEADER_STRING = "Authorization";
+	public static final String CONTENT_TYPE_XML = "application/xml";
 	public static final int SERVER_PORT = 8888;
 	
 	@Test
@@ -21,22 +22,18 @@ class AuthControllerXmlTest extends AbstractIntegrationTest {
 		user.setUsername("leandro");
 		user.setPassword("admin123");
 
-	    var token =
-	            given()
-	                .basePath("/auth/signin")
-	                .port(SERVER_PORT)
-	                .contentType("application/xml")
-	                .body(user)
-	                .when()
-	                	.post()
-	                .then()
-	                	.statusCode(200)
-	                .extract()
-	                .body()
-	                	.as(LoginResponseVO.class)
-	                .getToken();
-	    
-	    System.out.println(token);
+        given()
+            .basePath("/auth/signin")
+            .port(SERVER_PORT)
+            .contentType(CONTENT_TYPE_XML)
+            .body(user)
+            .when()
+            	.post()
+            .then()
+            	.statusCode(200)
+            .extract()
+            .body()
+            	.as(LoginResponseVO.class)
+            .getToken();
 	}
-
 }
