@@ -25,7 +25,7 @@ class AuthControllerXmlTest extends AbstractIntegrationTest {
 	            given()
 	                .basePath("/auth/signin")
 	                .port(SERVER_PORT)
-	                .contentType("application/json")
+	                .contentType("application/xml")
 	                .body(user)
 	                .when()
 	                	.post()

@@ -58,7 +58,7 @@ public class BookControllerXmlTest extends AbstractIntegrationTest {
 	            given()
 	                .basePath("/auth/signin")
 	                .port(SERVER_PORT)
-	                .contentType("application/json")
+	                .contentType("application/xml")
 	                .body(user)
 	                .when()
 	                	.post()
@@ -86,7 +86,7 @@ public class BookControllerXmlTest extends AbstractIntegrationTest {
 		mockBook();
 
 		var content = given().spec(specification)
-				.contentType("application/json")
+				.contentType("application/xml")
 					.body(book)
 					.when()
 					.post()
@@ -115,7 +115,7 @@ public class BookControllerXmlTest extends AbstractIntegrationTest {
 		book.setTitle("Docker Deep Dive - Updated");
 
 		var content = given().spec(specification)
-				.contentType("application/json")
+				.contentType("application/xml")
 					.body(book)
 					.when()
 					.put()
@@ -141,7 +141,7 @@ public class BookControllerXmlTest extends AbstractIntegrationTest {
 	@Order(4)
 	public void testFindById() throws JsonMappingException, JsonProcessingException {
 		var content = given().spec(specification)
-				.contentType("application/json")
+				.contentType("application/xml")
 					.pathParam("id", book.getKey())
 					.when()
 					.get("{id}")
@@ -167,7 +167,7 @@ public class BookControllerXmlTest extends AbstractIntegrationTest {
 	@Order(5)
 	public void testDelete() {
 		given().spec(specification)
-				.contentType("application/json")
+				.contentType("application/xml")
 					.pathParam("id", book.getKey())
 					.when()
 					.delete("{id}")
@@ -180,7 +180,7 @@ public class BookControllerXmlTest extends AbstractIntegrationTest {
 	public void testFindAll() throws JsonMappingException, JsonProcessingException {
 		
 		var content = given().spec(specification)
-				.contentType("application/json")
+				.contentType("application/xml")
 					.queryParams("page", 0 , "limit", 5, "direction", "asc")
 					.when()
 					.get()

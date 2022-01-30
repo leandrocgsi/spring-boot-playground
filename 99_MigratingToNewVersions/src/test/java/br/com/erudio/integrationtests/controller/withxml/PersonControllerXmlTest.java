@@ -56,7 +56,7 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
 	            given()
 	                .basePath("/auth/signin")
 	                .port(SERVER_PORT)
-	                .contentType("application/json")
+	                .contentType("application/xml")
 	                .body(user)
 	                .when()
 	                	.post()
@@ -83,7 +83,7 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
 		mockPerson();
 
 		var content = given().spec(specification)
-				.contentType("application/json")
+				.contentType("application/xml")
 					.body(person)
 					.when()
 					.post()
@@ -115,7 +115,7 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
 		person.setLastName("Matthew Stallman");
 		
 		var content = given().spec(specification)
-				.contentType("application/json")
+				.contentType("application/xml")
 					.body(person)
 					.when()
 					.post()
@@ -146,7 +146,7 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
 		person.setEnabled(false);
 		
 		var content = given().spec(specification)
-				.contentType("application/json")
+				.contentType("application/xml")
 					.pathParam("id", person.getKey())
 					.when()
 					.patch("{id}")
@@ -175,7 +175,7 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
 	@Order(5)
 	void testFindPersonByName() throws JsonMappingException, JsonProcessingException {
 		var content = given().spec(specification)
-				.contentType("application/json")
+				.contentType("application/xml")
 					.pathParam("firstName", "Leandro")
 					.queryParams("page", 0 , "limit", 5, "direction", "asc")
 					.when()
@@ -208,7 +208,7 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
 	@Order(6)
 	void testFindById() throws JsonMappingException, JsonProcessingException {
 		var content = given().spec(specification)
-				.contentType("application/json")
+				.contentType("application/xml")
 					.pathParam("id", person.getKey())
 					.when()
 					.get("{id}")
@@ -237,7 +237,7 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
 	@Order(7)
 	void testDelete() {
 		given().spec(specification)
-		.contentType("application/json")
+		.contentType("application/xml")
 			.pathParam("id", person.getKey())
 			.when()
 			.delete("{id}")
@@ -249,7 +249,7 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
 	@Order(8)
 	void testFindAll() throws JsonMappingException, JsonProcessingException {
 		var content = given().spec(specification)
-				.contentType("application/json")
+				.contentType("application/xml")
 					.queryParams("page", 6 , "limit", 10, "direction", "asc")
 					.when()
 					.get()
@@ -304,7 +304,7 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
 	                .build();
 		
 		given().spec(specificationWithoutToken)
-				.contentType("application/json")
+				.contentType("application/xml")
 				.queryParams("page", 6 , "limit", 10, "direction", "asc")
 				.when()
 				.get()

@@ -3,6 +3,7 @@ package br.com.erudio.security.jwt;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
@@ -53,6 +54,18 @@ public class JwtTokenProvider {
 				.signWith(SignatureAlgorithm.HS256, secretKey)
 				.compact();
 	}
+
+	public String createRefreshToken(Map<String, Object> claims) {
+		Date now = new Date();
+		Date validity = new Date(now.getTime() + validityInMilliseconds);
+		
+		return Jwts.builder()
+				.setClaims(claims)
+				.setIssuedAt(now)
+				.setExpiration(validity)
+				.signWith(SignatureAlgorithm.HS256, secretKey)
+				.compact();
+	}
 	
 	public Authentication getAuthentication(String token) {
 		UserDetails userDetails = this.userDetailsService.loadUserByUsername(getUsername(token));
@@ -82,5 +95,6 @@ public class JwtTokenProvider {
 			throw new InvalidJwtAuthenticationException("Expired or invalid JWT token");
 		}
 	}
+
 
 }
