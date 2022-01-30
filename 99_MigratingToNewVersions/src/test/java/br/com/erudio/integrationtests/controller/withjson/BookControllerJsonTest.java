@@ -33,6 +33,7 @@ import io.restassured.specification.RequestSpecification;
 public class BookControllerJsonTest extends AbstractIntegrationTest {
 
 	private static final String HEADER_PARAM = "Authorization";
+	public static final String CONTENT_TYPE_JSON = "application/json";
 	private static final int SERVER_PORT = 8888;
 	private static RequestSpecification specification;
 	private static ObjectMapper objectMapper;
@@ -58,7 +59,7 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
 	            given()
 	                .basePath("/auth/signin")
 	                .port(SERVER_PORT)
-	                .contentType("application/json")
+	                .contentType(CONTENT_TYPE_JSON)
 	                .body(user)
 	                .when()
 	                	.post()
@@ -86,7 +87,7 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
 		mockBook();
 
 		var content = given().spec(specification)
-				.contentType("application/json")
+				.contentType(CONTENT_TYPE_JSON)
 					.body(book)
 					.when()
 					.post()
@@ -115,7 +116,7 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
 		book.setTitle("Docker Deep Dive - Updated");
 
 		var content = given().spec(specification)
-				.contentType("application/json")
+				.contentType(CONTENT_TYPE_JSON)
 					.body(book)
 					.when()
 					.put()
@@ -141,7 +142,7 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
 	@Order(4)
 	public void testFindById() throws JsonMappingException, JsonProcessingException {
 		var content = given().spec(specification)
-				.contentType("application/json")
+				.contentType(CONTENT_TYPE_JSON)
 					.pathParam("id", book.getId())
 					.when()
 					.get("{id}")
@@ -167,7 +168,7 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
 	@Order(5)
 	public void testDelete() {
 		given().spec(specification)
-				.contentType("application/json")
+				.contentType(CONTENT_TYPE_JSON)
 					.pathParam("id", book.getId())
 					.when()
 					.delete("{id}")
@@ -180,7 +181,7 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
 	public void testFindAll() throws JsonMappingException, JsonProcessingException {
 		
 		var content = given().spec(specification)
-				.contentType("application/json")
+				.contentType(CONTENT_TYPE_JSON)
 					.queryParams("page", 0 , "limit", 5, "direction", "asc")
 					.when()
 					.get()

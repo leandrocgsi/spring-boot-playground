@@ -31,6 +31,7 @@ import io.restassured.specification.RequestSpecification;
 public class PersonControllerJsonTest extends AbstractIntegrationTest {
 
 	private static final String HEADER_PARAM = "Authorization";
+	public static final String CONTENT_TYPE_JSON = "application/json";
 	private static final int SERVER_PORT = 8888;
 	private static RequestSpecification specification;
 	private static ObjectMapper objectMapper;
@@ -56,7 +57,7 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
 	            given()
 	                .basePath("/auth/signin")
 	                .port(SERVER_PORT)
-	                .contentType("application/json")
+	                .contentType(CONTENT_TYPE_JSON)
 	                .body(user)
 	                .when()
 	                	.post()
@@ -83,7 +84,7 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
 		mockPerson();
 
 		var content = given().spec(specification)
-				.contentType("application/json")
+				.contentType(CONTENT_TYPE_JSON)
 					.body(person)
 					.when()
 					.post()
@@ -115,7 +116,7 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
 		person.setLastName("Matthew Stallman");
 		
 		var content = given().spec(specification)
-				.contentType("application/json")
+				.contentType(CONTENT_TYPE_JSON)
 					.body(person)
 					.when()
 					.post()
@@ -146,7 +147,7 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
 		person.setEnabled(false);
 		
 		var content = given().spec(specification)
-				.contentType("application/json")
+				.contentType(CONTENT_TYPE_JSON)
 					.pathParam("id", person.getId())
 					.when()
 					.patch("{id}")
@@ -175,7 +176,7 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
 	@Order(5)
 	void testFindPersonByName() throws JsonMappingException, JsonProcessingException {
 		var content = given().spec(specification)
-				.contentType("application/json")
+				.contentType(CONTENT_TYPE_JSON)
 					.pathParam("firstName", "Leandro")
 					.queryParams("page", 0 , "limit", 5, "direction", "asc")
 					.when()
@@ -208,7 +209,7 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
 	@Order(6)
 	void testFindById() throws JsonMappingException, JsonProcessingException {
 		var content = given().spec(specification)
-				.contentType("application/json")
+				.contentType(CONTENT_TYPE_JSON)
 					.pathParam("id", person.getId())
 					.when()
 					.get("{id}")
@@ -237,7 +238,7 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
 	@Order(7)
 	void testDelete() {
 		given().spec(specification)
-		.contentType("application/json")
+		.contentType(CONTENT_TYPE_JSON)
 			.pathParam("id", person.getId())
 			.when()
 			.delete("{id}")
@@ -249,7 +250,7 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
 	@Order(8)
 	void testFindAll() throws JsonMappingException, JsonProcessingException {
 		var content = given().spec(specification)
-				.contentType("application/json")
+				.contentType(CONTENT_TYPE_JSON)
 					.queryParams("page", 6 , "limit", 10, "direction", "asc")
 					.when()
 					.get()
@@ -304,7 +305,7 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
 	                .build();
 		
 		given().spec(specificationWithoutToken)
-				.contentType("application/json")
+				.contentType(CONTENT_TYPE_JSON)
 				.queryParams("page", 6 , "limit", 10, "direction", "asc")
 				.when()
 				.get()
