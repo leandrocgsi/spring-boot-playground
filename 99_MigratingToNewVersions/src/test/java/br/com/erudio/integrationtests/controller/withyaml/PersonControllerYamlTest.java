@@ -44,7 +44,6 @@ public class PersonControllerYamlTest extends AbstractIntegrationTest {
 	@BeforeAll
 	public static void setup() {
 		objectMapper = new YMLMapper();
-        
         person = new PersonVO();
 	}
 

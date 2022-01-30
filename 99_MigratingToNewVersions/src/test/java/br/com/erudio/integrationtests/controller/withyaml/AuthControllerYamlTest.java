@@ -35,28 +35,24 @@ class AuthControllerYamlTest extends AbstractIntegrationTest {
 		user.setUsername("leandro");
 		user.setPassword("admin123");
 
-	    var token =
-	            given()
-	            	.config(
-            			RestAssuredConfig
-            				.config()
-            				.encoderConfig(EncoderConfig.encoderConfig()
-            						.encodeContentTypeAs(CONTENT_TYPE_YML, ContentType.TEXT)))
-	                .basePath("/auth/signin")
-	                .port(SERVER_PORT)
-	                .contentType(CONTENT_TYPE_YML)
-	                .accept(CONTENT_TYPE_YML)
-	                .body(user, objectMapper)
-	                .when()
-	                	.post()
-	                .then()
-                	.statusCode(200)
-		                .extract()
-		                .body()
-		                	.as(LoginResponseVO.class, objectMapper)
-		                .getToken();
-	    
-	    System.out.println(token);
+        given()
+        	.config(
+    			RestAssuredConfig
+    				.config()
+    				.encoderConfig(EncoderConfig.encoderConfig()
+    						.encodeContentTypeAs(CONTENT_TYPE_YML, ContentType.TEXT)))
+            .basePath("/auth/signin")
+            .port(SERVER_PORT)
+            .contentType(CONTENT_TYPE_YML)
+            .accept(CONTENT_TYPE_YML)
+            .body(user, objectMapper)
+            .when()
+            	.post()
+            .then()
+        	.statusCode(200)
+                .extract()
+                .body()
+                	.as(LoginResponseVO.class, objectMapper)
+                .getToken();
 	}
-
 }
