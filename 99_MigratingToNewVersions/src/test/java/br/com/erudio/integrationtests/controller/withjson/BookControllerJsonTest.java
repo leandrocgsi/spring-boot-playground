@@ -98,11 +98,11 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
 		
 		book = objectMapper.readValue(content, BookVO.class);
 		
-		Assertions.assertNotNull(book.getKey());
+		Assertions.assertNotNull(book.getId());
 		Assertions.assertNotNull(book.getTitle());
 		Assertions.assertNotNull(book.getAuthor());
 		Assertions.assertNotNull(book.getPrice());
-		Assertions.assertTrue(book.getKey() > 0);
+		Assertions.assertTrue(book.getId() > 0);
 		Assertions.assertEquals("Docker Deep Dive", book.getTitle());
 		Assertions.assertEquals("Nigel Poulton", book.getAuthor());
 		Assertions.assertEquals(55.99, book.getPrice());
@@ -127,11 +127,11 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
 		
 		BookVO bookUpdated = objectMapper.readValue(content, BookVO.class);
 		
-		Assertions.assertNotNull(bookUpdated.getKey());
+		Assertions.assertNotNull(bookUpdated.getId());
 		Assertions.assertNotNull(bookUpdated.getTitle());
 		Assertions.assertNotNull(bookUpdated.getAuthor());
 		Assertions.assertNotNull(bookUpdated.getPrice());
-		Assertions.assertEquals(bookUpdated.getKey(), book.getKey());
+		Assertions.assertEquals(bookUpdated.getId(), book.getId());
 		Assertions.assertEquals("Docker Deep Dive - Updated", bookUpdated.getTitle());
 		Assertions.assertEquals("Nigel Poulton", bookUpdated.getAuthor());
 		Assertions.assertEquals(55.99, bookUpdated.getPrice());
@@ -142,7 +142,7 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
 	public void testFindById() throws JsonMappingException, JsonProcessingException {
 		var content = given().spec(specification)
 				.contentType("application/json")
-					.pathParam("id", book.getKey())
+					.pathParam("id", book.getId())
 					.when()
 					.get("{id}")
                 .then()
@@ -153,11 +153,11 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
 		
 		BookVO foundBook = objectMapper.readValue(content, BookVO.class);
 		
-		Assertions.assertNotNull(foundBook.getKey());
+		Assertions.assertNotNull(foundBook.getId());
 		Assertions.assertNotNull(foundBook.getTitle());
 		Assertions.assertNotNull(foundBook.getAuthor());
 		Assertions.assertNotNull(foundBook.getPrice());
-		Assertions.assertEquals(foundBook.getKey(), book.getKey());
+		Assertions.assertEquals(foundBook.getId(), book.getId());
 		Assertions.assertEquals("Docker Deep Dive - Updated", foundBook.getTitle());
 		Assertions.assertEquals("Nigel Poulton", foundBook.getAuthor());
 		Assertions.assertEquals(55.99, foundBook.getPrice());
@@ -168,7 +168,7 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
 	public void testDelete() {
 		given().spec(specification)
 				.contentType("application/json")
-					.pathParam("id", book.getKey())
+					.pathParam("id", book.getId())
 					.when()
 					.delete("{id}")
                 .then()
@@ -195,22 +195,22 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
 
 		BookVO foundBookOne = books.get(0);
 		
-		Assertions.assertNotNull(foundBookOne.getKey());
+		Assertions.assertNotNull(foundBookOne.getId());
 		Assertions.assertNotNull(foundBookOne.getTitle());
 		Assertions.assertNotNull(foundBookOne.getAuthor());
 		Assertions.assertNotNull(foundBookOne.getPrice());
-		Assertions.assertTrue(foundBookOne.getKey() > 0);
+		Assertions.assertTrue(foundBookOne.getId() > 0);
 		Assertions.assertEquals("Big Data: como extrair volume, variedade, velocidade e valor da avalanche de informação cotidiana", foundBookOne.getTitle());
 		Assertions.assertEquals("Viktor Mayer-Schonberger e Kenneth Kukier", foundBookOne.getAuthor());
 		Assertions.assertEquals(54.00, foundBookOne.getPrice());
 		
 		BookVO foundBookFive = books.get(4);
 		
-		Assertions.assertNotNull(foundBookFive.getKey());
+		Assertions.assertNotNull(foundBookFive.getId());
 		Assertions.assertNotNull(foundBookFive.getTitle());
 		Assertions.assertNotNull(foundBookFive.getAuthor());
 		Assertions.assertNotNull(foundBookFive.getPrice());
-		Assertions.assertTrue(foundBookFive.getKey() > 0);
+		Assertions.assertTrue(foundBookFive.getId() > 0);
 		Assertions.assertEquals("Domain Driven Design", foundBookFive.getTitle());
 		Assertions.assertEquals("Eric Evans", foundBookFive.getAuthor());
 		Assertions.assertEquals(92.00, foundBookFive.getPrice());
