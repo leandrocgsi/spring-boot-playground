@@ -12,15 +12,15 @@ import br.com.erudio.integrationtests.vo.LoginResponseVO;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 class AuthControllerXmlTest extends AbstractIntegrationTest {
 
-	public static final String HEADER_STRING = "Authorization";
-	public static final String CONTENT_TYPE_XML = "application/xml";
-	public static final int SERVER_PORT = 8888;
-	
-	@Test
-	void testSignin() {
-		AccountCredentialsVO user = new AccountCredentialsVO();
-		user.setUsername("leandro");
-		user.setPassword("admin123");
+    public static final String HEADER_STRING = "Authorization";
+    public static final String CONTENT_TYPE_XML = "application/xml";
+    public static final int SERVER_PORT = 8888;
+    
+    @Test
+    void testSignin() {
+        AccountCredentialsVO user = new AccountCredentialsVO();
+        user.setUsername("leandro");
+        user.setPassword("admin123");
 
         given()
             .basePath("/auth/signin")
@@ -28,12 +28,12 @@ class AuthControllerXmlTest extends AbstractIntegrationTest {
             .contentType(CONTENT_TYPE_XML)
             .body(user)
             .when()
-            	.post()
+                .post()
             .then()
-            	.statusCode(200)
+                .statusCode(200)
             .extract()
             .body()
-            	.as(LoginResponseVO.class)
+                .as(LoginResponseVO.class)
             .getToken();
-	}
+    }
 }

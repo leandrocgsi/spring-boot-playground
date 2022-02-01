@@ -12,29 +12,29 @@ import br.com.erudio.integrationtests.vo.LoginResponseVO;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 class AuthControllerJsonTest extends AbstractIntegrationTest {
 
-	public static final String HEADER_STRING = "Authorization";
-	public static final String CONTENT_TYPE_JSON = "application/json";
-	public static final int SERVER_PORT = 8888;
-	
-	@Test
-	void testSignin() {
-		AccountCredentialsVO user = new AccountCredentialsVO();
-		user.setUsername("leandro");
-		user.setPassword("admin123");
+    public static final String HEADER_STRING = "Authorization";
+    public static final String CONTENT_TYPE_JSON = "application/json";
+    public static final int SERVER_PORT = 8888;
+    
+    @Test
+    void testSignin() {
+        AccountCredentialsVO user = new AccountCredentialsVO();
+        user.setUsername("leandro");
+        user.setPassword("admin123");
 
-	    given()
-	        .basePath("/auth/signin")
-	        .port(SERVER_PORT)
-	        .contentType(CONTENT_TYPE_JSON)
-	        .body(user)
-	        .when()
-	        	.post()
-	        .then()
-	        	.statusCode(200)
-	        .extract()
-	        .body()
-	        	.as(LoginResponseVO.class)
-	        .getToken();
-	}
+        given()
+            .basePath("/auth/signin")
+            .port(SERVER_PORT)
+            .contentType(CONTENT_TYPE_JSON)
+            .body(user)
+            .when()
+                .post()
+            .then()
+                .statusCode(200)
+            .extract()
+            .body()
+                .as(LoginResponseVO.class)
+            .getToken();
+    }
 
 }

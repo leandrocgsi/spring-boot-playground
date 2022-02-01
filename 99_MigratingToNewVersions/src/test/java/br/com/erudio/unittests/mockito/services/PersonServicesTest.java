@@ -84,13 +84,13 @@ public class PersonServicesTest {
         
         assertNotNull(personFour);
         assertNotNull(personFour.getKey());
-        
+
         assertEquals("Addres Test4", personFour.getAddress());
         assertEquals("First Name Test4", personFour.getFirstName());
         assertEquals("Last Name Test4", personFour.getLastName());
         assertEquals("Male", personFour.getGender());
         assertTrue(personFour.getEnabled());
-        
+
         var personSeven = persons.get(7);
         
         assertNotNull(personSeven);
