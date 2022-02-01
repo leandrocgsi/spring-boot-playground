@@ -72,7 +72,7 @@ public class PersonServicesTest {
         var personOne = persons.get(1);
         
         Assertions.assertNotNull(personOne);
-        //Assertions.assertNotNull(result.getKey());
+        Assertions.assertNotNull(personOne.getKey());
         
         Assertions.assertEquals("Addres Test1", personOne.getAddress());
         Assertions.assertEquals("First Name Test1", personOne.getFirstName());
@@ -83,7 +83,7 @@ public class PersonServicesTest {
         var personFour = persons.get(4);
         
         assertNotNull(personFour);
-        //assertNotNull(result.getKey());
+        assertNotNull(personFour.getKey());
         
         assertEquals("Addres Test4", personFour.getAddress());
         assertEquals("First Name Test4", personFour.getFirstName());
@@ -94,7 +94,7 @@ public class PersonServicesTest {
         var personSeven = persons.get(7);
         
         assertNotNull(personSeven);
-        //assertNotNull(result.getKey());
+        assertNotNull(personSeven.getKey());
         
         assertEquals("Addres Test7", personSeven.getAddress());
         assertEquals("First Name Test7", personSeven.getFirstName());
