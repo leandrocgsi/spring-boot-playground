@@ -1,5 +1,10 @@
 package br.com.erudio.unittests.services.mockito;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -24,6 +29,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 
 import br.com.erudio.data.vo.v1.PersonVO;
+import br.com.erudio.exception.RequiredObjectNullException;
 import br.com.erudio.model.Person;
 import br.com.erudio.repository.PersonRepository;
 import br.com.erudio.services.PersonServices;
@@ -157,6 +163,18 @@ public class PersonServicesTest {
         Assertions.assertEquals("Male", result.getGender());
         Assertions.assertTrue(result.getEnabled());
     }
+    
+    @Test
+    void testCreateWithNullPerson() {
+        Exception exception = assertThrows(RequiredObjectNullException.class, () -> {
+            service.create(null);
+        });
+
+        String expectedMessage = "It is not allowed to persist a null object!";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
 
     @Test
     void testUpdate() {
@@ -173,13 +191,25 @@ public class PersonServicesTest {
         when(repository.save(entity)).thenReturn(persisted);
         PersonVO result = service.update(vo);
         
-        Assertions.assertNotNull(result);
-        Assertions.assertNotNull(result.getKey());
-        Assertions.assertEquals("Some address in Brasil 1", result.getAddress());
-        Assertions.assertEquals("Person name 1", result.getFirstName());
-        Assertions.assertEquals("Last name 1", result.getLastName());
-        Assertions.assertEquals("Male", result.getGender());
-        Assertions.assertTrue(result.getEnabled());
+        assertNotNull(result);
+        assertNotNull(result.getKey());
+        assertEquals("Some address in Brasil 1", result.getAddress());
+        assertEquals("Person name 1", result.getFirstName());
+        assertEquals("Last name 1", result.getLastName());
+        assertEquals("Male", result.getGender());
+        assertTrue(result.getEnabled());
+    }
+    
+    @Test
+    void testUpdateWithNullPerson() {
+        Exception exception = assertThrows(RequiredObjectNullException.class, () -> {
+            service.update(null);
+        });
+
+        String expectedMessage = "It is not allowed to persist a null object!";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
     }
 
     @Test
@@ -198,13 +228,13 @@ public class PersonServicesTest {
         when(repository.findById(1L)).thenReturn(Optional.of(entity));
         PersonVO result = service.disablePerson(1L);
         
-        Assertions.assertNotNull(result);
-        Assertions.assertNotNull(result.getKey());
-        Assertions.assertEquals("Some address in Brasil 1", result.getAddress());
-        Assertions.assertEquals("Person name 1", result.getFirstName());
-        Assertions.assertEquals("Last name 1", result.getLastName());
-        Assertions.assertEquals("Male", result.getGender());
-        Assertions.assertFalse(result.getEnabled());
+        assertNotNull(result);
+        assertNotNull(result.getKey());
+        assertEquals("Some address in Brasil 1", result.getAddress());
+        assertEquals("Person name 1", result.getFirstName());
+        assertEquals("Last name 1", result.getLastName());
+        assertEquals("Male", result.getGender());
+        assertFalse(result.getEnabled());
     }
 
     @Test
