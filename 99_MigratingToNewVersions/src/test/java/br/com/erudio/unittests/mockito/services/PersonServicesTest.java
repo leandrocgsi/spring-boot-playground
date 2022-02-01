@@ -1,4 +1,4 @@
-package br.com.erudio.unittests.services.mockito;
+package br.com.erudio.unittests.mockito.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -74,29 +74,29 @@ public class PersonServicesTest {
         Assertions.assertEquals("Person name 1", personOne.getFirstName());
         Assertions.assertEquals("Last name 1", personOne.getLastName());
         Assertions.assertEquals("Male", personOne.getGender());
-        Assertions.assertTrue(personOne.getEnabled());
+        assertTrue(personOne.getEnabled());
         
         var personFour = persons.get(4);
         
-        Assertions.assertNotNull(personFour);
-        //Assertions.assertNotNull(result.getKey());
+        assertNotNull(personFour);
+        //assertNotNull(result.getKey());
         
-        Assertions.assertEquals("Some address in Brasil 4", personFour.getAddress());
-        Assertions.assertEquals("Person name 4", personFour.getFirstName());
-        Assertions.assertEquals("Last name 4", personFour.getLastName());
-        Assertions.assertEquals("Male", personFour.getGender());
-        Assertions.assertTrue(personFour.getEnabled());
+        assertEquals("Some address in Brasil 4", personFour.getAddress());
+        assertEquals("Person name 4", personFour.getFirstName());
+        assertEquals("Last name 4", personFour.getLastName());
+        assertEquals("Male", personFour.getGender());
+        assertTrue(personFour.getEnabled());
         
         var personSeven = persons.get(7);
         
-        Assertions.assertNotNull(personSeven);
-        //Assertions.assertNotNull(result.getKey());
+        assertNotNull(personSeven);
+        //assertNotNull(result.getKey());
         
-        Assertions.assertEquals("Some address in Brasil 7", personSeven.getAddress());
-        Assertions.assertEquals("Person name 7", personSeven.getFirstName());
-        Assertions.assertEquals("Last name 7", personSeven.getLastName());
-        Assertions.assertEquals("Male", personSeven.getGender());
-        Assertions.assertTrue(personSeven.getEnabled());
+        assertEquals("Some address in Brasil 7", personSeven.getAddress());
+        assertEquals("Person name 7", personSeven.getFirstName());
+        assertEquals("Last name 7", personSeven.getLastName());
+        assertEquals("Male", personSeven.getGender());
+        assertTrue(personSeven.getEnabled());
     }
 
     @Test
@@ -106,13 +106,13 @@ public class PersonServicesTest {
         when(repository.findById(1L)).thenReturn(Optional.of(person));
         var result = service.findById(1L);
         
-        Assertions.assertNotNull(result);
-        Assertions.assertNotNull(result.getKey());
-        Assertions.assertEquals("Some address in Brasil 1", result.getAddress());
-        Assertions.assertEquals("Person name 1", result.getFirstName());
-        Assertions.assertEquals("Last name 1", result.getLastName());
-        Assertions.assertEquals("Male", result.getGender());
-        Assertions.assertTrue(result.getEnabled());
+        assertNotNull(result);
+        assertNotNull(result.getKey());
+        assertEquals("Some address in Brasil 1", result.getAddress());
+        assertEquals("Person name 1", result.getFirstName());
+        assertEquals("Last name 1", result.getLastName());
+        assertEquals("Male", result.getGender());
+        assertTrue(result.getEnabled());
     }
 
     @Test
@@ -129,18 +129,18 @@ public class PersonServicesTest {
         Page<PersonVO> searchPage = service.findPersonByName("Person name", pageable);
         PersonVO result = searchPage.getContent().get(0);
         
-        Assertions.assertNotNull(result);
-        Assertions.assertNotNull(result.getKey());
-        Assertions.assertEquals("Some address in Brasil 1", result.getAddress());
-        Assertions.assertEquals("Person name 1", result.getFirstName());
-        Assertions.assertEquals("Last name 1", result.getLastName());
-        Assertions.assertEquals("Male", result.getGender());
-        Assertions.assertTrue(result.getEnabled());
+        assertNotNull(result);
+        assertNotNull(result.getKey());
+        assertEquals("Some address in Brasil 1", result.getAddress());
+        assertEquals("Person name 1", result.getFirstName());
+        assertEquals("Last name 1", result.getLastName());
+        assertEquals("Male", result.getGender());
+        assertTrue(result.getEnabled());
     }
     
     @Test
     void testCreateWithDefaultMocks() {
-        Assertions.assertNotNull(repository);
+        assertNotNull(repository);
     }
     
     @Test
@@ -155,13 +155,13 @@ public class PersonServicesTest {
         when(repository.save(entity)).thenReturn(persisted);
         PersonVO result = service.create(vo);
         
-        Assertions.assertNotNull(result);
-        Assertions.assertNotNull(result.getKey());
-        Assertions.assertEquals("Some address in Brasil 1", result.getAddress());
-        Assertions.assertEquals("Person name 1", result.getFirstName());
-        Assertions.assertEquals("Last name 1", result.getLastName());
-        Assertions.assertEquals("Male", result.getGender());
-        Assertions.assertTrue(result.getEnabled());
+        assertNotNull(result);
+        assertNotNull(result.getKey());
+        assertEquals("Some address in Brasil 1", result.getAddress());
+        assertEquals("Person name 1", result.getFirstName());
+        assertEquals("Last name 1", result.getLastName());
+        assertEquals("Male", result.getGender());
+        assertTrue(result.getEnabled());
     }
     
     @Test
