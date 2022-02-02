@@ -24,72 +24,72 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @Service
 public class AuthServices {
-	
-	@Autowired
-	AuthenticationManager authenticationManager;
+    
+    @Autowired
+    AuthenticationManager authenticationManager;
 
-	@Autowired
-	JwtTokenProvider tokenProvider;
-	
-	@Autowired
-	UserRepository repository;
-	
-	@SuppressWarnings("rawtypes")
-	public ResponseEntity signin(AccountCredentialsVO data) {
-		try {
-			var username = data.getUsername();
-			var pasword = data.getPassword();
-			
-			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, pasword));
-			
-			var user = repository.findByUsername(username);
-			
-			var loginResponse = new LoginResponseVO();
-			
-			if (user != null) {
-				loginResponse.setToken(tokenProvider.createToken(username, user.getRoles()));
-				loginResponse.setUsername(username);
-			} else {
-				throw new UsernameNotFoundException("Username " + username + " not found!");
-			}
-			return ok(loginResponse);
-			
-		} catch (AuthenticationException e) {
-			throw new BadCredentialsException("Invalid username/password supplied!");
-		}
-	}
-	
-	@SuppressWarnings("rawtypes")
-	public ResponseEntity refreshToken(HttpServletRequest request) {
-		
-		DefaultClaims claims = (DefaultClaims) request.getAttribute("claims");
+    @Autowired
+    JwtTokenProvider tokenProvider;
+    
+    @Autowired
+    UserRepository repository;
+    
+    @SuppressWarnings("rawtypes")
+    public ResponseEntity signin(AccountCredentialsVO data) {
+        try {
+            var username = data.getUsername();
+            var password = data.getPassword();
+            
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+            
+            var user = repository.findByUsername(username);
+            
+            var loginResponse = new LoginResponseVO();
+            
+            if (user != null) {
+                loginResponse.setToken(tokenProvider.createToken(username, user.getRoles()));
+                loginResponse.setUsername(username);
+            } else {
+                throw new UsernameNotFoundException("Username " + username + " not found!");
+            }
+            return ok(loginResponse);
+            
+        } catch (AuthenticationException e) {
+            throw new BadCredentialsException("Invalid username/password supplied!");
+        }
+    }
+    
+    @SuppressWarnings("rawtypes")
+    public ResponseEntity refreshToken(HttpServletRequest request) {
+        
+        DefaultClaims claims = (DefaultClaims) request.getAttribute("claims");
 
-		Map<String, Object> expectedMap = getMapFromJWTClaims(claims);
-		String token = tokenProvider.createRefreshToken(expectedMap);
-		
-		try {
-			var username = expectedMap.get("sub").toString();
-			
-			var loginResponse = new LoginResponseVO();
-			
-			if (token != null) {
-				loginResponse.setToken(token);
-				loginResponse.setUsername(username);
-			} else {
-				throw new UsernameNotFoundException("Username " + username + " not found!");
-			}
-			return ok(loginResponse);
-			
-		} catch (AuthenticationException e) {
-			throw new BadCredentialsException("Invalid username/password supplied!");
-		}
-	}
-	
-	public Map<String, Object> getMapFromJWTClaims(DefaultClaims claims) {
-		Map<String, Object> expectedMap = new HashMap<String, Object>();
-		for (Entry<String, Object> entry : claims.entrySet()) {
-			expectedMap.put(entry.getKey(), entry.getValue());
-		}
-		return expectedMap;
-	}
+        Map<String, Object> expectedMap = getMapFromJWTClaims(claims);
+        String token = tokenProvider.createRefreshToken(expectedMap);
+        
+        try {
+            var username = expectedMap.get("sub").toString();
+            
+            var loginResponse = new LoginResponseVO();
+            
+            if (token != null) {
+                loginResponse.setToken(token);
+                loginResponse.setUsername(username);
+            } else {
+                throw new UsernameNotFoundException("Username " + username + " not found!");
+            }
+            return ok(loginResponse);
+            
+        } catch (AuthenticationException e) {
+            throw new BadCredentialsException("Invalid username/password supplied!");
+        }
+    }
+    
+    public Map<String, Object> getMapFromJWTClaims(DefaultClaims claims) {
+        Map<String, Object> expectedMap = new HashMap<String, Object>();
+        for (Entry<String, Object> entry : claims.entrySet()) {
+            expectedMap.put(entry.getKey(), entry.getValue());
+        }
+        return expectedMap;
+    }
 }
