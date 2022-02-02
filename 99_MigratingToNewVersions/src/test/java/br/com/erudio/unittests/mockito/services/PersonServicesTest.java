@@ -33,11 +33,14 @@ import br.com.erudio.exception.RequiredObjectNullException;
 import br.com.erudio.model.Person;
 import br.com.erudio.repository.PersonRepository;
 import br.com.erudio.services.PersonServices;
+import br.com.erudio.unittests.mapper.mocks.MockPerson;
 
 @TestInstance(Lifecycle.PER_CLASS)
 @ExtendWith(MockitoExtension.class)
 public class PersonServicesTest {
 
+    MockPerson input;
+    
     @InjectMocks
     private PersonServices service;
     
@@ -46,12 +49,13 @@ public class PersonServicesTest {
     
     @BeforeEach
     public void setupMock() {
+        input = new MockPerson();
         MockitoAnnotations.openMocks(this);
     }
 
     @Test
     void testFindAll() {
-        List<Person> list = findAll();
+        List<Person> list = input.mockEntityList();
         Page<Person> page = new PageImpl<Person>(list);
         
         Pageable pageable = PageRequest.of(0, 12, Sort.by(Direction.ASC, "firstName"));
@@ -63,17 +67,17 @@ public class PersonServicesTest {
         
         Assertions.assertNotNull(searchPage);
         Assertions.assertNotNull(persons);
-        Assertions.assertEquals(8, searchPage.getContent().size());
+        Assertions.assertEquals(14, searchPage.getContent().size());
         
         var personOne = persons.get(1);
         
         Assertions.assertNotNull(personOne);
         //Assertions.assertNotNull(result.getKey());
         
-        Assertions.assertEquals("Some address in Brasil 1", personOne.getAddress());
-        Assertions.assertEquals("Person name 1", personOne.getFirstName());
-        Assertions.assertEquals("Last name 1", personOne.getLastName());
-        Assertions.assertEquals("Male", personOne.getGender());
+        Assertions.assertEquals("Addres Test1", personOne.getAddress());
+        Assertions.assertEquals("First Name Test1", personOne.getFirstName());
+        Assertions.assertEquals("Last Name Test1", personOne.getLastName());
+        Assertions.assertEquals("Female", personOne.getGender());
         assertTrue(personOne.getEnabled());
         
         var personFour = persons.get(4);
@@ -81,9 +85,9 @@ public class PersonServicesTest {
         assertNotNull(personFour);
         //assertNotNull(result.getKey());
         
-        assertEquals("Some address in Brasil 4", personFour.getAddress());
-        assertEquals("Person name 4", personFour.getFirstName());
-        assertEquals("Last name 4", personFour.getLastName());
+        assertEquals("Addres Test4", personFour.getAddress());
+        assertEquals("First Name Test4", personFour.getFirstName());
+        assertEquals("Last Name Test4", personFour.getLastName());
         assertEquals("Male", personFour.getGender());
         assertTrue(personFour.getEnabled());
         
@@ -92,32 +96,32 @@ public class PersonServicesTest {
         assertNotNull(personSeven);
         //assertNotNull(result.getKey());
         
-        assertEquals("Some address in Brasil 7", personSeven.getAddress());
-        assertEquals("Person name 7", personSeven.getFirstName());
-        assertEquals("Last name 7", personSeven.getLastName());
-        assertEquals("Male", personSeven.getGender());
+        assertEquals("Addres Test7", personSeven.getAddress());
+        assertEquals("First Name Test7", personSeven.getFirstName());
+        assertEquals("Last Name Test7", personSeven.getLastName());
+        assertEquals("Female", personSeven.getGender());
         assertTrue(personSeven.getEnabled());
     }
 
     @Test
     void testFindById() {
-        Person person = mockPerson(1);
+        Person person = input.mockEntity(1);
         person.setId(1L);
         when(repository.findById(1L)).thenReturn(Optional.of(person));
         var result = service.findById(1L);
         
         assertNotNull(result);
         assertNotNull(result.getKey());
-        assertEquals("Some address in Brasil 1", result.getAddress());
-        assertEquals("Person name 1", result.getFirstName());
-        assertEquals("Last name 1", result.getLastName());
-        assertEquals("Male", result.getGender());
+        assertEquals("Addres Test1", result.getAddress());
+        assertEquals("First Name Test1", result.getFirstName());
+        assertEquals("Last Name Test1", result.getLastName());
+        assertEquals("Female", result.getGender());
         assertTrue(result.getEnabled());
     }
 
     @Test
     void testFindPersonByName() {
-        Person person = mockPerson(1);
+        Person person = input.mockEntity(1);
         person.setId(1L);
         List<Person> list = new ArrayList<Person>();
         list.add(person);
@@ -131,10 +135,10 @@ public class PersonServicesTest {
         
         assertNotNull(result);
         assertNotNull(result.getKey());
-        assertEquals("Some address in Brasil 1", result.getAddress());
-        assertEquals("Person name 1", result.getFirstName());
-        assertEquals("Last name 1", result.getLastName());
-        assertEquals("Male", result.getGender());
+        assertEquals("Addres Test1", result.getAddress());
+        assertEquals("First Name Test1", result.getFirstName());
+        assertEquals("Last Name Test1", result.getLastName());
+        assertEquals("Female", result.getGender());
         assertTrue(result.getEnabled());
     }
     
@@ -145,11 +149,11 @@ public class PersonServicesTest {
     
     @Test
     void testCreate() {
-        Person entity = mockPerson(1);
+        Person entity = input.mockEntity(1);
         Person persisted = entity;
         persisted.setId(1L);
 
-        PersonVO vo = mockPersonVO(1);
+        PersonVO vo = input.mockVO(1);
         vo.setKey(1L);
         
         when(repository.save(entity)).thenReturn(persisted);
@@ -157,10 +161,10 @@ public class PersonServicesTest {
         
         assertNotNull(result);
         assertNotNull(result.getKey());
-        assertEquals("Some address in Brasil 1", result.getAddress());
-        assertEquals("Person name 1", result.getFirstName());
-        assertEquals("Last name 1", result.getLastName());
-        assertEquals("Male", result.getGender());
+        assertEquals("Addres Test1", result.getAddress());
+        assertEquals("First Name Test1", result.getFirstName());
+        assertEquals("Last Name Test1", result.getLastName());
+        assertEquals("Female", result.getGender());
         assertTrue(result.getEnabled());
     }
     
@@ -178,13 +182,13 @@ public class PersonServicesTest {
 
     @Test
     void testUpdate() {
-        Person entity = mockPerson(1);
+        Person entity = input.mockEntity(1);
         entity.setId(1L);
         
         Person persisted = entity;
         persisted.setId(1L);
 
-        PersonVO vo = mockPersonVO(1);
+        PersonVO vo = input.mockVO(1);
         vo.setKey(1L);
         
         when(repository.findById(1L)).thenReturn(Optional.of(entity));
@@ -193,10 +197,10 @@ public class PersonServicesTest {
         
         assertNotNull(result);
         assertNotNull(result.getKey());
-        assertEquals("Some address in Brasil 1", result.getAddress());
-        assertEquals("Person name 1", result.getFirstName());
-        assertEquals("Last name 1", result.getLastName());
-        assertEquals("Male", result.getGender());
+        assertEquals("Addres Test1", result.getAddress());
+        assertEquals("First Name Test1", result.getFirstName());
+        assertEquals("Last Name Test1", result.getLastName());
+        assertEquals("Female", result.getGender());
         assertTrue(result.getEnabled());
     }
     
@@ -214,7 +218,7 @@ public class PersonServicesTest {
 
     @Test
     void testDisablePerson() {
-        Person entity = mockPerson(1);
+        Person entity = input.mockEntity(1);
         entity.setId(1L);
         entity.setEnabled(false);
         
@@ -222,7 +226,7 @@ public class PersonServicesTest {
         persisted.setId(1L);
         persisted.setEnabled(false);
 
-        PersonVO vo = mockPersonVO(1);
+        PersonVO vo = input.mockVO(1);
         vo.setKey(1L);
         
         when(repository.findById(1L)).thenReturn(Optional.of(entity));
@@ -230,57 +234,18 @@ public class PersonServicesTest {
         
         assertNotNull(result);
         assertNotNull(result.getKey());
-        assertEquals("Some address in Brasil 1", result.getAddress());
-        assertEquals("Person name 1", result.getFirstName());
-        assertEquals("Last name 1", result.getLastName());
-        assertEquals("Male", result.getGender());
+        assertEquals("Addres Test1", result.getAddress());
+        assertEquals("First Name Test1", result.getFirstName());
+        assertEquals("Last Name Test1", result.getLastName());
+        assertEquals("Female", result.getGender());
         assertFalse(result.getEnabled());
     }
 
     @Test
     void testDelete() {
-        Person person = mockPerson(1);
+        Person person = input.mockEntity(1);
         person.setId(1L);
         when(repository.findById(1L)).thenReturn(Optional.of(person));
         service.delete(1L);
-    }
-    
-    private Person mockPerson(int i) {
-        Person person = new Person();
-        person.setFirstName("Person name " + i);
-        person.setLastName("Last name " + i);
-        person.setAddress("Some address in Brasil " + i);
-        person.setGender("Male");
-        person.setEnabled(true);
-        return person;
-    }
-    
-    private PersonVO mockPersonVO(int i) {
-        PersonVO person = new PersonVO();
-        person.setFirstName("Person name " + i);
-        person.setLastName("Last name " + i);
-        person.setAddress("Some address in Brasil " + i);
-        person.setGender("Male");
-        person.setEnabled(true);
-        return person;
-    }
-    
-    public List<Person> findAll() {
-        List<Person> persons = new ArrayList<Person>();
-        for (int i = 0; i < 8; i++) {
-            Person person = mockPerson(i);
-            persons.add(person);            
-        }
-        return persons;
-    }
-    
-    
-    public List<PersonVO> findAllVO() {
-        List<PersonVO> persons = new ArrayList<PersonVO>();
-        for (int i = 0; i < 8; i++) {
-            PersonVO person = mockPersonVO(i);
-            persons.add(person);            
-        }
-        return persons;
     }
 }
