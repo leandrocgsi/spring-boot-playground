@@ -70,7 +70,7 @@ public class BookControllerXmlTest extends AbstractIntegrationTest {
                     .extract()
                     .body()
                         .as(LoginResponseVO.class)
-                    .getToken();
+                    .getAccessToken();
 
             specification =
                 new RequestSpecBuilder()

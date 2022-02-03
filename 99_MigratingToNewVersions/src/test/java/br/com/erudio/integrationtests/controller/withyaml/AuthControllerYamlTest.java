@@ -53,6 +53,6 @@ class AuthControllerYamlTest extends AbstractIntegrationTest {
                 .extract()
                 .body()
                     .as(LoginResponseVO.class, objectMapper)
-                .getToken();
+                .getAccessToken();
     }
 }

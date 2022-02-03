@@ -47,8 +47,7 @@ public class AuthServices {
             var loginResponse = new LoginResponseVO();
             
             if (user != null) {
-                loginResponse.setToken(tokenProvider.createToken(username, user.getRoles()));
-                loginResponse.setUsername(username);
+                loginResponse = tokenProvider.createToken(username, user.getRoles());
             } else {
                 throw new UsernameNotFoundException("Username " + username + " not found!");
             }
@@ -73,7 +72,7 @@ public class AuthServices {
             var loginResponse = new LoginResponseVO();
             
             if (token != null) {
-                loginResponse.setToken(token);
+                loginResponse.setAccessToken(token);
                 loginResponse.setUsername(username);
             } else {
                 throw new UsernameNotFoundException("Username " + username + " not found!");

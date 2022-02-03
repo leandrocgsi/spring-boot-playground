@@ -68,7 +68,7 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
                     .extract()
                     .body()
                         .as(LoginResponseVO.class)
-                    .getToken();
+                    .getAccessToken();
 
             specification =
                 new RequestSpecBuilder()

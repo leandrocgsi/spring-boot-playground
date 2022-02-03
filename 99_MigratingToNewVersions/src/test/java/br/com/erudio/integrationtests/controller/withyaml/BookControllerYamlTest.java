@@ -76,7 +76,7 @@ public class BookControllerYamlTest extends AbstractIntegrationTest {
                     .extract()
                     .body()
                         .as(LoginResponseVO.class, objectMapper)
-                    .getToken();
+                    .getAccessToken();
 
             specification =
                 new RequestSpecBuilder()

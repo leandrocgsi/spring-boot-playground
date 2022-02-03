@@ -5,9 +5,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import jakarta.annotation.PostConstruct;
-import jakarta.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,13 +12,17 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import br.com.erudio.data.vo.v1.security.LoginResponseVO;
 import br.com.erudio.exception.InvalidJwtAuthenticationException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import jakarta.annotation.PostConstruct;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Service
 public class JwtTokenProvider {
@@ -40,19 +41,39 @@ public class JwtTokenProvider {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
     
-    public String createToken(String username, List<String> roles) {
+    public LoginResponseVO createToken(String username, List<String> roles) {
         Claims claims = Jwts.claims().setSubject(username);
         claims.put("roles", roles);
         
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityInMilliseconds);
+        Date validityRefreshToken = new Date(now.getTime() + (validityInMilliseconds * 3));
+        String issuerURL = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
         
-        return Jwts.builder()
+        var accessToken = Jwts.builder()
                 .setClaims(claims)
                 .setIssuedAt(now)
                 .setExpiration(validity)
+                .setSubject(username)
+                .setIssuer(issuerURL)
                 .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
+        
+        var refreshToken = Jwts.builder()
+                .setClaims(claims)
+                .setExpiration(validityRefreshToken)
+                .setSubject(username)
+                .signWith(SignatureAlgorithm.HS256, secretKey)
+                .compact();
+        
+        LoginResponseVO loginResponse = new LoginResponseVO();
+        loginResponse.setUsername(username);
+        loginResponse.setAuthenticated(true);
+        loginResponse.setAccessToken(accessToken);
+        loginResponse.setRefreshToken(refreshToken);
+        loginResponse.setCreated(now);
+        loginResponse.setExpiration(validity);
+        return loginResponse;
     }
 
     public String createRefreshToken(Map<String, Object> claims) {

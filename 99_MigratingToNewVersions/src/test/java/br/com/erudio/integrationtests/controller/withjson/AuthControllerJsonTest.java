@@ -34,7 +34,7 @@ class AuthControllerJsonTest extends AbstractIntegrationTest {
             .extract()
             .body()
                 .as(LoginResponseVO.class)
-            .getToken();
+            .getAccessToken();
     }
 
 }
