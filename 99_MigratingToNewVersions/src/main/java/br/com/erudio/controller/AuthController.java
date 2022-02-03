@@ -18,21 +18,21 @@ import jakarta.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
-	
-	@Autowired
-	AuthServices authServices;
-	
-	@Operation(summary = "Authenticates a user and returns a token")
-	@SuppressWarnings("rawtypes")
-	@PostMapping(value = "/signin" )
-	public ResponseEntity signin(@RequestBody AccountCredentialsVO data) {
-		return authServices.signin(data);
-	}
-	
-	@Operation(summary = "Refresh token for authenticated user and returns a token")
-	@SuppressWarnings("rawtypes")
-	@PutMapping(value = "/refresh-token" )
-	public ResponseEntity refreshToken(HttpServletRequest request) {
-		return authServices.refreshToken(request);
-	}
+    
+    @Autowired
+    AuthServices authServices;
+    
+    @Operation(summary = "Authenticates a user and returns a token")
+    @SuppressWarnings("rawtypes")
+    @PostMapping(value = "/signin" )
+    public ResponseEntity signin(@RequestBody AccountCredentialsVO data) {
+        return authServices.signin(data);
+    }
+    
+    @Operation(summary = "Refresh token for authenticated user and returns a token")
+    @SuppressWarnings("rawtypes")
+    @PutMapping(value = "/refresh-token" )
+    public ResponseEntity refreshToken(HttpServletRequest request) {
+        return authServices.refreshToken(request);
+    }
 }
