@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -65,19 +64,19 @@ public class PersonServicesTest {
         Page<PersonVO> searchPage = service.findAll(pageable);
         List<PersonVO> persons = searchPage.getContent();
         
-        Assertions.assertNotNull(searchPage);
-        Assertions.assertNotNull(persons);
-        Assertions.assertEquals(14, searchPage.getContent().size());
+        assertNotNull(searchPage);
+        assertNotNull(persons);
+        assertEquals(14, searchPage.getContent().size());
         
         var personOne = persons.get(1);
         
-        Assertions.assertNotNull(personOne);
-        Assertions.assertNotNull(personOne.getKey());
+        assertNotNull(personOne);
+        assertNotNull(personOne.getKey());
         
-        Assertions.assertEquals("Addres Test1", personOne.getAddress());
-        Assertions.assertEquals("First Name Test1", personOne.getFirstName());
-        Assertions.assertEquals("Last Name Test1", personOne.getLastName());
-        Assertions.assertEquals("Female", personOne.getGender());
+        assertEquals("Addres Test1", personOne.getAddress());
+        assertEquals("First Name Test1", personOne.getFirstName());
+        assertEquals("Last Name Test1", personOne.getLastName());
+        assertEquals("Female", personOne.getGender());
         assertTrue(personOne.getEnabled());
         
         var personFour = persons.get(4);

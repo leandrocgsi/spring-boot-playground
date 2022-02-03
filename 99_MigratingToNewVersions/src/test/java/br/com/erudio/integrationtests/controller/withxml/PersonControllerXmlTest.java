@@ -1,8 +1,10 @@
 package br.com.erudio.integrationtests.controller.withxml;
 
 import static io.restassured.RestAssured.given;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -97,17 +99,17 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
         PersonVO createdPerson = objectMapper.readValue(content, PersonVO.class);    
         person = createdPerson;
 
-        Assertions.assertNotNull(createdPerson.getId());
-        Assertions.assertNotNull(createdPerson.getFirstName());
-        Assertions.assertNotNull(createdPerson.getLastName());
-        Assertions.assertNotNull(createdPerson.getAddress());
-        Assertions.assertNotNull(createdPerson.getGender());
-        Assertions.assertTrue(createdPerson.getId() > 0);
-        Assertions.assertEquals("Richard", createdPerson.getFirstName());
-        Assertions.assertEquals("Stallman", createdPerson.getLastName());
-        Assertions.assertEquals("New York City, New York, US", createdPerson.getAddress());
-        Assertions.assertEquals("Male", createdPerson.getGender());
-        Assertions.assertEquals(true, createdPerson.getEnabled());
+        assertNotNull(createdPerson.getId());
+        assertNotNull(createdPerson.getFirstName());
+        assertNotNull(createdPerson.getLastName());
+        assertNotNull(createdPerson.getAddress());
+        assertNotNull(createdPerson.getGender());
+        assertTrue(createdPerson.getId() > 0);
+        assertEquals("Richard", createdPerson.getFirstName());
+        assertEquals("Stallman", createdPerson.getLastName());
+        assertEquals("New York City, New York, US", createdPerson.getAddress());
+        assertEquals("Male", createdPerson.getGender());
+        assertEquals(true, createdPerson.getEnabled());
     }
 
     @Test
@@ -128,17 +130,17 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
         
         PersonVO updatedPerson = objectMapper.readValue(content, PersonVO.class);        
 
-        Assertions.assertNotNull(updatedPerson.getId());
-        Assertions.assertNotNull(updatedPerson.getFirstName());
-        Assertions.assertNotNull(updatedPerson.getLastName());
-        Assertions.assertNotNull(updatedPerson.getAddress());
-        Assertions.assertNotNull(updatedPerson.getGender());
-        Assertions.assertEquals(updatedPerson.getId(), person.getId());
-        Assertions.assertEquals("Richard", updatedPerson.getFirstName());
-        Assertions.assertEquals("Matthew Stallman", updatedPerson.getLastName());
-        Assertions.assertEquals("New York City, New York, US", updatedPerson.getAddress());
-        Assertions.assertEquals("Male", updatedPerson.getGender());
-        Assertions.assertEquals(true, updatedPerson.getEnabled());
+        assertNotNull(updatedPerson.getId());
+        assertNotNull(updatedPerson.getFirstName());
+        assertNotNull(updatedPerson.getLastName());
+        assertNotNull(updatedPerson.getAddress());
+        assertNotNull(updatedPerson.getGender());
+        assertEquals(updatedPerson.getId(), person.getId());
+        assertEquals("Richard", updatedPerson.getFirstName());
+        assertEquals("Matthew Stallman", updatedPerson.getLastName());
+        assertEquals("New York City, New York, US", updatedPerson.getAddress());
+        assertEquals("Male", updatedPerson.getGender());
+        assertEquals(true, updatedPerson.getEnabled());
     }
 
     @Test
@@ -159,17 +161,17 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
         
         PersonVO patchedPerson = objectMapper.readValue(content, PersonVO.class);        
 
-        Assertions.assertNotNull(patchedPerson.getId());
-        Assertions.assertNotNull(patchedPerson.getFirstName());
-        Assertions.assertNotNull(patchedPerson.getLastName());
-        Assertions.assertNotNull(patchedPerson.getAddress());
-        Assertions.assertNotNull(patchedPerson.getGender());
-        Assertions.assertEquals(patchedPerson.getId(), person.getId());
-        Assertions.assertEquals("Richard", patchedPerson.getFirstName());
-        Assertions.assertEquals("Matthew Stallman", patchedPerson.getLastName());
-        Assertions.assertEquals("New York City, New York, US", patchedPerson.getAddress());
-        Assertions.assertEquals("Male", patchedPerson.getGender());
-        Assertions.assertEquals(false, patchedPerson.getEnabled());
+        assertNotNull(patchedPerson.getId());
+        assertNotNull(patchedPerson.getFirstName());
+        assertNotNull(patchedPerson.getLastName());
+        assertNotNull(patchedPerson.getAddress());
+        assertNotNull(patchedPerson.getGender());
+        assertEquals(patchedPerson.getId(), person.getId());
+        assertEquals("Richard", patchedPerson.getFirstName());
+        assertEquals("Matthew Stallman", patchedPerson.getLastName());
+        assertEquals("New York City, New York, US", patchedPerson.getAddress());
+        assertEquals("Male", patchedPerson.getGender());
+        assertEquals(false, patchedPerson.getEnabled());
     }
     
     @Test
@@ -192,17 +194,17 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
 
         PersonVO foundPersonOne = persons.get(0);        
 
-        Assertions.assertNotNull(foundPersonOne.getId());
-        Assertions.assertNotNull(foundPersonOne.getFirstName());
-        Assertions.assertNotNull(foundPersonOne.getLastName());
-        Assertions.assertNotNull(foundPersonOne.getAddress());
-        Assertions.assertNotNull(foundPersonOne.getGender());
-        Assertions.assertEquals(1, foundPersonOne.getId());
-        Assertions.assertEquals("Leandro", foundPersonOne.getFirstName());
-        Assertions.assertEquals("Costa", foundPersonOne.getLastName());
-        Assertions.assertEquals("Uberlândia - Minas Gerais - Brasil", foundPersonOne.getAddress());
-        Assertions.assertEquals("Male", foundPersonOne.getGender());
-        Assertions.assertEquals(true, foundPersonOne.getEnabled());
+        assertNotNull(foundPersonOne.getId());
+        assertNotNull(foundPersonOne.getFirstName());
+        assertNotNull(foundPersonOne.getLastName());
+        assertNotNull(foundPersonOne.getAddress());
+        assertNotNull(foundPersonOne.getGender());
+        assertEquals(1, foundPersonOne.getId());
+        assertEquals("Leandro", foundPersonOne.getFirstName());
+        assertEquals("Costa", foundPersonOne.getLastName());
+        assertEquals("Uberlândia - Minas Gerais - Brasil", foundPersonOne.getAddress());
+        assertEquals("Male", foundPersonOne.getGender());
+        assertEquals(true, foundPersonOne.getEnabled());
     }
 
     @Test
@@ -221,17 +223,17 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
         
         PersonVO foundPerson = objectMapper.readValue(content, PersonVO.class);        
 
-        Assertions.assertNotNull(foundPerson.getId());
-        Assertions.assertNotNull(foundPerson.getFirstName());
-        Assertions.assertNotNull(foundPerson.getLastName());
-        Assertions.assertNotNull(foundPerson.getAddress());
-        Assertions.assertNotNull(foundPerson.getGender());
-        Assertions.assertEquals(foundPerson.getId(), person.getId());
-        Assertions.assertEquals("Richard", foundPerson.getFirstName());
-        Assertions.assertEquals("Matthew Stallman", foundPerson.getLastName());
-        Assertions.assertEquals("New York City, New York, US", foundPerson.getAddress());
-        Assertions.assertEquals("Male", foundPerson.getGender());
-        Assertions.assertEquals(false, foundPerson.getEnabled());
+        assertNotNull(foundPerson.getId());
+        assertNotNull(foundPerson.getFirstName());
+        assertNotNull(foundPerson.getLastName());
+        assertNotNull(foundPerson.getAddress());
+        assertNotNull(foundPerson.getGender());
+        assertEquals(foundPerson.getId(), person.getId());
+        assertEquals("Richard", foundPerson.getFirstName());
+        assertEquals("Matthew Stallman", foundPerson.getLastName());
+        assertEquals("New York City, New York, US", foundPerson.getAddress());
+        assertEquals("Male", foundPerson.getGender());
+        assertEquals(false, foundPerson.getEnabled());
     }
     
     @Test
@@ -265,31 +267,31 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
             
         PersonVO foundPersonOne = people.get(0);        
 
-        Assertions.assertNotNull(foundPersonOne.getId());
-        Assertions.assertNotNull(foundPersonOne.getFirstName());
-        Assertions.assertNotNull(foundPersonOne.getLastName());
-        Assertions.assertNotNull(foundPersonOne.getAddress());
-        Assertions.assertNotNull(foundPersonOne.getGender());
-        Assertions.assertEquals(964, foundPersonOne.getId());
-        Assertions.assertEquals("Ardath", foundPersonOne.getFirstName());
-        Assertions.assertEquals("Leckenby", foundPersonOne.getLastName());
-        Assertions.assertEquals("9 Chive Trail", foundPersonOne.getAddress());
-        Assertions.assertEquals("Female", foundPersonOne.getGender());
-        Assertions.assertEquals(true, foundPersonOne.getEnabled());
+        assertNotNull(foundPersonOne.getId());
+        assertNotNull(foundPersonOne.getFirstName());
+        assertNotNull(foundPersonOne.getLastName());
+        assertNotNull(foundPersonOne.getAddress());
+        assertNotNull(foundPersonOne.getGender());
+        assertEquals(964, foundPersonOne.getId());
+        assertEquals("Ardath", foundPersonOne.getFirstName());
+        assertEquals("Leckenby", foundPersonOne.getLastName());
+        assertEquals("9 Chive Trail", foundPersonOne.getAddress());
+        assertEquals("Female", foundPersonOne.getGender());
+        assertEquals(true, foundPersonOne.getEnabled());
                 
         PersonVO foundPersonSeven = people.get(6);        
 
-        Assertions.assertNotNull(foundPersonSeven.getId());
-        Assertions.assertNotNull(foundPersonSeven.getFirstName());
-        Assertions.assertNotNull(foundPersonSeven.getLastName());
-        Assertions.assertNotNull(foundPersonSeven.getAddress());
-        Assertions.assertNotNull(foundPersonSeven.getGender());
-        Assertions.assertEquals(189, foundPersonSeven.getId());
-        Assertions.assertEquals("Arlena", foundPersonSeven.getFirstName());
-        Assertions.assertEquals("Wagenen", foundPersonSeven.getLastName());
-        Assertions.assertEquals("1 Spaight Parkway", foundPersonSeven.getAddress());
-        Assertions.assertEquals("Female", foundPersonSeven.getGender());
-        Assertions.assertEquals(false, foundPersonSeven.getEnabled());
+        assertNotNull(foundPersonSeven.getId());
+        assertNotNull(foundPersonSeven.getFirstName());
+        assertNotNull(foundPersonSeven.getLastName());
+        assertNotNull(foundPersonSeven.getAddress());
+        assertNotNull(foundPersonSeven.getGender());
+        assertEquals(189, foundPersonSeven.getId());
+        assertEquals("Arlena", foundPersonSeven.getFirstName());
+        assertEquals("Wagenen", foundPersonSeven.getLastName());
+        assertEquals("1 Spaight Parkway", foundPersonSeven.getAddress());
+        assertEquals("Female", foundPersonSeven.getGender());
+        assertEquals(false, foundPersonSeven.getEnabled());
     }
     
     @Test
