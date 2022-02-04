@@ -43,12 +43,11 @@ public class JwtTokenProvider {
         algorithm = Algorithm.HMAC256(secretKey.getBytes());
     }
     
-    public TokenVO createToken(String username, List<String> roles) {
+    public TokenVO createAccessToken(String username, List<String> roles) {
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityInMilliseconds);
-        String issuerURL = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
         
-        var accessToken = getAccessToken(username, roles, now, validity, issuerURL);
+        var accessToken = getAccessToken(username, roles, now, validity);
         var refreshToken = getRefreshToken(username, roles, now);
         
         TokenVO tokenResponse = new TokenVO();
@@ -67,11 +66,13 @@ public class JwtTokenProvider {
         DecodedJWT decodedJWT = verifier.verify(refreshToken);
         String username = decodedJWT.getSubject();
         List<String> roles = decodedJWT.getClaim("roles").asList(String.class);
-        return createToken(username, roles);
+        return createAccessToken(username, roles);
     }
     
-    private String getAccessToken(String username, List<String> roles, Date now, Date validity,
-            String issuerURL) {
+    private String getAccessToken(String username, List<String> roles, Date now, Date validity) {
+        
+        String issuerURL = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
+        
         return JWT.create()
                 .withClaim("roles", roles)
                 .withIssuedAt(now)
@@ -124,6 +125,4 @@ public class JwtTokenProvider {
         DecodedJWT decodedJWT = verifier.verify(token);
         return decodedJWT;
     }
-
-
 }

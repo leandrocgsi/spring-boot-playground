@@ -3,12 +3,13 @@ package br.com.erudio.integrationtests.controller.withxml;
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
-import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import br.com.erudio.configs.TestsConfig;
 import br.com.erudio.integrationtests.testcontainers.AbstractIntegrationTest;
 import br.com.erudio.integrationtests.vo.AccountCredentialsVO;
 import br.com.erudio.integrationtests.vo.TokenVO;
@@ -17,9 +18,6 @@ import br.com.erudio.integrationtests.vo.TokenVO;
 @TestMethodOrder(OrderAnnotation.class)
 class AuthControllerXmlTest extends AbstractIntegrationTest {
 
-    public static final String HEADER_PARAM = "Authorization";
-    public static final String CONTENT_TYPE_XML = "application/xml";
-    public static final int SERVER_PORT = 8888;
     private static TokenVO tokenVO;
     
     @Test
@@ -31,8 +29,8 @@ class AuthControllerXmlTest extends AbstractIntegrationTest {
 
         tokenVO = given()
             .basePath("/auth/signin")
-            .port(SERVER_PORT)
-            .contentType(CONTENT_TYPE_XML)
+            .port(TestsConfig.SERVER_PORT)
+            .contentType(TestsConfig.CONTENT_TYPE_XML)
             .body(user)
             .when()
                 .post()
@@ -52,10 +50,10 @@ class AuthControllerXmlTest extends AbstractIntegrationTest {
         
         var newTokenVO = given()
         .basePath("/auth/refresh")
-        .port(SERVER_PORT)
-        .contentType(CONTENT_TYPE_XML)
+        .port(TestsConfig.SERVER_PORT)
+        .contentType(TestsConfig.CONTENT_TYPE_XML)
             .pathParam("username", tokenVO.getUsername())
-            .header(HEADER_PARAM, "Bearer " + tokenVO.getRefreshToken())
+            .header(TestsConfig.HEADER_PARAM_AUTHORIZATION, "Bearer " + tokenVO.getRefreshToken())
         .when()
             .put("{username}")
         .then()

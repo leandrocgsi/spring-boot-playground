@@ -1,16 +1,15 @@
 package br.com.erudio.integrationtests.controller.withjson;
 
 import static io.restassured.RestAssured.given;
-
-import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
-
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import br.com.erudio.configs.TestsConfig;
 import br.com.erudio.data.vo.v1.security.AccountCredentialsVO;
 import br.com.erudio.integrationtests.testcontainers.AbstractIntegrationTest;
 import br.com.erudio.integrationtests.vo.TokenVO;
@@ -19,9 +18,6 @@ import br.com.erudio.integrationtests.vo.TokenVO;
 @TestMethodOrder(OrderAnnotation.class)
 class AuthControllerJsonTest extends AbstractIntegrationTest {
 
-    public static final String HEADER_PARAM = "Authorization";
-    public static final String CONTENT_TYPE_JSON = "application/json";
-    public static final int SERVER_PORT = 8888;
     private static TokenVO tokenVO;
     
     @Test
@@ -33,8 +29,8 @@ class AuthControllerJsonTest extends AbstractIntegrationTest {
 
         tokenVO = given()
             .basePath("/auth/signin")
-            .port(SERVER_PORT)
-            .contentType(CONTENT_TYPE_JSON)
+            .port(TestsConfig.SERVER_PORT)
+            .contentType(TestsConfig.CONTENT_TYPE_JSON)
             .body(user)
             .when()
                 .post()
@@ -54,10 +50,10 @@ class AuthControllerJsonTest extends AbstractIntegrationTest {
         
         var newTokenVO = given()
         .basePath("/auth/refresh")
-        .port(SERVER_PORT)
-        .contentType(CONTENT_TYPE_JSON)
+        .port(TestsConfig.SERVER_PORT)
+        .contentType(TestsConfig.CONTENT_TYPE_JSON)
             .pathParam("username", tokenVO.getUsername())
-            .header(HEADER_PARAM, "Bearer " + tokenVO.getRefreshToken())
+            .header(TestsConfig.HEADER_PARAM_AUTHORIZATION, "Bearer " + tokenVO.getRefreshToken())
         .when()
             .put("{username}")
         .then()

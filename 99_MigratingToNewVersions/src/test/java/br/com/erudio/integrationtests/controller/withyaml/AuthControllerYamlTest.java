@@ -4,14 +4,15 @@ import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
-import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
+import br.com.erudio.configs.TestsConfig;
 import br.com.erudio.integrationtests.controller.withyaml.mapper.YMLMapper;
 import br.com.erudio.integrationtests.testcontainers.AbstractIntegrationTest;
 import br.com.erudio.integrationtests.vo.AccountCredentialsVO;
@@ -24,9 +25,6 @@ import io.restassured.http.ContentType;
 @TestMethodOrder(OrderAnnotation.class)
 class AuthControllerYamlTest extends AbstractIntegrationTest {
 
-    public static final String HEADER_PARAM = "Authorization";
-    public static final String CONTENT_TYPE_YML = "application/x-yaml";
-    public static final int SERVER_PORT = 8888;
     private static YMLMapper objectMapper;
     private static TokenVO tokenVO;
 
@@ -47,11 +45,11 @@ class AuthControllerYamlTest extends AbstractIntegrationTest {
                 RestAssuredConfig
                     .config()
                     .encoderConfig(EncoderConfig.encoderConfig()
-                            .encodeContentTypeAs(CONTENT_TYPE_YML, ContentType.TEXT)))
+                            .encodeContentTypeAs(TestsConfig.CONTENT_TYPE_YML, ContentType.TEXT)))
             .basePath("/auth/signin")
-            .port(SERVER_PORT)
-            .contentType(CONTENT_TYPE_YML)
-            .accept(CONTENT_TYPE_YML)
+            .port(TestsConfig.SERVER_PORT)
+            .contentType(TestsConfig.CONTENT_TYPE_YML)
+            .accept(TestsConfig.CONTENT_TYPE_YML)
             .body(user, objectMapper)
             .when()
                 .post()
@@ -71,10 +69,10 @@ class AuthControllerYamlTest extends AbstractIntegrationTest {
         
         var newTokenVO = given()
         .basePath("/auth/refresh")
-        .port(SERVER_PORT)
-        .contentType(CONTENT_TYPE_YML)
+        .port(TestsConfig.SERVER_PORT)
+        .contentType(TestsConfig.CONTENT_TYPE_YML)
             .pathParam("username", tokenVO.getUsername())
-            .header(HEADER_PARAM, "Bearer " + tokenVO.getRefreshToken())
+            .header(TestsConfig.HEADER_PARAM_AUTHORIZATION, "Bearer " + tokenVO.getRefreshToken())
         .when()
             .put("{username}")
         .then()

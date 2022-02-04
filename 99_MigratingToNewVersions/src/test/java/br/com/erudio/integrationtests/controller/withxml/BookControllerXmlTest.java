@@ -19,6 +19,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import br.com.erudio.configs.TestsConfig;
 import br.com.erudio.integrationtests.testcontainers.AbstractIntegrationTest;
 import br.com.erudio.integrationtests.vo.AccountCredentialsVO;
 import br.com.erudio.integrationtests.vo.BookVO;
@@ -34,9 +35,6 @@ import io.restassured.specification.RequestSpecification;
 @TestMethodOrder(OrderAnnotation.class)
 public class BookControllerXmlTest extends AbstractIntegrationTest {
 
-    private static final String HEADER_PARAM = "Authorization";
-    public static final String CONTENT_TYPE_XML = "application/xml";
-    private static final int SERVER_PORT = 8888;
     private static RequestSpecification specification;
     private static ObjectMapper objectMapper;
 
@@ -60,8 +58,8 @@ public class BookControllerXmlTest extends AbstractIntegrationTest {
         var token =
                 given()
                     .basePath("/auth/signin")
-                    .port(SERVER_PORT)
-                    .contentType(CONTENT_TYPE_XML)
+                    .port(TestsConfig.SERVER_PORT)
+                    .contentType(TestsConfig.CONTENT_TYPE_XML)
                     .body(user)
                     .when()
                         .post()
@@ -74,9 +72,9 @@ public class BookControllerXmlTest extends AbstractIntegrationTest {
 
             specification =
                 new RequestSpecBuilder()
-                    .addHeader(HEADER_PARAM, "Bearer " + token)
+                    .addHeader(TestsConfig.HEADER_PARAM_AUTHORIZATION, "Bearer " + token)
                     .setBasePath("/api/book/v1")
-                    .setPort(SERVER_PORT)
+                    .setPort(TestsConfig.SERVER_PORT)
                     .addFilter(new RequestLoggingFilter(LogDetail.ALL))
                     .addFilter(new ResponseLoggingFilter(LogDetail.ALL))
                     .build();
@@ -89,7 +87,7 @@ public class BookControllerXmlTest extends AbstractIntegrationTest {
         mockBook();
 
         var content = given().spec(specification)
-                .contentType(CONTENT_TYPE_XML)
+                .contentType(TestsConfig.CONTENT_TYPE_XML)
                     .body(book)
                     .when()
                     .post()
@@ -118,7 +116,7 @@ public class BookControllerXmlTest extends AbstractIntegrationTest {
         book.setTitle("Docker Deep Dive - Updated");
 
         var content = given().spec(specification)
-                .contentType(CONTENT_TYPE_XML)
+                .contentType(TestsConfig.CONTENT_TYPE_XML)
                     .body(book)
                     .when()
                     .put()
@@ -144,7 +142,7 @@ public class BookControllerXmlTest extends AbstractIntegrationTest {
     @Order(4)
     public void testFindById() throws JsonMappingException, JsonProcessingException {
         var content = given().spec(specification)
-                .contentType(CONTENT_TYPE_XML)
+                .contentType(TestsConfig.CONTENT_TYPE_XML)
                     .pathParam("id", book.getId())
                     .when()
                     .get("{id}")
@@ -170,7 +168,7 @@ public class BookControllerXmlTest extends AbstractIntegrationTest {
     @Order(5)
     public void testDelete() {
         given().spec(specification)
-                .contentType(CONTENT_TYPE_XML)
+                .contentType(TestsConfig.CONTENT_TYPE_XML)
                     .pathParam("id", book.getId())
                     .when()
                     .delete("{id}")
@@ -183,7 +181,7 @@ public class BookControllerXmlTest extends AbstractIntegrationTest {
     public void testFindAll() throws JsonMappingException, JsonProcessingException {
         
         var content = given().spec(specification)
-                .contentType(CONTENT_TYPE_XML)
+                .contentType(TestsConfig.CONTENT_TYPE_XML)
                     .queryParams("page", 0 , "limit", 5, "direction", "asc")
                     .when()
                     .get()

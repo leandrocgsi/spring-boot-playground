@@ -17,6 +17,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import br.com.erudio.configs.TestsConfig;
 import br.com.erudio.integrationtests.testcontainers.AbstractIntegrationTest;
 import br.com.erudio.integrationtests.vo.AccountCredentialsVO;
 import br.com.erudio.integrationtests.vo.TokenVO;
@@ -32,9 +33,6 @@ import io.restassured.specification.RequestSpecification;
 @TestMethodOrder(OrderAnnotation.class)
 public class PersonControllerXmlTest extends AbstractIntegrationTest {
 
-    private static final String HEADER_PARAM = "Authorization";
-    public static final String CONTENT_TYPE_XML = "application/xml";
-    private static final int SERVER_PORT = 8888;
     private static RequestSpecification specification;
     private static ObjectMapper objectMapper;
 
@@ -58,8 +56,8 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
         var token =
                 given()
                     .basePath("/auth/signin")
-                    .port(SERVER_PORT)
-                    .contentType(CONTENT_TYPE_XML)
+                    .port(TestsConfig.SERVER_PORT)
+                    .contentType(TestsConfig.CONTENT_TYPE_XML)
                     .body(user)
                     .when()
                         .post()
@@ -72,9 +70,9 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
 
             specification =
                 new RequestSpecBuilder()
-                    .addHeader(HEADER_PARAM, "Bearer " + token)
+                    .addHeader(TestsConfig.HEADER_PARAM_AUTHORIZATION, "Bearer " + token)
                     .setBasePath("/api/person/v1")
-                    .setPort(SERVER_PORT)
+                    .setPort(TestsConfig.SERVER_PORT)
                     .addFilter(new RequestLoggingFilter(LogDetail.ALL))
                     .addFilter(new ResponseLoggingFilter(LogDetail.ALL))
                     .build();
@@ -86,7 +84,7 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
         mockPerson();
 
         var content = given().spec(specification)
-                .contentType(CONTENT_TYPE_XML)
+                .contentType(TestsConfig.CONTENT_TYPE_XML)
                     .body(person)
                     .when()
                     .post()
@@ -118,7 +116,7 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
         person.setLastName("Matthew Stallman");
         
         var content = given().spec(specification)
-                .contentType(CONTENT_TYPE_XML)
+                .contentType(TestsConfig.CONTENT_TYPE_XML)
                     .body(person)
                     .when()
                     .post()
@@ -149,7 +147,7 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
         person.setEnabled(false);
         
         var content = given().spec(specification)
-                .contentType(CONTENT_TYPE_XML)
+                .contentType(TestsConfig.CONTENT_TYPE_XML)
                     .pathParam("id", person.getId())
                     .when()
                     .patch("{id}")
@@ -178,7 +176,7 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
     @Order(5)
     void testFindPersonByName() throws JsonMappingException, JsonProcessingException {
         var content = given().spec(specification)
-                .contentType(CONTENT_TYPE_XML)
+                .contentType(TestsConfig.CONTENT_TYPE_XML)
                     .pathParam("firstName", "Leandro")
                     .queryParams("page", 0 , "limit", 5, "direction", "asc")
                     .when()
@@ -211,7 +209,7 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
     @Order(6)
     void testFindById() throws JsonMappingException, JsonProcessingException {
         var content = given().spec(specification)
-                .contentType(CONTENT_TYPE_XML)
+                .contentType(TestsConfig.CONTENT_TYPE_XML)
                     .pathParam("id", person.getId())
                     .when()
                     .get("{id}")
@@ -240,7 +238,7 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
     @Order(7)
     void testDelete() {
         given().spec(specification)
-        .contentType(CONTENT_TYPE_XML)
+        .contentType(TestsConfig.CONTENT_TYPE_XML)
             .pathParam("id", person.getId())
             .when()
             .delete("{id}")
@@ -252,7 +250,7 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
     @Order(8)
     void testFindAll() throws JsonMappingException, JsonProcessingException {
         var content = given().spec(specification)
-                .contentType(CONTENT_TYPE_XML)
+                .contentType(TestsConfig.CONTENT_TYPE_XML)
                     .queryParams("page", 6 , "limit", 10, "direction", "asc")
                     .when()
                     .get()
@@ -301,13 +299,13 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
         RequestSpecification specificationWithoutToken =
                 new RequestSpecBuilder()
                     .setBasePath("/api/person/v1")
-                    .setPort(SERVER_PORT)
+                    .setPort(TestsConfig.SERVER_PORT)
                     .addFilter(new RequestLoggingFilter(LogDetail.ALL))
                     .addFilter(new ResponseLoggingFilter(LogDetail.ALL))
                     .build();
         
         given().spec(specificationWithoutToken)
-                .contentType(CONTENT_TYPE_XML)
+                .contentType(TestsConfig.CONTENT_TYPE_XML)
                 .queryParams("page", 6 , "limit", 10, "direction", "asc")
                 .when()
                 .get()
