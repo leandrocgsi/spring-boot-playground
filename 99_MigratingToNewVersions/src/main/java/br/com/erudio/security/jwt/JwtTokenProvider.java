@@ -19,7 +19,7 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
-import br.com.erudio.data.vo.v1.security.TokenResponseVO;
+import br.com.erudio.data.vo.v1.security.TokenVO;
 import br.com.erudio.exception.InvalidJwtAuthenticationException;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
@@ -44,7 +44,7 @@ public class JwtTokenProvider {
         algorithm = Algorithm.HMAC256(secretKey.getBytes());
     }
     
-    public TokenResponseVO createTokenResponse(String username, List<String> roles) {
+    public TokenVO createTokenResponse(String username, List<String> roles) {
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityInMilliseconds);
         String issuerURL = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
@@ -52,7 +52,7 @@ public class JwtTokenProvider {
         var accessToken = getAccessToken(username, roles, now, validity, issuerURL);
         var refreshToken = getRefreshToken(username, roles, now);
         
-        TokenResponseVO tokenResponse = new TokenResponseVO();
+        TokenVO tokenResponse = new TokenVO();
         tokenResponse.setUsername(username);
         tokenResponse.setAuthenticated(true);
         tokenResponse.setAccessToken(accessToken);

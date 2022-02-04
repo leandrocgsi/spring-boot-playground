@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import br.com.erudio.data.vo.v1.security.AccountCredentialsVO;
-import br.com.erudio.data.vo.v1.security.TokenResponseVO;
+import br.com.erudio.data.vo.v1.security.TokenVO;
 import br.com.erudio.repository.UserRepository;
 import br.com.erudio.security.jwt.JwtTokenProvider;
 import jakarta.servlet.http.HttpServletRequest;
@@ -39,7 +39,7 @@ public class AuthServices {
             
             var user = repository.findByUsername(username);
             
-            var loginResponse = new TokenResponseVO();
+            var loginResponse = new TokenVO();
             
             if (user != null) {
                 loginResponse = tokenProvider.createTokenResponse(username, user.getRoles());
@@ -54,7 +54,10 @@ public class AuthServices {
     }
     
     @SuppressWarnings("rawtypes")
-    public ResponseEntity refreshToken(HttpServletRequest request) {
+    public ResponseEntity refreshToken(TokenVO token) {
+        var accessToken = token.getAccessToken();
+        var refreshToken = token.getRefreshToken();
+        
         return ok("");
         
         /**
