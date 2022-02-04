@@ -22,7 +22,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import br.com.erudio.integrationtests.testcontainers.AbstractIntegrationTest;
 import br.com.erudio.integrationtests.vo.AccountCredentialsVO;
 import br.com.erudio.integrationtests.vo.BookVO;
-import br.com.erudio.integrationtests.vo.LoginResponseVO;
+import br.com.erudio.integrationtests.vo.TokenVO;
 import br.com.erudio.integrationtests.vo.WrapperBookVO;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
@@ -69,7 +69,7 @@ public class BookControllerXmlTest extends AbstractIntegrationTest {
                         .statusCode(200)
                     .extract()
                     .body()
-                        .as(LoginResponseVO.class)
+                        .as(TokenVO.class)
                     .getAccessToken();
 
             specification =

@@ -15,7 +15,6 @@ import br.com.erudio.data.vo.v1.security.AccountCredentialsVO;
 import br.com.erudio.data.vo.v1.security.TokenVO;
 import br.com.erudio.repository.UserRepository;
 import br.com.erudio.security.jwt.JwtTokenProvider;
-import jakarta.servlet.http.HttpServletRequest;
 
 @Service
 public class AuthServices {
@@ -39,14 +38,14 @@ public class AuthServices {
             
             var user = repository.findByUsername(username);
             
-            var loginResponse = new TokenVO();
+            var tokenResponse = new TokenVO();
             
             if (user != null) {
-                loginResponse = tokenProvider.createTokenResponse(username, user.getRoles());
+                tokenResponse = tokenProvider.createToken(username, user.getRoles());
             } else {
                 throw new UsernameNotFoundException("Username " + username + " not found!");
             }
-            return ok(loginResponse);
+            return ok(tokenResponse);
             
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Invalid username/password supplied!");
@@ -54,44 +53,16 @@ public class AuthServices {
     }
     
     @SuppressWarnings("rawtypes")
-    public ResponseEntity refreshToken(TokenVO token) {
-        var accessToken = token.getAccessToken();
-        var refreshToken = token.getRefreshToken();
+    public ResponseEntity refreshToken(String username, String refreshToken) {
+        var user = repository.findByUsername(username);
         
-        return ok("");
+        var tokenResponse = new TokenVO();
         
-        /**
-        DefaultClaims claims = (DefaultClaims) request.getAttribute("claims");
-
-        Map<String, Object> expectedMap = getMapFromJWTClaims(claims);
-        String token = tokenProvider.createRefreshToken(expectedMap);
-        
-        try {
-            var username = expectedMap.get("sub").toString();
-            
-            var loginResponse = new LoginResponseVO();
-            
-            if (token != null) {
-                loginResponse.setAccessToken(token);
-                loginResponse.setUsername(username);
-            } else {
-                throw new UsernameNotFoundException("Username " + username + " not found!");
-            }
-            return ok(loginResponse);
-            
-        } catch (AuthenticationException e) {
-            throw new BadCredentialsException("Invalid username/password supplied!");
+        if (user != null) {
+            tokenResponse = tokenProvider.refreshToken(refreshToken);
+        } else {
+            throw new UsernameNotFoundException("Username " + username + " not found!");
         }
-        */
+        return ok(tokenResponse);
     }
-    
-    /**
-    public Map<String, Object> getMapFromJWTClaims(DefaultClaims claims) {
-        Map<String, Object> expectedMap = new HashMap<String, Object>();
-        for (Entry<String, Object> entry : claims.entrySet()) {
-            expectedMap.put(entry.getKey(), entry.getValue());
-        }
-        return expectedMap;
-    }
-    */
 }

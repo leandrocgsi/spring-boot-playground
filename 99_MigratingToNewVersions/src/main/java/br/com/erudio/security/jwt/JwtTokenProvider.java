@@ -3,7 +3,6 @@ package br.com.erudio.security.jwt;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -44,7 +43,7 @@ public class JwtTokenProvider {
         algorithm = Algorithm.HMAC256(secretKey.getBytes());
     }
     
-    public TokenVO createTokenResponse(String username, List<String> roles) {
+    public TokenVO createToken(String username, List<String> roles) {
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityInMilliseconds);
         String issuerURL = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
@@ -57,11 +56,20 @@ public class JwtTokenProvider {
         tokenResponse.setAuthenticated(true);
         tokenResponse.setAccessToken(accessToken);
         tokenResponse.setRefreshToken(refreshToken);
-        tokenResponse.setCreated(now);
+        tokenResponse.setCreated(now);  
         tokenResponse.setExpiration(validity);
         return tokenResponse;
     }
-
+    
+    public TokenVO refreshToken(String refreshToken) {
+        if (refreshToken.contains("Bearer ")) refreshToken = refreshToken.substring("Bearer ".length());
+        JWTVerifier verifier = JWT.require(algorithm).build();
+        DecodedJWT decodedJWT = verifier.verify(refreshToken);
+        String username = decodedJWT.getSubject();
+        List<String> roles = decodedJWT.getClaim("roles").asList(String.class);
+        return createToken(username, roles);
+    }
+    
     private String getAccessToken(String username, List<String> roles, Date now, Date validity,
             String issuerURL) {
         return JWT.create()
@@ -83,23 +91,6 @@ public class JwtTokenProvider {
                 .sign(algorithm)
                 .strip();
     }
-
-    public String createRefreshToken(Map<String, Object> claims) {
-        Date now = new Date();
-        Date validity = new Date(now.getTime() + validityInMilliseconds);
-        
-        return "";
-                /**
-                accessToken = JWT.create()
-                .withClaim("roles", roles)
-                .withIssuedAt(now)
-                .withExpiresAt(validity)
-                .withSubject(username)
-                .withIssuer(issuerURL)
-                .sign(algorithm)
-                .strip()
-                */
-    }
     
     public Authentication getAuthentication(String token) {
         DecodedJWT decodedJWT = decodedToken(token);
@@ -110,7 +101,7 @@ public class JwtTokenProvider {
     public String resolveToken(HttpServletRequest req) {
         String bearerToken = req.getHeader("Authorization");
         if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
-            return bearerToken.substring(7, bearerToken.length());
+            return bearerToken.substring("Bearer ".length());
         }        
         return null;
     }

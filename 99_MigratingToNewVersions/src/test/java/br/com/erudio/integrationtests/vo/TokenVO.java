@@ -3,7 +3,7 @@ package br.com.erudio.integrationtests.vo;
 import java.io.Serializable;
 import java.util.Date;
 
-public class LoginResponseVO implements Serializable {
+public class TokenVO implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
@@ -14,9 +14,9 @@ public class LoginResponseVO implements Serializable {
     private String accessToken;
     private String refreshToken;
     
-    public LoginResponseVO() {}
+    public TokenVO() {}
 
-    public LoginResponseVO(String username, Boolean authenticated, Date created, Date expiration, String accessToken,
+    public TokenVO(String username, Boolean authenticated, Date created, Date expiration, String accessToken,
             String refreshToken) {
         this.username = username;
         this.authenticated = authenticated;
@@ -92,7 +92,7 @@ public class LoginResponseVO implements Serializable {
         if (this == obj) return true;
         if (obj == null) return false;
         if (getClass() != obj.getClass()) return false;
-        LoginResponseVO other = (LoginResponseVO) obj;
+        TokenVO other = (TokenVO) obj;
         if (accessToken == null) {
             if (other.accessToken != null) return false;
         } else if (!accessToken.equals(other.accessToken)) return false;

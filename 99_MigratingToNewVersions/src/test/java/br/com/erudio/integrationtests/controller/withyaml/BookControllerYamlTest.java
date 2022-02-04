@@ -21,7 +21,7 @@ import br.com.erudio.integrationtests.controller.withyaml.mapper.YMLMapper;
 import br.com.erudio.integrationtests.testcontainers.AbstractIntegrationTest;
 import br.com.erudio.integrationtests.vo.AccountCredentialsVO;
 import br.com.erudio.integrationtests.vo.BookVO;
-import br.com.erudio.integrationtests.vo.LoginResponseVO;
+import br.com.erudio.integrationtests.vo.TokenVO;
 import br.com.erudio.integrationtests.vo.WrapperBookVO;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.config.EncoderConfig;
@@ -75,7 +75,7 @@ public class BookControllerYamlTest extends AbstractIntegrationTest {
                         .statusCode(200)
                     .extract()
                     .body()
-                        .as(LoginResponseVO.class, objectMapper)
+                        .as(TokenVO.class, objectMapper)
                     .getAccessToken();
 
             specification =

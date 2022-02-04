@@ -18,7 +18,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import br.com.erudio.integrationtests.controller.withyaml.mapper.YMLMapper;
 import br.com.erudio.integrationtests.testcontainers.AbstractIntegrationTest;
 import br.com.erudio.integrationtests.vo.AccountCredentialsVO;
-import br.com.erudio.integrationtests.vo.LoginResponseVO;
+import br.com.erudio.integrationtests.vo.TokenVO;
 import br.com.erudio.integrationtests.vo.PersonVO;
 import br.com.erudio.integrationtests.vo.WrapperPersonVO;
 import io.restassured.builder.RequestSpecBuilder;
@@ -73,7 +73,7 @@ public class PersonControllerYamlTest extends AbstractIntegrationTest {
                         .statusCode(200)
                     .extract()
                     .body()
-                        .as(LoginResponseVO.class, objectMapper)
+                        .as(TokenVO.class, objectMapper)
                     .getAccessToken();
 
             specification =
