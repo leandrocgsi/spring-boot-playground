@@ -2,10 +2,6 @@ package br.com.erudio.services;
 
 import static org.springframework.http.ResponseEntity.ok;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,10 +12,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import br.com.erudio.data.vo.v1.security.AccountCredentialsVO;
-import br.com.erudio.data.vo.v1.security.LoginResponseVO;
+import br.com.erudio.data.vo.v1.security.TokenResponseVO;
 import br.com.erudio.repository.UserRepository;
 import br.com.erudio.security.jwt.JwtTokenProvider;
-import io.jsonwebtoken.impl.DefaultClaims;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Service
@@ -44,10 +39,10 @@ public class AuthServices {
             
             var user = repository.findByUsername(username);
             
-            var loginResponse = new LoginResponseVO();
+            var loginResponse = new TokenResponseVO();
             
             if (user != null) {
-                loginResponse = tokenProvider.createToken(username, user.getRoles());
+                loginResponse = tokenProvider.createTokenResponse(username, user.getRoles());
             } else {
                 throw new UsernameNotFoundException("Username " + username + " not found!");
             }
@@ -60,7 +55,9 @@ public class AuthServices {
     
     @SuppressWarnings("rawtypes")
     public ResponseEntity refreshToken(HttpServletRequest request) {
+        return ok("");
         
+        /**
         DefaultClaims claims = (DefaultClaims) request.getAttribute("claims");
 
         Map<String, Object> expectedMap = getMapFromJWTClaims(claims);
@@ -82,8 +79,10 @@ public class AuthServices {
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Invalid username/password supplied!");
         }
+        */
     }
     
+    /**
     public Map<String, Object> getMapFromJWTClaims(DefaultClaims claims) {
         Map<String, Object> expectedMap = new HashMap<String, Object>();
         for (Entry<String, Object> entry : claims.entrySet()) {
@@ -91,4 +90,5 @@ public class AuthServices {
         }
         return expectedMap;
     }
+    */
 }
