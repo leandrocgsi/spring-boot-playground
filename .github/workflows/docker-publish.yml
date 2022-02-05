@@ -1,0 +1,38 @@
+name: Continuous Integration with Github
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Setup Java JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'
+          distribution: 'adopt'
+		  cache: maven
+      - name: Build rest-with-springboot-erudio Jar
+        working-directory: ./99_MigratingToNewVersions
+        run: mvn clean package
+
+      - name: Docker Build
+        working-directory: ./Dockerizing
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/rest-with-springboot-erudio:${{github.run_id}} .
+
+      - name: Push to Docker Hub Container Registry
+        run: |
+          docker tag ${{ secrets.DOCKER_USERNAME }}/rest-with-springboot-erudio:0.0.1-SNAPSHOT ${{ secrets.DOCKER_USERNAME }}/rest-with-springboot-erudio:${{github.run_id}}
+          docker tag ${{ secrets.DOCKER_USERNAME }}/rest-with-springboot-erudio:latest ${{ secrets.DOCKER_USERNAME }}/rest-with-springboot-erudio:${{github.run_id}}
+
+          docker push ${{ secrets.DOCKER_USERNAME }}/rest-with-springboot-erudio:${{github.run_id}}
+          docker push ${{ secrets.DOCKER_USERNAME }}/rest-with-springboot-erudio:latest
