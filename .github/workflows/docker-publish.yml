@@ -32,8 +32,7 @@ jobs:
 
       - name: Push to Docker Hub Container Registry
         run: |
-          docker tag ${{ secrets.DOCKER_USERNAME }}/rest-with-springboot-erudio:0.0.1-SNAPSHOT ${{ secrets.DOCKER_USERNAME }}/rest-with-springboot-erudio:${{github.run_id}}
-          docker tag ${{ secrets.DOCKER_USERNAME }}/rest-with-springboot-erudio:latest ${{ secrets.DOCKER_USERNAME }}/rest-with-springboot-erudio:${{github.run_id}}
+          docker tag ${{ secrets.DOCKER_USERNAME }}/rest-with-springboot-erudio:${{github.run_id}} ${{ secrets.DOCKER_USERNAME }}/rest-with-springboot-erudio:latest
 
           docker push ${{ secrets.DOCKER_USERNAME }}/rest-with-springboot-erudio:${{github.run_id}}
           docker push ${{ secrets.DOCKER_USERNAME }}/rest-with-springboot-erudio:latest
