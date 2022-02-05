@@ -20,8 +20,9 @@ jobs:
         with:
           java-version: '17'
           distribution: 'adopt'
-		  cache: maven
-      - name: Build rest-with-springboot-erudio Jar
+	  cache: maven
+	  
+      - name: Build REST with Spring Boot Erudio Jar
         working-directory: ./99_MigratingToNewVersions
         run: mvn clean package
 
