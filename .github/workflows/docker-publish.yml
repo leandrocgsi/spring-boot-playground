@@ -31,7 +31,7 @@ jobs:
         run: mvn clean package
 
       - name: Docker Build
-        working-directory: ./Dockerizing
+        working-directory: ./99_MigratingToNewVersions
         run: docker build -t ${{ secrets.DOCKER_USERNAME }}/rest-with-springboot-erudio:${{github.run_id}} .
 
       - name: Push to Docker Hub Container Registry
