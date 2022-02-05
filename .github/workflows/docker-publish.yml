@@ -24,7 +24,7 @@ jobs:
         with:
           java-version: '17'
           distribution: 'adopt'
-          cache: maven
+          # cache: maven
       
       - name: Build REST with Spring Boot Erudio Jar
         working-directory: ./99_MigratingToNewVersions
