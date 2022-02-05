@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
+import org.apache.commons.lang3.SystemUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -24,8 +25,19 @@ public class FileStorageService {
     @Autowired
     public FileStorageService(FileStorageConfig fileStorageConfig) {
         
-        this.fileStorageLocation = Paths.get(fileStorageConfig.getUploadDir())
+        Path path = Paths.get(fileStorageConfig.getUploadDir())
                 .toAbsolutePath().normalize();
+        
+        if(SystemUtils.IS_OS_WINDOWS) {
+            StringBuilder buffer = new StringBuilder("/Code")
+                .append(
+                    path.toString().substring("/home/runner/work/SpringBootPlayground".length())
+                );
+            var strPath = buffer.toString();
+            path = Paths.get(strPath);
+        }
+        
+        this.fileStorageLocation = path;
         try {
             Files.createDirectories(this.fileStorageLocation);
         } catch (Exception e) {
@@ -38,7 +50,7 @@ public class FileStorageService {
         
         try {
             if (fileName.contains("..")) {
-                throw new FileStorageException("Sorry! Filename contains invalida path sequence " + fileName);
+                throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
             }
             
             Path targetLocation = this.fileStorageLocation.resolve(fileName);
