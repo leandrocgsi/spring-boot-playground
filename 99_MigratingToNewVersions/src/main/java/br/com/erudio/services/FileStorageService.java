@@ -5,7 +5,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
-import org.apache.commons.lang3.SystemUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -27,7 +26,7 @@ public class FileStorageService {
         
         Path path = Paths.get(fileStorageConfig.getUploadDir())
                 .toAbsolutePath().normalize();
-        
+        /**
         if(SystemUtils.IS_OS_WINDOWS) {
             StringBuilder buffer = new StringBuilder("/Code")
                 .append(
@@ -36,6 +35,7 @@ public class FileStorageService {
             var strPath = buffer.toString();
             path = Paths.get(strPath);
         }
+        */
         
         this.fileStorageLocation = path;
         try {
