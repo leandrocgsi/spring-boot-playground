@@ -1,4 +1,4 @@
-name: Continuous Integration with Github
+name: Continuous Integration with Github Actions
 
 on: [push]
 
