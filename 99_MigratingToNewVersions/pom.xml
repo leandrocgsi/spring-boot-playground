@@ -9,7 +9,7 @@
       <!-- lookup parent from repository -->
    </parent>
    <groupId>br.com.erudio</groupId>
-   <artifactId>rest-with-springboot-erudio</artifactId>
+   <artifactId>rest-with-springboot-erudio-java</artifactId>
    <version>0.0.1-SNAPSHOT</version>
    <packaging>jar</packaging>
    <properties>
