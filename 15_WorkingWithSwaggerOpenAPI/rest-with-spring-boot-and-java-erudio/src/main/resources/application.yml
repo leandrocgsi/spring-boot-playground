@@ -15,6 +15,12 @@ spring:
             hibernate:
                 dialect: org.hibernate.dialect.MySQL8Dialect
         show-sql: false
+logging:
+    level:
+        org:
+            springframework:
+                web: DEBUG
+            hibernate: ERROR
     #mvc:
         #pathmatch:
             #use-suffix-pattern: true

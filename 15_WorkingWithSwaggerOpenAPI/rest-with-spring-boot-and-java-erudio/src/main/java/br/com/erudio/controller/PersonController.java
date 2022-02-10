@@ -16,33 +16,42 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.erudio.data.vo.v1.PersonVO;
 import br.com.erudio.services.PersonServices;
 
+//import io.swagger.v3.oas.annotations.Operation;
+//import io.swagger.v3.oas.annotations.tags.Tag;
+
+//@Tag(name = "Person Endpoint")
 @RestController
-@RequestMapping("/person")
+@RequestMapping("/api/person/v1")
 public class PersonController {
     
     @Autowired
     private PersonServices service;
     
+    //@Operation(summary = "Find all people" ) 
     @GetMapping
     public List<PersonVO> findAll() {
         return service.findAll();
     }    
     
+    //@Operation(summary = "Find a specific person by your ID" )
     @GetMapping("/{id}")
     public PersonVO findById(@PathVariable("id") Long id) {
         return service.findById(id);
     }    
     
+    //@Operation(summary = "Create a new person") 
     @PostMapping
     public PersonVO create(@RequestBody PersonVO person) {
         return service.create(person);
     }
     
+    //@Operation(summary = "Update a specific person")
     @PutMapping
     public PersonVO update(@RequestBody PersonVO person) {
         return service.update(person);
     }    
     
+    //@Operation(summary = "Disable a specific person by your ID" )
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable("id") Long id) {
         service.delete(id);

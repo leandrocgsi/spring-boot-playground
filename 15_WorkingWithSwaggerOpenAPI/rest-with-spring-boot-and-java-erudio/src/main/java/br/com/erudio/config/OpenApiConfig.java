@@ -1,3 +1,4 @@
+/**
 package br.com.erudio.config;
 
 import org.springframework.context.annotation.Bean;
@@ -22,3 +23,4 @@ public class OpenApiConfig {
                         .url("https://pub.erudio.com.br/meus-cursos")));
     }
 }
+*/
