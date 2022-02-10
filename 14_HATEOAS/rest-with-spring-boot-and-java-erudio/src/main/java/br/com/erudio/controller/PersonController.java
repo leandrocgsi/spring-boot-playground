@@ -1,5 +1,8 @@
 package br.com.erudio.controller;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,28 +28,41 @@ public class PersonController {
     
     @GetMapping
     public List<PersonVO> findAll() {
-        return service.findAll();
+        List<PersonVO> persons =  service.findAll();
+        persons
+            .stream()
+            .forEach(p -> p.add(
+                    linkTo(methodOn(PersonController.class).findById(p.getKey())).withSelfRel()
+                )
+            );
+        return persons;
     }    
     
     @GetMapping("/{id}")
     public PersonVO findById(@PathVariable("id") Long id) {
-        return service.findById(id);
+        PersonVO personVO = service.findById(id);
+        personVO.add(linkTo(methodOn(PersonController.class).findById(id)).withSelfRel());
+        return personVO;
     }    
     
     @PostMapping
     public PersonVO create(@RequestBody PersonVO person) {
-        return service.create(person);
+        PersonVO personVO = service.create(person);
+        personVO.add(linkTo(methodOn(PersonController.class).findById(personVO.getKey())).withSelfRel());
+        return personVO;
     }
     
     @PutMapping
     public PersonVO update(@RequestBody PersonVO person) {
-        return service.update(person);
+        PersonVO personVO = service.update(person);
+        personVO.add(linkTo(methodOn(PersonController.class).findById(personVO.getKey())).withSelfRel());
+        return personVO;
     }    
     
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable("id") Long id) {
         service.delete(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }    
     
 }
