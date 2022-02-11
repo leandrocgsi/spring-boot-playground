@@ -13,13 +13,13 @@ import br.com.erudio.serialization.converter.YamlJackson2HttpMessageConverter;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer{
-
+    
     private static final MediaType MEDIA_TYPE_APPLICATION_YML = MediaType.valueOf("application/x-yaml");
     
     public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
         converters.add(new YamlJackson2HttpMessageConverter());
     }
-
+    
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         // We need improve this when add Spring Security
@@ -30,6 +30,31 @@ public class WebConfig implements WebMvcConfigurer{
     
     @Override
     public void configureContentNegotiation(ContentNegotiationConfigurer configurer ) {
+        
+        // https://www.baeldung.com/spring-mvc-content-negotiation-json-xml
+        
+        // Via EXTENSION. localhost:8080/person.xml DEPRECATED on SpringBoot 2.6
+        
+        /**
+        configurer.favorParameter(false)
+            .ignoreAcceptHeader(false)
+            .defaultContentType(MediaType.APPLICATION_JSON)
+                .mediaType("json", MediaType.APPLICATION_JSON)
+                .mediaType("xml", MediaType.APPLICATION_XML);
+        */
+         
+        
+        // Via QUERY PARAM. localhost:8080/person?mediaType=xml 
+        /**
+        configurer.favorParameter(true)
+            .parameterName("mediaType").ignoreAcceptHeader(true)
+            .useRegisteredExtensionsOnly(false)
+            .defaultContentType(MediaType.APPLICATION_JSON)
+                .mediaType("json", MediaType.APPLICATION_JSON)
+                .mediaType("xml", MediaType.APPLICATION_XML);
+        */
+        
+        // Via HEADER PARAM. localhost:8080/person
         configurer.favorParameter(false)
             .ignoreAcceptHeader(false)
             .useRegisteredExtensionsOnly(false)
@@ -38,4 +63,5 @@ public class WebConfig implements WebMvcConfigurer{
                 .mediaType("xml", MediaType.APPLICATION_XML)
                 .mediaType("x-yaml", MEDIA_TYPE_APPLICATION_YML);
     }
+
 }
