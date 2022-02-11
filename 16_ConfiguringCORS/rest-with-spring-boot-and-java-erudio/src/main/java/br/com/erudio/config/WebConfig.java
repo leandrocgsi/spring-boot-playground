@@ -22,6 +22,7 @@ public class WebConfig implements WebMvcConfigurer{
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
+        // We need improve this when add Spring Security
         registry.addMapping("/**")
             .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE",
                             "OPTIONS", "HEAD", "TRACE", "CONNECT");
