@@ -17,8 +17,8 @@ spring:
         show-sql: false
 
 springdoc:
-    version: '@springdoc.version@'
-    show-actuator: true
+    pathsToMatch: /api/**/v1/**
+    # show-actuator: true
     swagger-ui:
         use-root-path: true
 logging:
