@@ -70,14 +70,14 @@ public class PersonController {
                    @ApiResponse(
                        description = "Success",
                        responseCode = "200",
-                       content = @Content(mediaType = "application/json", schema = @Schema(implementation = PersonVO.class))
+                       content = @Content(schema = @Schema(implementation = PersonVO.class))
                    ),
                    @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
-                   @ApiResponse(description = "Not found", responseCode = "404", content = @Content),
                    // Need the empty content otherwise it fills it with the example person schema
                    // Setting empty content also hides the box in the swagger ui
                    @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
                    @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
+                   @ApiResponse(description = "Not found", responseCode = "404", content = @Content),
                    @ApiResponse(description = "Internal error", responseCode = "500", content = @Content)
                }
            )
@@ -95,7 +95,7 @@ public class PersonController {
                        description = "Success",
                        responseCode = "200",
                        links = @Link(name = "get", operationId = "get", parameters = @LinkParameter(name = "id", expression = "$request.body.id")),
-                       content = @Content(mediaType = "application/json", schema = @Schema(implementation = Person.class))
+                       content = @Content(schema = @Schema(implementation = PersonVO.class))
                    ),
                    @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
                    @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
@@ -115,8 +115,7 @@ public class PersonController {
                    @ApiResponse(
                        description = "Updated",
                        responseCode = "200",
-                       links = @Link(name = "get", operationId = "get", parameters = @LinkParameter(name = "id", expression = "$request.body.id")),
-                       content = @Content(mediaType = "application/json", schema = @Schema(implementation = Person.class))
+                       content = @Content(schema = @Schema(implementation = Person.class))
                    ),
                    @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
                    @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
@@ -135,7 +134,11 @@ public class PersonController {
                description = "Deletes a person by their Id.",
                tags = { "People" },
                responses = {
-                   @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
+                   @ApiResponse(
+                        description = "No Content",
+                        responseCode = "204",
+                        links = @Link(name = "get", operationId = "get", parameters = @LinkParameter(name = "id", expression = "$request.body.id")),
+                        content = @Content),
                    @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
                    @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
                    @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),

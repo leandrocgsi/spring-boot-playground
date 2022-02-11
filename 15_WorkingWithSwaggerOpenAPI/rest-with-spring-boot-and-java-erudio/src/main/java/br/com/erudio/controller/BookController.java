@@ -45,7 +45,6 @@ public class BookController {
                        responseCode = "200",
                        content = {
                            @Content(
-                               mediaType = "application/json",
                                array = @ArraySchema(schema = @Schema(implementation = BookVO.class))
                            )
                        }
@@ -66,7 +65,7 @@ public class BookController {
                    @ApiResponse(
                        description = "Success",
                        responseCode = "200",
-                       content = @Content(mediaType = "application/json", schema = @Schema(implementation = BookVO.class))
+                       content = @Content(schema = @Schema(implementation = BookVO.class))
                    ),
                    @ApiResponse(description = "Not found", responseCode = "404", content = @Content),
                    // Need the empty content otherwise it fills it with the example book schema
@@ -88,7 +87,7 @@ public class BookController {
                        description = "Success",
                        responseCode = "200",
                        links = @Link(name = "get", operationId = "get", parameters = @LinkParameter(name = "id", expression = "$request.body.id")),
-                       content = @Content(mediaType = "application/json", schema = @Schema(implementation = Book.class))
+                       content = @Content(schema = @Schema(implementation = Book.class))
                    ),
                    @ApiResponse(description = "Internal error", responseCode = "500", content = @Content)
                }
@@ -107,7 +106,7 @@ public class BookController {
                        description = "Updated",
                        responseCode = "200",
                        links = @Link(name = "get", operationId = "get", parameters = @LinkParameter(name = "id", expression = "$request.body.id")),
-                       content = @Content(mediaType = "application/json", schema = @Schema(implementation = Book.class))
+                       content = @Content(schema = @Schema(implementation = Book.class))
                    ),
                    @ApiResponse(description = "Not found", responseCode = "404", content = @Content),
                    @ApiResponse(description = "Internal error", responseCode = "500", content = @Content)
