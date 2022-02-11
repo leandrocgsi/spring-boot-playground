@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.erudio.data.vo.v1.PersonVO;
-import br.com.erudio.model.Person;
 import br.com.erudio.services.PersonServices;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.links.Link;
@@ -117,7 +116,7 @@ public class PersonController {
                    @ApiResponse(
                        description = "Updated",
                        responseCode = "200",
-                       content = @Content(schema = @Schema(implementation = Person.class))
+                       content = @Content(schema = @Schema(implementation = PersonVO.class))
                    ),
                    @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
                    @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),

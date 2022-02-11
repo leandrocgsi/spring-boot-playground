@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.erudio.data.vo.v1.BookVO;
-import br.com.erudio.model.Book;
 import br.com.erudio.services.BookServices;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.links.Link;
@@ -88,7 +87,7 @@ public class BookController {
                        description = "Success",
                        responseCode = "200",
                        links = @Link(name = "get", operationId = "get", parameters = @LinkParameter(name = "id", expression = "$request.body.id")),
-                       content = @Content(schema = @Schema(implementation = Book.class))
+                       content = @Content(schema = @Schema(implementation = BookVO.class))
                    ),
                    @ApiResponse(description = "Internal error", responseCode = "500", content = @Content)
                }
@@ -108,7 +107,7 @@ public class BookController {
                        description = "Updated",
                        responseCode = "200",
                        links = @Link(name = "get", operationId = "get", parameters = @LinkParameter(name = "id", expression = "$request.body.id")),
-                       content = @Content(schema = @Schema(implementation = Book.class))
+                       content = @Content(schema = @Schema(implementation = BookVO.class))
                    ),
                    @ApiResponse(description = "Not found", responseCode = "404", content = @Content),
                    @ApiResponse(description = "Internal error", responseCode = "500", content = @Content)
