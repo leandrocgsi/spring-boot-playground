@@ -27,7 +27,3 @@ logging:
             springframework:
                 web: DEBUG
             hibernate: ERROR
-    #mvc:
-        #pathmatch:
-            #use-suffix-pattern: true
-            #matching-strategy: ant-path-matcher

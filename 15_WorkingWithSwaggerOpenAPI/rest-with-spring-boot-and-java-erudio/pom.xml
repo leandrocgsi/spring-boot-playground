@@ -116,7 +116,7 @@
         </plugins>
     </build>
     <repositories>
-        <repository>
+        <!-- <repository>
             <id>snapshots-repo</id>
             <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
             <releases>
@@ -148,7 +148,8 @@
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
-        </repository>
+        </repository> -->
+        
         <repository>
             <id>spring-milestone</id>
             <name>Spring Milestone</name>
