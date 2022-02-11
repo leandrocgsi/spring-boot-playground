@@ -120,7 +120,7 @@ public class PersonController {
                    @ApiResponse(
                        description = "Updated",
                        responseCode = "200",
-                       content = @Content(schema = @Schema(implementation = Person.class))
+                       content = @Content(schema = @Schema(implementation = PersonVO.class))
                    ),
                    @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
                    @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
