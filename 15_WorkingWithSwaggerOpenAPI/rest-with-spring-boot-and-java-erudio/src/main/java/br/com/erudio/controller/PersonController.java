@@ -36,7 +36,7 @@ public class PersonController {
     @Autowired
     private PersonServices service;
     
-    @GetMapping
+    @GetMapping(produces = { "application/json", "application/xml", "application/x-yaml" })
     @Operation(summary = "Finds all People", description = "Finds all People.",
                tags = { "People" },
                responses = {
@@ -61,7 +61,7 @@ public class PersonController {
         return service.findAll();
     }    
     
-    @GetMapping("/{id}")
+    @GetMapping(value = "/{id}", produces = { "application/json", "application/xml", "application/x-yaml" })
     @Operation(
                summary = "Finds a person",
                description = "Find a specific person by your ID.",
@@ -85,7 +85,8 @@ public class PersonController {
         return service.findById(id);
     }    
     
-    @PostMapping
+    @PostMapping(produces = { "application/json", "application/xml", "application/x-yaml" }, 
+            consumes = { "application/json", "application/xml", "application/x-yaml" })
     @Operation(
                summary = "Adds a new person",
                description = "Adds a new person by passing in a JSON, XML or YML representation of the person.",
@@ -105,8 +106,9 @@ public class PersonController {
     public PersonVO create(@RequestBody PersonVO person) {
         return service.create(person);
     }
-    
-    @PutMapping
+
+    @PutMapping(produces = { "application/json", "application/xml", "application/x-yaml" }, 
+            consumes = { "application/json", "application/xml", "application/x-yaml" })
     @Operation(
                summary = "Updates a person's information",
                description = "Updates a person's information by passing in a JSON, XML or YML representation of the updated person.",

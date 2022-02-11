@@ -36,7 +36,7 @@ public class BookController {
     @Autowired
     private BookServices service;
     
-    @GetMapping
+    @GetMapping(produces = { "application/json", "application/xml", "application/x-yaml" })
     @Operation(summary = "Finds all Book", description = "Finds all Book.",
                tags = { "Book" },
                responses = {
@@ -56,7 +56,7 @@ public class BookController {
         return service.findAll();
     }    
     
-    @GetMapping("/{id}")
+    @GetMapping(value = "/{id}", produces = { "application/json", "application/xml", "application/x-yaml" })
     @Operation(
                summary = "Finds a book",
                description = "Find a specific book by your ID.",
@@ -77,7 +77,8 @@ public class BookController {
         return service.findById(id);
     }    
     
-    @PostMapping
+    @PostMapping(produces = { "application/json", "application/xml", "application/x-yaml" }, 
+            consumes = { "application/json", "application/xml", "application/x-yaml" })
     @Operation(
                summary = "Adds a new book",
                description = "Adds a new book by passing in a JSON, XML or YML representation of the book.",
@@ -95,8 +96,9 @@ public class BookController {
     public BookVO create(@RequestBody BookVO book) {
         return service.create(book);
     }
-    
-    @PutMapping
+
+    @PutMapping(produces = { "application/json", "application/xml", "application/x-yaml" }, 
+            consumes = { "application/json", "application/xml", "application/x-yaml" })
     @Operation(
                summary = "Updates a book's information",
                description = "Updates a book's information by passing in a JSON, XML or YML representation of the updated book.",
