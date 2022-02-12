@@ -82,7 +82,7 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
       
     @Test
     @Order(2)
-    void testCreate() throws JsonMappingException, JsonProcessingException {
+    public void testCreate() throws JsonMappingException, JsonProcessingException {
         mockPerson();
 
         var content = given().spec(specification)
@@ -113,7 +113,7 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
 
     @Test
     @Order(3)
-    void testUpdate() throws JsonMappingException, JsonProcessingException {
+    public void testUpdate() throws JsonMappingException, JsonProcessingException {
         person.setLastName("Matthew Stallman");
         
         var content = given().spec(specification)
@@ -141,10 +141,37 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
         assertEquals("Male", updatedPerson.getGender());
     }
 
-    
     @Test
     @Order(4)
-    void testDelete() {
+    public void testFindById() throws JsonMappingException, JsonProcessingException {
+        var content = given().spec(specification)
+                .contentType(TestsConfig.CONTENT_TYPE_JSON)
+                    .pathParam("id", person.getId())
+                    .when()
+                    .get("{id}")
+                .then()
+                    .statusCode(200)
+                        .extract()
+                        .body()
+                            .asString();    
+        
+        PersonVO foundPerson = objectMapper.readValue(content, PersonVO.class);        
+
+        assertNotNull(foundPerson.getId());
+        assertNotNull(foundPerson.getFirstName());
+        assertNotNull(foundPerson.getLastName());
+        assertNotNull(foundPerson.getAddress());
+        assertNotNull(foundPerson.getGender());
+        assertEquals(foundPerson.getId(), person.getId());
+        assertEquals("Richard", foundPerson.getFirstName());
+        assertEquals("Matthew Stallman", foundPerson.getLastName());
+        assertEquals("New York City, New York, US", foundPerson.getAddress());
+        assertEquals("Male", foundPerson.getGender());
+    }
+    
+    @Test
+    @Order(5)
+    public void testDelete() {
         given().spec(specification)
         .contentType(TestsConfig.CONTENT_TYPE_JSON)
             .pathParam("id", person.getId())
@@ -155,8 +182,8 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
     }
     
     @Test
-    @Order(5)
-    void testFindAll() throws JsonMappingException, JsonProcessingException {
+    @Order(6)
+    public void testFindAll() throws JsonMappingException, JsonProcessingException {
         var content = given().spec(specification)
                 .contentType(TestsConfig.CONTENT_TYPE_JSON)
                     .when()
@@ -180,23 +207,23 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
         assertEquals("Uberlândia - Minas Gerais - Brasil", foundPersonOne.getAddress());
         assertEquals("Male", foundPersonOne.getGender());
                 
-        PersonVO foundPersonSeven = content.get(6);        
+        PersonVO foundPersonSix = content.get(5);        
 
-        assertNotNull(foundPersonSeven.getId());
-        assertNotNull(foundPersonSeven.getFirstName());
-        assertNotNull(foundPersonSeven.getLastName());
-        assertNotNull(foundPersonSeven.getAddress());
-        assertNotNull(foundPersonSeven.getGender());
-        assertEquals(11, foundPersonSeven.getId());
-        assertEquals("Richard", foundPersonSeven.getFirstName());
-        assertEquals("Stallman", foundPersonSeven.getLastName());
-        assertEquals("New York City, New York, US", foundPersonSeven.getAddress());
-        assertEquals("Male", foundPersonSeven.getGender());
+        assertNotNull(foundPersonSix.getId());
+        assertNotNull(foundPersonSix.getFirstName());
+        assertNotNull(foundPersonSix.getLastName());
+        assertNotNull(foundPersonSix.getAddress());
+        assertNotNull(foundPersonSix.getGender());
+        assertEquals(9, foundPersonSix.getId());
+        assertEquals("Marcos", foundPersonSix.getFirstName());
+        assertEquals("Paulo", foundPersonSix.getLastName());
+        assertEquals("Patos de Minas - Minas Gerais - Brasil", foundPersonSix.getAddress());
+        assertEquals("Male", foundPersonSix.getGender());
     }
     
     @Test
-    @Order(6)
-    void testFindAllWithoutToken() throws JsonMappingException, JsonProcessingException {
+    @Order(7)
+    public void testFindAllWithoutToken() throws JsonMappingException, JsonProcessingException {
 
         RequestSpecification specificationWithoutToken =
                 new RequestSpecBuilder()

@@ -5,7 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
@@ -199,12 +201,10 @@ public class BookControllerYamlTest extends AbstractIntegrationTest {
                     .statusCode(204);
     }
     
-    /**
     @Test
     @Order(6)
     public void testFindAll() throws JsonMappingException, JsonProcessingException {
-        
-        var content = given()
+        var response = given()
                     .config(
                         RestAssuredConfig
                             .config()
@@ -212,15 +212,18 @@ public class BookControllerYamlTest extends AbstractIntegrationTest {
                                     .encodeContentTypeAs(TestsConfig.CONTENT_TYPE_YML, ContentType.TEXT)))
                     .spec(specification)
                 .contentType(TestsConfig.CONTENT_TYPE_YML)
-                    .queryParams("page", 0 , "limit", 5, "direction", "asc")
+                    //.queryParams("page", 0 , "limit", 5, "direction", "asc")
                     .when()
                     .get()
                 .then()
                     .statusCode(200)
                         .extract()
                         .body()
-                        .as((new TypeRef<List<BookVO>>() {}).getClass(), objectMapper);
-        
+                        .as(BookVO[].class, objectMapper); 
+
+
+        List<BookVO> content = Arrays.asList(response);
+
         BookVO foundBookOne = content.get(0);
         
         assertNotNull(foundBookOne.getId());
@@ -228,22 +231,21 @@ public class BookControllerYamlTest extends AbstractIntegrationTest {
         assertNotNull(foundBookOne.getAuthor());
         assertNotNull(foundBookOne.getPrice());
         assertTrue(foundBookOne.getId() > 0);
-        assertEquals("Big Data: como extrair volume, variedade, velocidade e valor da avalanche de informação cotidiana", foundBookOne.getTitle());
-        assertEquals("Viktor Mayer-Schonberger e Kenneth Kukier", foundBookOne.getAuthor());
-        assertEquals(54.00, foundBookOne.getPrice());
+        assertEquals("Working effectively with legacy code", foundBookOne.getTitle());
+        assertEquals("Michael C. Feathers", foundBookOne.getAuthor());
+        assertEquals(49.00, foundBookOne.getPrice());
         
-        BookVO foundBookFive = books.get(4);
+        BookVO foundBookFive = content.get(4);
         
         assertNotNull(foundBookFive.getId());
         assertNotNull(foundBookFive.getTitle());
         assertNotNull(foundBookFive.getAuthor());
         assertNotNull(foundBookFive.getPrice());
         assertTrue(foundBookFive.getId() > 0);
-        assertEquals("Domain Driven Design", foundBookFive.getTitle());
-        assertEquals("Eric Evans", foundBookFive.getAuthor());
-        assertEquals(92.00, foundBookFive.getPrice());
+        assertEquals("Code complete", foundBookFive.getTitle());
+        assertEquals("Steve McConnell", foundBookFive.getAuthor());
+        assertEquals(58.0, foundBookFive.getPrice());
     }
-    */
      
     private void mockBook() {
         book.setTitle("Docker Deep Dive");
