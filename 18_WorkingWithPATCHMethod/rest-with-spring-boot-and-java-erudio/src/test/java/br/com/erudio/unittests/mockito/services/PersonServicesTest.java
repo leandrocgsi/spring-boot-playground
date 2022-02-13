@@ -176,6 +176,25 @@ public class PersonServicesTest {
     }
 
     @Test
+    void disablePerson() {
+        Person person = input.mockEntity(1);
+        person.setId(1L);
+        person.setEnabled(false);
+
+        when(repository.findById(1L)).thenReturn(Optional.of(person));
+        var result = service.disablePerson(1L);
+
+        assertNotNull(result);
+        assertNotNull(result.getKey());
+        assertNotNull(result.getLinks());
+        assertTrue(result.toString().contains("links: [</api/person/v1/1>;rel=\"self\"]"));
+        assertEquals("Addres Test1", result.getAddress());
+        assertEquals("First Name Test1", result.getFirstName());
+        assertEquals("Last Name Test1", result.getLastName());
+        assertEquals("Female", result.getGender());
+    }
+    
+    @Test
     void testDelete() {
         Person person = input.mockEntity(1);
         person.setId(1L);

@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.erudio.controller.PersonController;
 import br.com.erudio.data.vo.v1.PersonVO;
@@ -64,6 +65,16 @@ public class PersonServices {
         personVO.add(linkTo(methodOn(PersonController.class).findById(personVO.getKey())).withSelfRel());
         return personVO;
     }    
+    
+    @Transactional
+    public PersonVO disablePerson(Long id) {
+        repository.disablePersons(id);          
+        var entity = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
+        PersonVO personVO = DozerConverter.parseObject(entity, PersonVO.class);
+        personVO.add(linkTo(methodOn(PersonController.class).findById(id)).withSelfRel());
+        return personVO;
+    }
     
     public void delete(Long id) {
         Person entity = repository.findById(id)
