@@ -23,19 +23,19 @@ jobs:
           cache: maven
       
       - name: Build REST with Spring Boot Erudio Jar
-        working-directory: ./99_MigratingToNewVersions
+        working-directory: ./21_DockerizingOurApp
         run: mvn clean package
 
       - name: Docker Build
-        working-directory: ./99_MigratingToNewVersions
-        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/rest-with-springboot-erudio:${{github.run_id}} .
+        working-directory: ./21_DockerizingOurApp
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/rest-with-springboot-and-java-erudio:${{github.run_id}} .
 
       - name: Push to Docker Hub Container Registry
         run: |
-          docker tag ${{ secrets.DOCKER_USERNAME }}/rest-with-springboot-erudio:${{github.run_id}} ${{ secrets.DOCKER_USERNAME }}/rest-with-springboot-erudio:latest
+          docker tag ${{ secrets.DOCKER_USERNAME }}/rest-with-springboot-and-java-erudio:${{github.run_id}} ${{ secrets.DOCKER_USERNAME }}/rest-with-springboot-and-java-erudio:latest
 
-          docker push ${{ secrets.DOCKER_USERNAME }}/rest-with-springboot-erudio:${{github.run_id}}
-          docker push ${{ secrets.DOCKER_USERNAME }}/rest-with-springboot-erudio:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/rest-with-springboot-and-java-erudio:${{github.run_id}}
+          docker push ${{ secrets.DOCKER_USERNAME }}/rest-with-springboot-and-java-erudio:latest
       
       #- name: Create folder
         #run: |
