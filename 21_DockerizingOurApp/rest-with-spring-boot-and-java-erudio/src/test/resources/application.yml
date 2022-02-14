@@ -1,5 +1,5 @@
 file:
-    upload-dir: /Code/SpringBootPlayground/UploadDir
+    upload-dir: /home/runner/work/SpringBootPlayground/SpringBootPlayground/UploadDir
 security:
     jwt:
         token:
