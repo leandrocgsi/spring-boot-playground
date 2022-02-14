@@ -5,8 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.List;
-
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -24,8 +22,8 @@ import br.com.erudio.integrationtests.testcontainers.AbstractIntegrationTest;
 import br.com.erudio.integrationtests.vo.AccountCredentialsVO;
 import br.com.erudio.integrationtests.vo.PersonVO;
 import br.com.erudio.integrationtests.vo.TokenVO;
+import br.com.erudio.integrationtests.vo.wrappers.WrapperPersonVO;
 import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.common.mapper.TypeRef;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
@@ -220,41 +218,45 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
     public void testFindAll() throws JsonMappingException, JsonProcessingException {
         var content = given().spec(specification)
                 .contentType(TestsConfig.CONTENT_TYPE_XML)
-                    .when()
-                    .get()
-                .then()
-                    .statusCode(200)
-                .extract()
+                .queryParams("page", 6 , "limit", 10, "direction", "asc")
+                .when()
+                .get()
+            .then()
+                .statusCode(200)
+                    .extract()
                     .body()
-                .as(new TypeRef<List<PersonVO>>() {}); 
+                        .asString();
         
-        PersonVO foundPersonOne = content.get(0); 
+        WrapperPersonVO wrapper = objectMapper.readValue(content, WrapperPersonVO.class);
+        var people = wrapper.getEmbedded().getPersons();
+    
+        PersonVO foundPersonOne = people.get(0);        
         
         assertNotNull(foundPersonOne.getId());
         assertNotNull(foundPersonOne.getFirstName());
         assertNotNull(foundPersonOne.getLastName());
         assertNotNull(foundPersonOne.getAddress());
         assertNotNull(foundPersonOne.getGender());
-        assertEquals(1, foundPersonOne.getId());
-        assertEquals("Leandro", foundPersonOne.getFirstName());
-        assertEquals("Costa", foundPersonOne.getLastName());
-        assertEquals("Uberlândia - Minas Gerais - Brasil", foundPersonOne.getAddress());
-        assertEquals("Male", foundPersonOne.getGender());
+        assertEquals(964, foundPersonOne.getId());
+        assertEquals("Ardath", foundPersonOne.getFirstName());
+        assertEquals("Leckenby", foundPersonOne.getLastName());
+        assertEquals("9 Chive Trail", foundPersonOne.getAddress());
+        assertEquals("Female", foundPersonOne.getGender());
         assertEquals(true, foundPersonOne.getEnabled());
                 
-        PersonVO foundPersonSix = content.get(5);        
+        PersonVO foundPersonSeven = people.get(6);        
 
-        assertNotNull(foundPersonSix.getId());
-        assertNotNull(foundPersonSix.getFirstName());
-        assertNotNull(foundPersonSix.getLastName());
-        assertNotNull(foundPersonSix.getAddress());
-        assertNotNull(foundPersonSix.getGender());
-        assertEquals(9, foundPersonSix.getId());
-        assertEquals("Marcos", foundPersonSix.getFirstName());
-        assertEquals("Paulo", foundPersonSix.getLastName());
-        assertEquals("Patos de Minas - Minas Gerais - Brasil", foundPersonSix.getAddress());
-        assertEquals("Male", foundPersonSix.getGender());
-        assertEquals(true, foundPersonSix.getEnabled());
+        assertNotNull(foundPersonSeven.getId());
+        assertNotNull(foundPersonSeven.getFirstName());
+        assertNotNull(foundPersonSeven.getLastName());
+        assertNotNull(foundPersonSeven.getAddress());
+        assertNotNull(foundPersonSeven.getGender());
+        assertEquals(189, foundPersonSeven.getId());
+        assertEquals("Arlena", foundPersonSeven.getFirstName());
+        assertEquals("Wagenen", foundPersonSeven.getLastName());
+        assertEquals("1 Spaight Parkway", foundPersonSeven.getAddress());
+        assertEquals("Female", foundPersonSeven.getGender());
+        assertEquals(false, foundPersonSeven.getEnabled());
     }
         
     @Test

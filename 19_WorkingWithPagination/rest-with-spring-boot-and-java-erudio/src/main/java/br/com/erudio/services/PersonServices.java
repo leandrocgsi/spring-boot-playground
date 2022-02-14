@@ -3,9 +3,10 @@ package br.com.erudio.services;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.Link;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,15 +24,44 @@ public class PersonServices {
     @Autowired
     PersonRepository repository;
         
-    public List<PersonVO> findAll() {
-        List<PersonVO> persons = DozerConverter.parseListObjects(repository.findAll(), PersonVO.class);
+    public CollectionModel<PersonVO> findAll(Pageable pageable) {
+        var page = repository.findAll(pageable);
+        var persons = page.map(this::convertToPersonVO);
+        
         persons
             .stream()
             .forEach(p -> p.add(
-                linkTo(methodOn(PersonController.class).findById(p.getKey())).withSelfRel()
-            )
-        );
-        return persons;
+                        linkTo(methodOn(PersonController.class).findById(p.getKey())).withSelfRel()
+                    )
+            );
+        
+        Link findAllLink = linkTo(
+          methodOn(PersonController.class).findAll(pageable.getPageNumber(),
+                                                   pageable.getPageSize(),
+                                                   "asc")).withSelfRel();
+        
+        return CollectionModel.of(persons, findAllLink);
+    }    
+    
+    public CollectionModel<PersonVO>  findPersonByName(String firstName, Pageable pageable) {
+        var page = repository.findPersonByName(firstName, pageable);
+        var persons = page.map(this::convertToPersonVO);
+        persons
+        .stream()
+        .forEach(p -> p.add(
+                            linkTo(methodOn(PersonController.class).findById(p.getKey())).withSelfRel()
+                    )
+                );
+        
+        Link findAllLink = linkTo(
+          methodOn(PersonController.class)
+              .findPersonByName(firstName,
+                    pageable.getPageNumber(),
+                    pageable.getPageSize(),
+                    "asc")
+                ).withSelfRel();
+        
+        return CollectionModel.of(persons, findAllLink);
     }    
     
     public PersonVO findById(Long id) {
@@ -75,11 +105,14 @@ public class PersonServices {
         personVO.add(linkTo(methodOn(PersonController.class).findById(id)).withSelfRel());
         return personVO;
     }
-    
+
     public void delete(Long id) {
         Person entity = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
         repository.delete(entity);
     }
 
+    private PersonVO convertToPersonVO(Person entity) {
+        return DozerConverter.parseObject(entity, PersonVO.class);
+    }
 }
