@@ -6,8 +6,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,6 +20,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 
 import br.com.erudio.data.vo.v1.BookVO;
 import br.com.erudio.exception.RequiredObjectIsNullException;
@@ -47,8 +55,14 @@ public class BookServicesTest {
     @Test
     void testFindAll() {
         List<Book> list = input.mockEntityList();
-        when(repository.findAll()).thenReturn(list);
-        List<BookVO> books = service.findAll();
+        Page<Book> page = new PageImpl<Book>(list);
+        
+        Pageable pageable = PageRequest.of(0, 12, Sort.by(Direction.ASC, "firstName"));
+        
+        when(repository.findAll(pageable)).thenReturn(page);
+         
+        Collection<BookVO> searchPage = service.findAll(pageable).getContent();
+        List<BookVO> books = searchPage.stream().collect(Collectors.toList());
         
         assertNotNull(books);
         assertEquals(14, books.size());

@@ -1,4 +1,4 @@
-package br.com.erudio.unittests.mockito.repository;
+package br.com.erudio.integrationtests.repository;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;

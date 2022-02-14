@@ -260,7 +260,7 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
     }
         
     @Test
-    @Order(9)
+    @Order(8)
     public void testFindAllWithoutToken() throws JsonMappingException, JsonProcessingException {
 
         RequestSpecification specificationWithoutToken =
@@ -278,6 +278,39 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
                 .get()
                 .then()
                 .statusCode(403);
+    }
+
+    @Test
+    @Order(9)
+    public void testFindPersonByName() throws JsonMappingException, JsonProcessingException {
+        var content = given().spec(specification)
+                .contentType(TestsConfig.CONTENT_TYPE_XML)
+                    .pathParam("firstName", "Leandro")
+                    .queryParams("page", 0 , "limit", 5, "direction", "asc")
+                    .when()
+                    .get("findPersonByName/{firstName}")
+                .then()
+                    .statusCode(200)
+                        .extract()
+                        .body()
+                            .asString();    
+        
+        WrapperPersonVO wrapper = objectMapper.readValue(content, WrapperPersonVO.class);
+        var persons = wrapper.getEmbedded().getPersons();
+
+        PersonVO foundPersonOne = persons.get(0);        
+
+        assertNotNull(foundPersonOne.getId());
+        assertNotNull(foundPersonOne.getFirstName());
+        assertNotNull(foundPersonOne.getLastName());
+        assertNotNull(foundPersonOne.getAddress());
+        assertNotNull(foundPersonOne.getGender());
+        assertEquals(1, foundPersonOne.getId());
+        assertEquals("Leandro", foundPersonOne.getFirstName());
+        assertEquals("Costa", foundPersonOne.getLastName());
+        assertEquals("Uberlândia - Minas Gerais - Brasil", foundPersonOne.getAddress());
+        assertEquals("Male", foundPersonOne.getGender());
+        assertEquals(true, foundPersonOne.getEnabled());
     }
 
     private void mockPerson() {

@@ -3,9 +3,10 @@ package br.com.erudio.services;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.Link;
 import org.springframework.stereotype.Service;
 
 import br.com.erudio.controller.BookController;
@@ -22,16 +23,24 @@ public class BookServices {
     @Autowired
     BookRepository repository;
         
-    public List<BookVO> findAll() {
-        List<BookVO> books = DozerConverter.parseListObjects(repository.findAll(), BookVO.class);
+    public CollectionModel<BookVO> findAll(Pageable pageable) {
+        var page = repository.findAll(pageable);
+        var books = DozerConverter.parsePageOfObjects(page, BookVO.class);
+        
         books
             .stream()
             .forEach(p -> p.add(
-                linkTo(methodOn(BookController.class).findById(p.getKey())).withSelfRel()
-            )
-        );
-        return books;
-    }    
+                        linkTo(methodOn(BookController.class).findById(p.getKey())).withSelfRel()
+                    )
+            );
+        
+        Link findAllLink = linkTo(
+          methodOn(BookController.class).findAll(pageable.getPageNumber(),
+                                                   pageable.getPageSize(),
+                                                   "asc")).withSelfRel();
+        
+        return CollectionModel.of(books, findAllLink);
+    }     
     
     public BookVO findById(Long id) {
 

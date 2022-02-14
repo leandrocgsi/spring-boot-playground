@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -101,6 +102,32 @@ public class PersonServicesTest {
         assertEquals("Female", personSeven.getGender());
     }
 
+    @Test
+    void testFindPersonByName() {
+        Person person = input.mockEntity(1);
+        person.setId(1L);
+        List<Person> list = new ArrayList<Person>();
+        list.add(person);
+        
+        Pageable pageable = PageRequest.of(0, 12, Sort.by(Direction.ASC, "firstName"));
+        Page<Person> page = new PageImpl<Person>(list);
+        
+        when(repository.findPersonByName("Person name", pageable)).thenReturn(page);
+        
+        Collection<PersonVO> searchPage = service.findPersonByName("Person name", pageable).getContent();
+        List<PersonVO> persons = searchPage.stream().collect(Collectors.toList());
+        
+        PersonVO result = persons.get(0);
+        
+        assertNotNull(result);
+        assertNotNull(result.getKey());
+        assertEquals("Addres Test1", result.getAddress());
+        assertEquals("First Name Test1", result.getFirstName());
+        assertEquals("Last Name Test1", result.getLastName());
+        assertEquals("Female", result.getGender());
+        assertTrue(result.getEnabled());
+    }
+    
     @Test
     void testFindById() {
         Person person = input.mockEntity(1);

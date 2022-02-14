@@ -159,7 +159,7 @@ public class PersonControllerYamlTest extends AbstractIntegrationTest {
 
     @Test
     @Order(4)
-    void testDisablePerson() throws JsonMappingException, JsonProcessingException {
+    public void testDisablePerson() throws JsonMappingException, JsonProcessingException {
         person.setEnabled(false);
         
         PersonVO patchedPerson = given()
@@ -314,11 +314,49 @@ public class PersonControllerYamlTest extends AbstractIntegrationTest {
                                 .encodeContentTypeAs(TestsConfig.CONTENT_TYPE_YML, ContentType.TEXT)))
                 .spec(specificationWithoutToken)
                 .contentType(TestsConfig.CONTENT_TYPE_YML)
-                //.queryParams("page", 6 , "limit", 10, "direction", "asc")
+                .queryParams("page", 6 , "limit", 10, "direction", "asc")
                 .when()
                 .get()
                 .then()
                 .statusCode(403);
+    }
+
+    @Test
+    @Order(9)
+    void testFindPersonByName() throws JsonMappingException, JsonProcessingException {
+        WrapperPersonVO wrapper = given()
+                    .config(
+                        RestAssuredConfig
+                            .config()
+                            .encoderConfig(EncoderConfig.encoderConfig()
+                                    .encodeContentTypeAs(TestsConfig.CONTENT_TYPE_YML, ContentType.TEXT)))
+                    .spec(specification)
+                .contentType(TestsConfig.CONTENT_TYPE_YML)
+                    .pathParam("firstName", "Leandro")
+                    .queryParams("page", 0 , "limit", 5, "direction", "asc")
+                    .when()
+                    .get("findPersonByName/{firstName}")
+                .then()
+                    .statusCode(200)
+                        .extract()
+                        .body()
+                            .as(WrapperPersonVO.class, objectMapper);    
+        
+        var persons = wrapper.getEmbedded().getPersons();
+
+        PersonVO foundPersonOne = persons.get(0);        
+
+        assertNotNull(foundPersonOne.getId());
+        assertNotNull(foundPersonOne.getFirstName());
+        assertNotNull(foundPersonOne.getLastName());
+        assertNotNull(foundPersonOne.getAddress());
+        assertNotNull(foundPersonOne.getGender());
+        assertEquals(1, foundPersonOne.getId());
+        assertEquals("Leandro", foundPersonOne.getFirstName());
+        assertEquals("Costa", foundPersonOne.getLastName());
+        assertEquals("Uberlândia - Minas Gerais - Brasil", foundPersonOne.getAddress());
+        assertEquals("Male", foundPersonOne.getGender());
+        assertEquals(true, foundPersonOne.getEnabled());
     }
 
     private void mockPerson() {

@@ -26,7 +26,7 @@ public class PersonServices {
         
     public CollectionModel<PersonVO> findAll(Pageable pageable) {
         var page = repository.findAll(pageable);
-        var persons = page.map(this::convertToPersonVO);
+        var persons = DozerConverter.parsePageOfObjects(page, PersonVO.class);
         
         persons
             .stream()
@@ -45,7 +45,7 @@ public class PersonServices {
     
     public CollectionModel<PersonVO>  findPersonByName(String firstName, Pageable pageable) {
         var page = repository.findPersonByName(firstName, pageable);
-        var persons = page.map(this::convertToPersonVO);
+        var persons = DozerConverter.parsePageOfObjects(page, PersonVO.class);
         persons
         .stream()
         .forEach(p -> p.add(
@@ -110,9 +110,5 @@ public class PersonServices {
         Person entity = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
         repository.delete(entity);
-    }
-
-    private PersonVO convertToPersonVO(Person entity) {
-        return DozerConverter.parseObject(entity, PersonVO.class);
     }
 }
