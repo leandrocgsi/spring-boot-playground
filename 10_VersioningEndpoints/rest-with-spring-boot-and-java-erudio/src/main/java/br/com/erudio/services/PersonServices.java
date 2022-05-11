@@ -9,8 +9,8 @@ import br.com.erudio.data.model.Person;
 import br.com.erudio.data.vo.v1.PersonVO;
 import br.com.erudio.data.vo.v2.PersonVOV2;
 import br.com.erudio.exception.ResourceNotFoundException;
-import br.com.erudio.mapper.DozerConverter;
-import br.com.erudio.mapper.custom.PersonConverter;
+import br.com.erudio.mapper.DozerMapper;
+import br.com.erudio.mapper.custom.PersonMapper;
 import br.com.erudio.repository.PersonRepository;
 
 @Service
@@ -20,11 +20,11 @@ public class PersonServices {
     PersonRepository repository;
     
     @Autowired
-    PersonConverter converter;
+    PersonMapper converter;
         
     public PersonVO create(PersonVO person) {
-        var entity = DozerConverter.parseObject(person, Person.class);
-        var vo = DozerConverter.parseObject(repository.save(entity), PersonVO.class);
+        var entity = DozerMapper.parseObject(person, Person.class);
+        var vo = DozerMapper.parseObject(repository.save(entity), PersonVO.class);
         return vo;
     }
     
@@ -35,13 +35,13 @@ public class PersonServices {
     }
     
     public List<PersonVO> findAll() {
-        return DozerConverter.parseListObjects(repository.findAll(), PersonVO.class);
+        return DozerMapper.parseListObjects(repository.findAll(), PersonVO.class);
     }    
     
     public PersonVO findById(Long id) {
         var entity = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
-        return DozerConverter.parseObject(entity, PersonVO.class);
+        return DozerMapper.parseObject(entity, PersonVO.class);
     }
         
     public PersonVO update(PersonVO person) {
@@ -53,7 +53,7 @@ public class PersonServices {
         entity.setAddress(person.getAddress());
         entity.setGender(person.getGender());
         
-        var vo = DozerConverter.parseObject(repository.save(entity), PersonVO.class);
+        var vo = DozerMapper.parseObject(repository.save(entity), PersonVO.class);
         return vo;
     }    
     

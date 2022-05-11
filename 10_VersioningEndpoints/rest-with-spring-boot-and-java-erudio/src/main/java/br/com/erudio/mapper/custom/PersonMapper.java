@@ -8,7 +8,7 @@ import br.com.erudio.data.model.Person;
 import br.com.erudio.data.vo.v2.PersonVOV2;
 
 @Service
-public class PersonConverter {
+public class PersonMapper {
     
     public PersonVOV2 convertEntityToVO(Person person) {
         PersonVOV2 vo = new PersonVOV2();
