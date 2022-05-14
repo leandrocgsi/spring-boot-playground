@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.erudio.data.vo.v1.PersonVO;
 import br.com.erudio.services.PersonServices;
+import br.com.erudio.util.MediaType;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.links.Link;
 import io.swagger.v3.oas.annotations.links.LinkParameter;
@@ -35,7 +36,7 @@ public class PersonController {
     @Autowired
     private PersonServices service;
     
-    @GetMapping(produces = { "application/json", "application/xml", "application/x-yaml" })
+    @GetMapping(produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML })
     @Operation(summary = "Finds all People", description = "Finds all People.",
                tags = { "People" },
                responses = {
@@ -60,7 +61,7 @@ public class PersonController {
         return service.findAll();
     }    
     
-    @GetMapping(value = "/{id}", produces = { "application/json", "application/xml", "application/x-yaml" })
+    @GetMapping(value = "/{id}", produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML })
     @Operation(
                summary = "Finds a person",
                description = "Find a specific person by your ID.",
@@ -84,8 +85,8 @@ public class PersonController {
         return service.findById(id);
     }    
     
-    @PostMapping(produces = { "application/json", "application/xml", "application/x-yaml" }, 
-            consumes = { "application/json", "application/xml", "application/x-yaml" })
+    @PostMapping(produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML }, 
+            consumes = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML })
     @Operation(
                summary = "Adds a new person",
                description = "Adds a new person by passing in a JSON, XML or YML representation of the person.",
@@ -106,8 +107,8 @@ public class PersonController {
         return service.create(person);
     }
 
-    @PutMapping(produces = { "application/json", "application/xml", "application/x-yaml" }, 
-            consumes = { "application/json", "application/xml", "application/x-yaml" })
+    @PutMapping(produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML }, 
+            consumes = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML })
     @Operation(
                summary = "Updates a person's information",
                description = "Updates a person's information by passing in a JSON, XML or YML representation of the updated person.",
