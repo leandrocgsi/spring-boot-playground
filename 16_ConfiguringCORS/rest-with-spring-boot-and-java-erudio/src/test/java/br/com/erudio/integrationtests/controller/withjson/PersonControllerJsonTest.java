@@ -17,7 +17,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import br.com.erudio.configs.TestsConfig;
+import br.com.erudio.configs.TestConfigs;
 import br.com.erudio.integrationtests.testcontainers.AbstractIntegrationTest;
 import br.com.erudio.integrationtests.vo.PersonVO;
 import io.restassured.builder.RequestSpecBuilder;
@@ -50,15 +50,15 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
         
         specification =
                 new RequestSpecBuilder()
-                    .addHeader(TestsConfig.HEADER_PARAM_ORIGIN, "https://erudio.com.br")
+                    .addHeader(TestConfigs.HEADER_PARAM_ORIGIN, "https://erudio.com.br")
                     .setBasePath("/api/person/v1")
-                    .setPort(TestsConfig.SERVER_PORT)
+                    .setPort(TestConfigs.SERVER_PORT)
                     .addFilter(new RequestLoggingFilter(LogDetail.ALL))
                     .addFilter(new ResponseLoggingFilter(LogDetail.ALL))
                     .build();
 
         var content = given().spec(specification)
-                .contentType(TestsConfig.CONTENT_TYPE_JSON)
+                .contentType(TestConfigs.CONTENT_TYPE_JSON)
                     .body(person)
                     .when()
                     .post()
@@ -90,15 +90,15 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
         
         specification =
                 new RequestSpecBuilder()
-                .addHeader(TestsConfig.HEADER_PARAM_ORIGIN, "https://semeru.com.br")
+                .addHeader(TestConfigs.HEADER_PARAM_ORIGIN, "https://semeru.com.br")
                 .setBasePath("/api/person/v1")
-                .setPort(TestsConfig.SERVER_PORT)
+                .setPort(TestConfigs.SERVER_PORT)
                 .addFilter(new RequestLoggingFilter(LogDetail.ALL))
                 .addFilter(new ResponseLoggingFilter(LogDetail.ALL))
                 .build();
         
         var content = given().spec(specification)
-                .contentType(TestsConfig.CONTENT_TYPE_JSON)
+                .contentType(TestConfigs.CONTENT_TYPE_JSON)
                 .body(person)
                 .when()
                 .post()
@@ -119,15 +119,15 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
         
         specification =
                 new RequestSpecBuilder()
-                    .addHeader(TestsConfig.HEADER_PARAM_ORIGIN, "http://localhost:8080")
+                    .addHeader(TestConfigs.HEADER_PARAM_ORIGIN, "http://localhost:8080")
                     .setBasePath("/api/person/v1")
-                    .setPort(TestsConfig.SERVER_PORT)
+                    .setPort(TestConfigs.SERVER_PORT)
                     .addFilter(new RequestLoggingFilter(LogDetail.ALL))
                     .addFilter(new ResponseLoggingFilter(LogDetail.ALL))
                     .build();
         
         var content = given().spec(specification)
-                .contentType(TestsConfig.CONTENT_TYPE_JSON)
+                .contentType(TestConfigs.CONTENT_TYPE_JSON)
                     .pathParam("id", person.getId())
                     .when()
                     .get("{id}")
@@ -157,15 +157,15 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
         
         specification =
                 new RequestSpecBuilder()
-                .addHeader(TestsConfig.HEADER_PARAM_ORIGIN, "https://semeru.com.br")
+                .addHeader(TestConfigs.HEADER_PARAM_ORIGIN, "https://semeru.com.br")
                 .setBasePath("/api/person/v1")
-                .setPort(TestsConfig.SERVER_PORT)
+                .setPort(TestConfigs.SERVER_PORT)
                 .addFilter(new RequestLoggingFilter(LogDetail.ALL))
                 .addFilter(new ResponseLoggingFilter(LogDetail.ALL))
                 .build();
         
         var content = given().spec(specification)
-                .contentType(TestsConfig.CONTENT_TYPE_JSON)
+                .contentType(TestConfigs.CONTENT_TYPE_JSON)
                 .pathParam("id", person.getId())
                 .when()
                 .get("{id}")
