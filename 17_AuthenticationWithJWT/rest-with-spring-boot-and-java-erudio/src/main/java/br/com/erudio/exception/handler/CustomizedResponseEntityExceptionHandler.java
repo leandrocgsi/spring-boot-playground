@@ -45,7 +45,7 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
                         new Date(),
                         ex.getMessage(),
                         request.getDescription(false));
-        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.FORBIDDEN);
     }
 
 }

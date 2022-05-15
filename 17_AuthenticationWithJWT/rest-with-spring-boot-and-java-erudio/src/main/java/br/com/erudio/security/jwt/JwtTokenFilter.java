@@ -36,5 +36,4 @@ public class JwtTokenFilter extends GenericFilterBean {
         }
         chain.doFilter(request, response);
     }
-
 }
