@@ -17,7 +17,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import br.com.erudio.configs.TestsConfig;
+import br.com.erudio.configs.TestConfigs;
 import br.com.erudio.data.vo.v1.security.TokenVO;
 import br.com.erudio.integrationtests.testcontainers.AbstractIntegrationTest;
 import br.com.erudio.integrationtests.vo.AccountCredentialsVO;
@@ -55,8 +55,8 @@ public class PersonControllerCorsWithJsonTest extends AbstractIntegrationTest {
         var token =
                 given()
                     .basePath("/auth/signin")
-                    .port(TestsConfig.SERVER_PORT)
-                    .contentType(TestsConfig.CONTENT_TYPE_JSON)
+                    .port(TestConfigs.SERVER_PORT)
+                    .contentType(TestConfigs.CONTENT_TYPE_JSON)
                     .body(user)
                     .when()
                         .post()
@@ -69,9 +69,9 @@ public class PersonControllerCorsWithJsonTest extends AbstractIntegrationTest {
 
             specification =
                 new RequestSpecBuilder()
-                    .addHeader(TestsConfig.HEADER_PARAM_AUTHORIZATION, "Bearer " + token)
+                    .addHeader(TestConfigs.HEADER_PARAM_AUTHORIZATION, "Bearer " + token)
                     .setBasePath("/api/person/v1")
-                    .setPort(TestsConfig.SERVER_PORT)
+                    .setPort(TestConfigs.SERVER_PORT)
                     .addFilter(new RequestLoggingFilter(LogDetail.ALL))
                     .addFilter(new ResponseLoggingFilter(LogDetail.ALL))
                     .build();
@@ -83,8 +83,8 @@ public class PersonControllerCorsWithJsonTest extends AbstractIntegrationTest {
         mockPerson();
         
         var content = given().spec(specification)
-                .contentType(TestsConfig.CONTENT_TYPE_JSON)
-                    .header(TestsConfig.HEADER_PARAM_ORIGIN, "https://erudio.com.br")
+                .contentType(TestConfigs.CONTENT_TYPE_JSON)
+                    .header(TestConfigs.HEADER_PARAM_ORIGIN, "https://erudio.com.br")
                     .body(person)
                     .when()
                     .post()
@@ -115,8 +115,8 @@ public class PersonControllerCorsWithJsonTest extends AbstractIntegrationTest {
         mockPerson();
         
         var content = given().spec(specification)
-                .contentType(TestsConfig.CONTENT_TYPE_JSON)
-                .header(TestsConfig.HEADER_PARAM_ORIGIN, "https://semeru.com.br")
+                .contentType(TestConfigs.CONTENT_TYPE_JSON)
+                .header(TestConfigs.HEADER_PARAM_ORIGIN, "https://semeru.com.br")
                 .body(person)
                 .when()
                 .post()
@@ -136,8 +136,8 @@ public class PersonControllerCorsWithJsonTest extends AbstractIntegrationTest {
     void testFindById() throws JsonMappingException, JsonProcessingException {
 
         var content = given().spec(specification)
-                .contentType(TestsConfig.CONTENT_TYPE_JSON)
-                .header(TestsConfig.HEADER_PARAM_ORIGIN, "http://localhost:8080")
+                .contentType(TestConfigs.CONTENT_TYPE_JSON)
+                .header(TestConfigs.HEADER_PARAM_ORIGIN, "http://localhost:8080")
                     .pathParam("id", person.getId())
                     .when()
                     .get("{id}")
@@ -166,8 +166,8 @@ public class PersonControllerCorsWithJsonTest extends AbstractIntegrationTest {
     void testFindByIdWithWrongOrigin() throws JsonMappingException, JsonProcessingException {
         
         var content = given().spec(specification)
-                .contentType(TestsConfig.CONTENT_TYPE_JSON)
-                .header(TestsConfig.HEADER_PARAM_ORIGIN, "https://semeru.com.br")
+                .contentType(TestConfigs.CONTENT_TYPE_JSON)
+                .header(TestConfigs.HEADER_PARAM_ORIGIN, "https://semeru.com.br")
                 .pathParam("id", person.getId())
                 .when()
                 .get("{id}")

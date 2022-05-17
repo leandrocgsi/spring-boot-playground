@@ -20,7 +20,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import br.com.erudio.configs.TestsConfig;
+import br.com.erudio.configs.TestConfigs;
 import br.com.erudio.data.vo.v1.security.AccountCredentialsVO;
 import br.com.erudio.integrationtests.testcontainers.AbstractIntegrationTest;
 import br.com.erudio.integrationtests.vo.BookVO;
@@ -59,8 +59,8 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
         var token =
                 given()
                     .basePath("/auth/signin")
-                    .port(TestsConfig.SERVER_PORT)
-                    .contentType(TestsConfig.CONTENT_TYPE_JSON)
+                    .port(TestConfigs.SERVER_PORT)
+                    .contentType(TestConfigs.CONTENT_TYPE_JSON)
                     .body(user)
                     .when()
                         .post()
@@ -73,9 +73,9 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
 
             specification =
                 new RequestSpecBuilder()
-                    .addHeader(TestsConfig.HEADER_PARAM_AUTHORIZATION, "Bearer " + token)
+                    .addHeader(TestConfigs.HEADER_PARAM_AUTHORIZATION, "Bearer " + token)
                     .setBasePath("/api/book/v1")
-                    .setPort(TestsConfig.SERVER_PORT)
+                    .setPort(TestConfigs.SERVER_PORT)
                     .addFilter(new RequestLoggingFilter(LogDetail.ALL))
                     .addFilter(new ResponseLoggingFilter(LogDetail.ALL))
                     .build();
@@ -88,7 +88,7 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
         mockBook();
 
         var content = given().spec(specification)
-                .contentType(TestsConfig.CONTENT_TYPE_JSON)
+                .contentType(TestConfigs.CONTENT_TYPE_JSON)
                     .body(book)
                     .when()
                     .post()
@@ -117,7 +117,7 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
         book.setTitle("Docker Deep Dive - Updated");
 
         var content = given().spec(specification)
-                .contentType(TestsConfig.CONTENT_TYPE_JSON)
+                .contentType(TestConfigs.CONTENT_TYPE_JSON)
                     .body(book)
                     .when()
                     .put()
@@ -143,7 +143,7 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
     @Order(4)
     public void testFindById() throws JsonMappingException, JsonProcessingException {
         var content = given().spec(specification)
-                .contentType(TestsConfig.CONTENT_TYPE_JSON)
+                .contentType(TestConfigs.CONTENT_TYPE_JSON)
                     .pathParam("id", book.getId())
                     .when()
                     .get("{id}")
@@ -169,7 +169,7 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
     @Order(5)
     public void testDelete() {
         given().spec(specification)
-                .contentType(TestsConfig.CONTENT_TYPE_JSON)
+                .contentType(TestConfigs.CONTENT_TYPE_JSON)
                     .pathParam("id", book.getId())
                     .when()
                     .delete("{id}")
@@ -182,7 +182,7 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
     public void testFindAll() throws JsonMappingException, JsonProcessingException {
 
         var content = given().spec(specification)
-                .contentType(TestsConfig.CONTENT_TYPE_JSON)
+                .contentType(TestConfigs.CONTENT_TYPE_JSON)
                     .queryParams("page", 0 , "limit", 5, "direction", "asc")
                     .when()
                     .get()

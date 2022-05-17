@@ -18,7 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
-import br.com.erudio.configs.TestsConfig;
+import br.com.erudio.configs.TestConfigs;
 import br.com.erudio.integrationtests.controller.withyaml.mapper.YMLMapper;
 import br.com.erudio.integrationtests.testcontainers.AbstractIntegrationTest;
 import br.com.erudio.integrationtests.vo.AccountCredentialsVO;
@@ -62,10 +62,10 @@ public class PersonControllerYamlTest extends AbstractIntegrationTest {
                         RestAssuredConfig
                             .config()
                             .encoderConfig(EncoderConfig.encoderConfig()
-                                    .encodeContentTypeAs(TestsConfig.CONTENT_TYPE_YML, ContentType.TEXT)))
+                                    .encodeContentTypeAs(TestConfigs.CONTENT_TYPE_YML, ContentType.TEXT)))
                     .basePath("/auth/signin")
-                    .port(TestsConfig.SERVER_PORT)
-                    .contentType(TestsConfig.CONTENT_TYPE_YML)
+                    .port(TestConfigs.SERVER_PORT)
+                    .contentType(TestConfigs.CONTENT_TYPE_YML)
                     .body(user, objectMapper)
                     .when()
                         .post()
@@ -78,9 +78,9 @@ public class PersonControllerYamlTest extends AbstractIntegrationTest {
 
             specification =
                 new RequestSpecBuilder()
-                    .addHeader(TestsConfig.HEADER_PARAM_AUTHORIZATION, "Bearer " + token)
+                    .addHeader(TestConfigs.HEADER_PARAM_AUTHORIZATION, "Bearer " + token)
                     .setBasePath("/api/person/v1")
-                    .setPort(TestsConfig.SERVER_PORT)
+                    .setPort(TestConfigs.SERVER_PORT)
                     .addFilter(new RequestLoggingFilter(LogDetail.ALL))
                     .addFilter(new ResponseLoggingFilter(LogDetail.ALL))
                     .build();
@@ -96,9 +96,9 @@ public class PersonControllerYamlTest extends AbstractIntegrationTest {
                         RestAssuredConfig
                             .config()
                             .encoderConfig(EncoderConfig.encoderConfig()
-                                    .encodeContentTypeAs(TestsConfig.CONTENT_TYPE_YML, ContentType.TEXT)))
+                                    .encodeContentTypeAs(TestConfigs.CONTENT_TYPE_YML, ContentType.TEXT)))
                     .spec(specification)
-                .contentType(TestsConfig.CONTENT_TYPE_YML)
+                .contentType(TestConfigs.CONTENT_TYPE_YML)
                     .body(person, objectMapper)
                     .when()
                     .post()
@@ -134,9 +134,9 @@ public class PersonControllerYamlTest extends AbstractIntegrationTest {
                         RestAssuredConfig
                             .config()
                             .encoderConfig(EncoderConfig.encoderConfig()
-                                    .encodeContentTypeAs(TestsConfig.CONTENT_TYPE_YML, ContentType.TEXT)))
+                                    .encodeContentTypeAs(TestConfigs.CONTENT_TYPE_YML, ContentType.TEXT)))
                     .spec(specification)
-                .contentType(TestsConfig.CONTENT_TYPE_YML)
+                .contentType(TestConfigs.CONTENT_TYPE_YML)
                     .body(person, objectMapper)
                     .when()
                     .post()
@@ -169,9 +169,9 @@ public class PersonControllerYamlTest extends AbstractIntegrationTest {
                         RestAssuredConfig
                             .config()
                             .encoderConfig(EncoderConfig.encoderConfig()
-                                    .encodeContentTypeAs(TestsConfig.CONTENT_TYPE_YML, ContentType.TEXT)))
+                                    .encodeContentTypeAs(TestConfigs.CONTENT_TYPE_YML, ContentType.TEXT)))
                     .spec(specification)
-                .contentType(TestsConfig.CONTENT_TYPE_YML)
+                .contentType(TestConfigs.CONTENT_TYPE_YML)
                     .pathParam("id", person.getId())
                     .when()
                     .patch("{id}")
@@ -202,9 +202,9 @@ public class PersonControllerYamlTest extends AbstractIntegrationTest {
                         RestAssuredConfig
                             .config()
                             .encoderConfig(EncoderConfig.encoderConfig()
-                                    .encodeContentTypeAs(TestsConfig.CONTENT_TYPE_YML, ContentType.TEXT)))
+                                    .encodeContentTypeAs(TestConfigs.CONTENT_TYPE_YML, ContentType.TEXT)))
                     .spec(specification)
-                .contentType(TestsConfig.CONTENT_TYPE_YML)
+                .contentType(TestConfigs.CONTENT_TYPE_YML)
                     .pathParam("id", person.getId())
                     .when()
                     .get("{id}")
@@ -235,9 +235,9 @@ public class PersonControllerYamlTest extends AbstractIntegrationTest {
                 RestAssuredConfig
                     .config()
                     .encoderConfig(EncoderConfig.encoderConfig()
-                            .encodeContentTypeAs(TestsConfig.CONTENT_TYPE_YML, ContentType.TEXT)))
+                            .encodeContentTypeAs(TestConfigs.CONTENT_TYPE_YML, ContentType.TEXT)))
             .spec(specification)
-        .contentType(TestsConfig.CONTENT_TYPE_YML)
+        .contentType(TestConfigs.CONTENT_TYPE_YML)
             .pathParam("id", person.getId())
             .when()
             .delete("{id}")
@@ -253,9 +253,9 @@ public class PersonControllerYamlTest extends AbstractIntegrationTest {
                         RestAssuredConfig
                             .config()
                             .encoderConfig(EncoderConfig.encoderConfig()
-                                    .encodeContentTypeAs(TestsConfig.CONTENT_TYPE_YML, ContentType.TEXT)))
+                                    .encodeContentTypeAs(TestConfigs.CONTENT_TYPE_YML, ContentType.TEXT)))
                     .spec(specification)
-                .contentType(TestsConfig.CONTENT_TYPE_YML)
+                .contentType(TestConfigs.CONTENT_TYPE_YML)
                     .queryParams("page", 6 , "limit", 10, "direction", "asc")
                     .when()
                     .get()
@@ -303,7 +303,7 @@ public class PersonControllerYamlTest extends AbstractIntegrationTest {
         RequestSpecification specificationWithoutToken =
                 new RequestSpecBuilder()
                     .setBasePath("/api/person/v1")
-                    .setPort(TestsConfig.SERVER_PORT)
+                    .setPort(TestConfigs.SERVER_PORT)
                     .addFilter(new RequestLoggingFilter(LogDetail.ALL))
                     .addFilter(new ResponseLoggingFilter(LogDetail.ALL))
                     .build();
@@ -313,9 +313,9 @@ public class PersonControllerYamlTest extends AbstractIntegrationTest {
                     RestAssuredConfig
                         .config()
                         .encoderConfig(EncoderConfig.encoderConfig()
-                                .encodeContentTypeAs(TestsConfig.CONTENT_TYPE_YML, ContentType.TEXT)))
+                                .encodeContentTypeAs(TestConfigs.CONTENT_TYPE_YML, ContentType.TEXT)))
                 .spec(specificationWithoutToken)
-                .contentType(TestsConfig.CONTENT_TYPE_YML)
+                .contentType(TestConfigs.CONTENT_TYPE_YML)
                 //.queryParams("page", 6 , "limit", 10, "direction", "asc")
                 .when()
                 .get()

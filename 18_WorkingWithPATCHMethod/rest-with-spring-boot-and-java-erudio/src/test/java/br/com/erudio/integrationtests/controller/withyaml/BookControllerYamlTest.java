@@ -19,7 +19,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
-import br.com.erudio.configs.TestsConfig;
+import br.com.erudio.configs.TestConfigs;
 import br.com.erudio.integrationtests.controller.withyaml.mapper.YMLMapper;
 import br.com.erudio.integrationtests.testcontainers.AbstractIntegrationTest;
 import br.com.erudio.integrationtests.vo.AccountCredentialsVO;
@@ -63,10 +63,10 @@ public class BookControllerYamlTest extends AbstractIntegrationTest {
                         RestAssuredConfig
                             .config()
                             .encoderConfig(EncoderConfig.encoderConfig()
-                                    .encodeContentTypeAs(TestsConfig.CONTENT_TYPE_YML, ContentType.TEXT)))
+                                    .encodeContentTypeAs(TestConfigs.CONTENT_TYPE_YML, ContentType.TEXT)))
                     .basePath("/auth/signin")
-                    .port(TestsConfig.SERVER_PORT)
-                    .contentType(TestsConfig.CONTENT_TYPE_YML)
+                    .port(TestConfigs.SERVER_PORT)
+                    .contentType(TestConfigs.CONTENT_TYPE_YML)
                     .body(user, objectMapper)
                     .when()
                         .post()
@@ -79,9 +79,9 @@ public class BookControllerYamlTest extends AbstractIntegrationTest {
 
             specification =
                 new RequestSpecBuilder()
-                    .addHeader(TestsConfig.HEADER_PARAM_AUTHORIZATION, "Bearer " + token)
+                    .addHeader(TestConfigs.HEADER_PARAM_AUTHORIZATION, "Bearer " + token)
                     .setBasePath("/api/book/v1")
-                    .setPort(TestsConfig.SERVER_PORT)
+                    .setPort(TestConfigs.SERVER_PORT)
                     .addFilter(new RequestLoggingFilter(LogDetail.ALL))
                     .addFilter(new ResponseLoggingFilter(LogDetail.ALL))
                     .build();
@@ -98,9 +98,9 @@ public class BookControllerYamlTest extends AbstractIntegrationTest {
                         RestAssuredConfig
                             .config()
                             .encoderConfig(EncoderConfig.encoderConfig()
-                                    .encodeContentTypeAs(TestsConfig.CONTENT_TYPE_YML, ContentType.TEXT)))
+                                    .encodeContentTypeAs(TestConfigs.CONTENT_TYPE_YML, ContentType.TEXT)))
                     .spec(specification)
-                .contentType(TestsConfig.CONTENT_TYPE_YML)
+                .contentType(TestConfigs.CONTENT_TYPE_YML)
                     .body(book, objectMapper)
                     .when()
                     .post()
@@ -131,9 +131,9 @@ public class BookControllerYamlTest extends AbstractIntegrationTest {
                         RestAssuredConfig
                             .config()
                             .encoderConfig(EncoderConfig.encoderConfig()
-                                    .encodeContentTypeAs(TestsConfig.CONTENT_TYPE_YML, ContentType.TEXT)))
+                                    .encodeContentTypeAs(TestConfigs.CONTENT_TYPE_YML, ContentType.TEXT)))
                     .spec(specification)
-                .contentType(TestsConfig.CONTENT_TYPE_YML)
+                .contentType(TestConfigs.CONTENT_TYPE_YML)
                     .body(book, objectMapper)
                     .when()
                     .put()
@@ -161,9 +161,9 @@ public class BookControllerYamlTest extends AbstractIntegrationTest {
                         RestAssuredConfig
                             .config()
                             .encoderConfig(EncoderConfig.encoderConfig()
-                                    .encodeContentTypeAs(TestsConfig.CONTENT_TYPE_YML, ContentType.TEXT)))
+                                    .encodeContentTypeAs(TestConfigs.CONTENT_TYPE_YML, ContentType.TEXT)))
                     .spec(specification)
-                .contentType(TestsConfig.CONTENT_TYPE_YML)
+                .contentType(TestConfigs.CONTENT_TYPE_YML)
                     .pathParam("id", book.getId())
                     .when()
                     .get("{id}")
@@ -191,9 +191,9 @@ public class BookControllerYamlTest extends AbstractIntegrationTest {
                 RestAssuredConfig
                     .config()
                     .encoderConfig(EncoderConfig.encoderConfig()
-                            .encodeContentTypeAs(TestsConfig.CONTENT_TYPE_YML, ContentType.TEXT)))
+                            .encodeContentTypeAs(TestConfigs.CONTENT_TYPE_YML, ContentType.TEXT)))
             .spec(specification)
-                .contentType(TestsConfig.CONTENT_TYPE_YML)
+                .contentType(TestConfigs.CONTENT_TYPE_YML)
                     .pathParam("id", book.getId())
                     .when()
                     .delete("{id}")
@@ -209,9 +209,9 @@ public class BookControllerYamlTest extends AbstractIntegrationTest {
                         RestAssuredConfig
                             .config()
                             .encoderConfig(EncoderConfig.encoderConfig()
-                                    .encodeContentTypeAs(TestsConfig.CONTENT_TYPE_YML, ContentType.TEXT)))
+                                    .encodeContentTypeAs(TestConfigs.CONTENT_TYPE_YML, ContentType.TEXT)))
                     .spec(specification)
-                .contentType(TestsConfig.CONTENT_TYPE_YML)
+                .contentType(TestConfigs.CONTENT_TYPE_YML)
                     //.queryParams("page", 0 , "limit", 5, "direction", "asc")
                     .when()
                     .get()

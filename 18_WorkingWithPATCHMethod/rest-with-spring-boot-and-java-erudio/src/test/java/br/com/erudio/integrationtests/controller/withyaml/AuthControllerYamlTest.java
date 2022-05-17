@@ -12,7 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-import br.com.erudio.configs.TestsConfig;
+import br.com.erudio.configs.TestConfigs;
 import br.com.erudio.integrationtests.controller.withyaml.mapper.YMLMapper;
 import br.com.erudio.integrationtests.testcontainers.AbstractIntegrationTest;
 import br.com.erudio.integrationtests.vo.AccountCredentialsVO;
@@ -45,11 +45,11 @@ class AuthControllerYamlTest extends AbstractIntegrationTest {
                 RestAssuredConfig
                     .config()
                     .encoderConfig(EncoderConfig.encoderConfig()
-                            .encodeContentTypeAs(TestsConfig.CONTENT_TYPE_YML, ContentType.TEXT)))
+                            .encodeContentTypeAs(TestConfigs.CONTENT_TYPE_YML, ContentType.TEXT)))
             .basePath("/auth/signin")
-            .port(TestsConfig.SERVER_PORT)
-            .contentType(TestsConfig.CONTENT_TYPE_YML)
-            .accept(TestsConfig.CONTENT_TYPE_YML)
+            .port(TestConfigs.SERVER_PORT)
+            .contentType(TestConfigs.CONTENT_TYPE_YML)
+            .accept(TestConfigs.CONTENT_TYPE_YML)
             .body(user, objectMapper)
             .when()
                 .post()
@@ -69,10 +69,10 @@ class AuthControllerYamlTest extends AbstractIntegrationTest {
         
         var newTokenVO = given()
         .basePath("/auth/refresh")
-        .port(TestsConfig.SERVER_PORT)
-        .contentType(TestsConfig.CONTENT_TYPE_YML)
+        .port(TestConfigs.SERVER_PORT)
+        .contentType(TestConfigs.CONTENT_TYPE_YML)
             .pathParam("username", tokenVO.getUsername())
-            .header(TestsConfig.HEADER_PARAM_AUTHORIZATION, "Bearer " + tokenVO.getRefreshToken())
+            .header(TestConfigs.HEADER_PARAM_AUTHORIZATION, "Bearer " + tokenVO.getRefreshToken())
         .when()
             .put("{username}")
         .then()

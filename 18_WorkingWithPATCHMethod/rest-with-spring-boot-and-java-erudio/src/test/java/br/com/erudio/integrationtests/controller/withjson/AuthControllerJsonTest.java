@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import br.com.erudio.configs.TestsConfig;
+import br.com.erudio.configs.TestConfigs;
 import br.com.erudio.data.vo.v1.security.AccountCredentialsVO;
 import br.com.erudio.integrationtests.testcontainers.AbstractIntegrationTest;
 import br.com.erudio.integrationtests.vo.TokenVO;
@@ -29,8 +29,8 @@ class AuthControllerJsonTest extends AbstractIntegrationTest {
 
         tokenVO = given()
             .basePath("/auth/signin")
-            .port(TestsConfig.SERVER_PORT)
-            .contentType(TestsConfig.CONTENT_TYPE_JSON)
+            .port(TestConfigs.SERVER_PORT)
+            .contentType(TestConfigs.CONTENT_TYPE_JSON)
             .body(user)
             .when()
                 .post()
@@ -50,10 +50,10 @@ class AuthControllerJsonTest extends AbstractIntegrationTest {
         
         var newTokenVO = given()
         .basePath("/auth/refresh")
-        .port(TestsConfig.SERVER_PORT)
-        .contentType(TestsConfig.CONTENT_TYPE_JSON)
+        .port(TestConfigs.SERVER_PORT)
+        .contentType(TestConfigs.CONTENT_TYPE_JSON)
             .pathParam("username", tokenVO.getUsername())
-            .header(TestsConfig.HEADER_PARAM_AUTHORIZATION, "Bearer " + tokenVO.getRefreshToken())
+            .header(TestConfigs.HEADER_PARAM_AUTHORIZATION, "Bearer " + tokenVO.getRefreshToken())
         .when()
             .put("{username}")
         .then()
