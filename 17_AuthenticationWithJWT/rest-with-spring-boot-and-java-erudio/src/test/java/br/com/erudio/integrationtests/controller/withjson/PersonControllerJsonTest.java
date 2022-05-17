@@ -20,8 +20,8 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.erudio.configs.TestsConfig;
-import br.com.erudio.data.vo.v1.security.AccountCredentialsVO;
 import br.com.erudio.integrationtests.testcontainers.AbstractIntegrationTest;
+import br.com.erudio.integrationtests.vo.AccountCredentialsVO;
 import br.com.erudio.integrationtests.vo.PersonVO;
 import br.com.erudio.integrationtests.vo.TokenVO;
 import io.restassured.builder.RequestSpecBuilder;
@@ -51,9 +51,7 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
     @Test
     @Order(1)
     public void authorization() {
-        AccountCredentialsVO user = new AccountCredentialsVO();
-        user.setUsername("leandro");
-        user.setPassword("admin123");
+        AccountCredentialsVO user = new AccountCredentialsVO("leandro", "admin123");
 
         var token =
                 given()

@@ -31,12 +31,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         passwordEncoder.setDefaultPasswordEncoderForMatches(new Pbkdf2PasswordEncoder());
         return passwordEncoder;
     }
-    
-    @Bean
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
+	
+	@Bean
+	@Override
+	public AuthenticationManager authenticationManagerBean() throws Exception {
+		return super.authenticationManagerBean();
+	}
     
     protected void configure(HttpSecurity http) throws Exception {
         http

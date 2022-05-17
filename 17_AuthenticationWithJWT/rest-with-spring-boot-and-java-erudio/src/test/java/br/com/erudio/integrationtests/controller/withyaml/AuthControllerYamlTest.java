@@ -36,9 +36,8 @@ class AuthControllerYamlTest extends AbstractIntegrationTest {
     @Test
     @Order(1)
     void testSignin() throws JsonProcessingException {
-        AccountCredentialsVO user = new AccountCredentialsVO();
-        user.setUsername("leandro");
-        user.setPassword("admin123");
+
+        AccountCredentialsVO user = new AccountCredentialsVO("leandro", "admin123");
 
         tokenVO = given()
             .config(

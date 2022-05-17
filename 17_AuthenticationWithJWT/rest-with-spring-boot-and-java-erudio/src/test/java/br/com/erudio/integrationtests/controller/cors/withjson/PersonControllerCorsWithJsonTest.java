@@ -48,9 +48,7 @@ public class PersonControllerCorsWithJsonTest extends AbstractIntegrationTest {
     @Test
     @Order(1)
     public void authorization() {
-        AccountCredentialsVO user = new AccountCredentialsVO();
-        user.setUsername("leandro");
-        user.setPassword("admin123");
+        AccountCredentialsVO user = new AccountCredentialsVO("leandro", "admin123");
 
         var token =
                 given()

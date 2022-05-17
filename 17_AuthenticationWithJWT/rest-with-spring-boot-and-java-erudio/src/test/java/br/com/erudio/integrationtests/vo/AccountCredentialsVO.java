@@ -12,7 +12,14 @@ public class AccountCredentialsVO implements Serializable {
     private String username;
     private String password;
     
-    public String getUsername() {
+    public AccountCredentialsVO() {}
+    
+    public AccountCredentialsVO(String username, String password) {
+		this.username = username;
+		this.password = password;
+	}
+
+	public String getUsername() {
         return username;
     }
     
