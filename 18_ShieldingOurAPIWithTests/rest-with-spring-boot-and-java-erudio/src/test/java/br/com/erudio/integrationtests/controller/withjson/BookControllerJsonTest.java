@@ -177,45 +177,7 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
                     .statusCode(204);
     }
     
-    @Test
-    @Order(6)
-    public void testFindAll() throws JsonMappingException, JsonProcessingException {
-
-        var content = given().spec(specification)
-                .contentType(TestConfigs.CONTENT_TYPE_JSON)
-                    .queryParams("page", 0 , "limit", 5, "direction", "asc")
-                    .when()
-                    .get()
-                .then()
-                    .statusCode(200)
-                .extract()
-                    .body()
-                .asString();
-        
-        List<BookVO> books = objectMapper.readValue(content, new TypeReference<List<BookVO>>() {});
-		
-        BookVO foundBookOne = books.get(0);
-        
-        assertNotNull(foundBookOne.getId());
-        assertNotNull(foundBookOne.getTitle());
-        assertNotNull(foundBookOne.getAuthor());
-        assertNotNull(foundBookOne.getPrice());
-        assertTrue(foundBookOne.getId() > 0);
-        assertEquals("Working effectively with legacy code", foundBookOne.getTitle());
-        assertEquals("Michael C. Feathers", foundBookOne.getAuthor());
-        assertEquals(49.00, foundBookOne.getPrice());
-        
-        BookVO foundBookFive = books.get(4);
-        
-        assertNotNull(foundBookFive.getId());
-        assertNotNull(foundBookFive.getTitle());
-        assertNotNull(foundBookFive.getAuthor());
-        assertNotNull(foundBookFive.getPrice());
-        assertTrue(foundBookFive.getId() > 0);
-        assertEquals("Code complete", foundBookFive.getTitle());
-        assertEquals("Steve McConnell", foundBookFive.getAuthor());
-        assertEquals(58.0, foundBookFive.getPrice());
-    }
+      
      
     private void mockBook() {
         book.setTitle("Docker Deep Dive");
