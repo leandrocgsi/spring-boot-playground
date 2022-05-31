@@ -56,14 +56,15 @@ public class BookController {
 	)
 	public ResponseEntity<PagedModel<EntityModel<BookVO>>> findAll(
 			@RequestParam(value = "page", defaultValue = "0") Integer page,
-            @RequestParam(value = "size", defaultValue = "12") Integer size,
-            @RequestParam(value = "direction", defaultValue = "asc") String direction
+	        @RequestParam(value = "size", defaultValue = "12") Integer size,
+	        @RequestParam(value = "direction", defaultValue = "asc") String direction
 	) {
 		var sortDirection = "desc".equalsIgnoreCase(direction) ? Direction.DESC : Direction.ASC;
-        
+	    
 		Pageable pageable = PageRequest.of(page, size, Sort.by(sortDirection, "title"));
 		return ResponseEntity.ok(service.findAll(pageable));
 	}
+
 	
 	@GetMapping(value = "/{id}",
 		produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML  })
