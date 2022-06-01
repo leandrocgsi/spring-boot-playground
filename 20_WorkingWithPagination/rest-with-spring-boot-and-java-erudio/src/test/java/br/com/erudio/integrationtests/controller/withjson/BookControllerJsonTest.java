@@ -25,6 +25,7 @@ import br.com.erudio.data.vo.v1.security.AccountCredentialsVO;
 import br.com.erudio.integrationtests.testcontainers.AbstractIntegrationTest;
 import br.com.erudio.integrationtests.vo.BookVO;
 import br.com.erudio.integrationtests.vo.TokenVO;
+import br.com.erudio.integrationtests.vo.wrappers.WrapperBookVO;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.filter.log.RequestLoggingFilter;
@@ -192,7 +193,7 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
                 .asString();
         
         WrapperBookVO wrapper = objectMapper.readValue(content, WrapperBookVO.class);
-        List<BookVO> books = objectMapper.readValue(content, WrapperBookVO.class);
+        List<BookVO> books = wrapper.getEmbedded().getBooks();
 		
         BookVO foundBookOne = books.get(0);
         
@@ -214,7 +215,7 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
         assertTrue(foundBookFive.getId() > 0);
         assertEquals("Domain Driven Design", foundBookFive.getTitle());
         assertEquals("Eric Evans", foundBookFive.getAuthor());
-        assertEquals(92.00, foundBookOne.getPrice());
+        assertEquals(92.00, foundBookFive.getPrice());
     }
      
     private void mockBook() {

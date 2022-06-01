@@ -1,4 +1,4 @@
-package br.com.erudio.integrationtests.vo.wrappers.xml;
+package br.com.erudio.integrationtests.vo.wrappers.xmlandyml;
 
 import java.util.List;
 

@@ -25,7 +25,7 @@ import br.com.erudio.data.vo.v1.security.TokenVO;
 import br.com.erudio.integrationtests.testcontainers.AbstractIntegrationTest;
 import br.com.erudio.integrationtests.vo.AccountCredentialsVO;
 import br.com.erudio.integrationtests.vo.BookVO;
-import br.com.erudio.integrationtests.vo.wrappers.xml.PagedModelBook;
+import br.com.erudio.integrationtests.vo.wrappers.xmlandyml.PagedModelBook;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.filter.log.RequestLoggingFilter;
@@ -188,6 +188,7 @@ public class BookControllerXmlTest extends AbstractIntegrationTest {
 		var content = given().spec(specification)
 				.contentType(TestConfigs.CONTENT_TYPE_XML)
 				.accept(TestConfigs.CONTENT_TYPE_XML)
+                .queryParams("page", 0 , "limit", 12, "direction", "asc")
 					.when()
 					.get()
 				.then()
