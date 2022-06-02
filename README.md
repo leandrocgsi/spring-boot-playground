@@ -1,6 +1,6 @@
 # Spring Boot Playground
 
-[![Continuous Integration with Github Actions](https://github.com/leandrocgsi/SpringBootPlayground/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/leandrocgsi/SpringBootPlayground/actions/workflows/docker-publish.yml)
+[![Continuous Integration with Github Actions](https://github.com/leandrocgsi/SpringBootPlayground/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/leandrocgsi/SpringBootPlayground/actions/workflows/continuous-integration.yml)
 [![Build Status](https://travis-ci.org/leandrocgsi/SpringBootPlayground.svg?branch=master)](https://travis-ci.org/leandrocgsi/SpringBootPlayground)
 [![Docker Hub Repo](https://img.shields.io/docker/pulls/leandrocgsi/rest-with-springboot-and-java-erudio.svg)](https://hub.docker.com/repository/docker/leandrocgsi/rest-with-springboot-and-java-erudio)
 
