@@ -12,7 +12,7 @@ import br.com.erudio.mapper.ErudioMapper;
 import br.com.erudio.model.Person;
 import br.com.erudio.unittests.mapper.mocks.MockPerson;
 
-public class DozerConverterTest {
+public class ErudioConverterTest {
     
     MockPerson inputObject;
 

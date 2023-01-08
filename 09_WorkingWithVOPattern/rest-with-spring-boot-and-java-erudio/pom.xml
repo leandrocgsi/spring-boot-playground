@@ -16,7 +16,7 @@
 	<properties>
 		<java.version>19</java.version>
 		<!--<dozer.version>6.4.0</dozer.version>-->
-		<orika-core.version>1.5.4</orika-core.version>
+		<modelmapper.version>3.1.1</modelmapper.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -33,11 +33,11 @@
 			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
 		
-        <dependency>
-            <groupId>ma.glasnost.orika</groupId>
-            <artifactId>orika-core</artifactId>
-            <version>${orika-core.version}</version>
-        </dependency>
+		<dependency>
+			<groupId>org.modelmapper</groupId>
+			<artifactId>modelmapper</artifactId>
+			<version>${modelmapper.version}</version>
+		</dependency>
 		<!--
 		<dependency>
 		    <groupId>com.github.dozermapper</groupId>

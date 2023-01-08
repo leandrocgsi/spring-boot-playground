@@ -3,21 +3,20 @@ package br.com.erudio.mapper;
 import java.util.ArrayList;
 import java.util.List;
 
-import ma.glasnost.orika.MapperFactory;
-import ma.glasnost.orika.impl.DefaultMapperFactory;
+import org.modelmapper.ModelMapper;
 
 public class ErudioMapper {
 	
-	private static final MapperFactory mapper = new DefaultMapperFactory.Builder().build();
+	private static final ModelMapper mapper = new ModelMapper();
 	
 	public static <O, D> D parseObject(O origin, Class<D> destination) {
-		return mapper.getMapperFacade().map(origin, destination);
+		return mapper.map(origin, destination);
 	}
 	
 	public static <O, D> List<D> parseListObjects(List<O> origin, Class<D> destination) {
 		List<D> destinationObjects = new ArrayList<D>();
 		for (O o : origin) {
-			destinationObjects.add(mapper.getMapperFacade().map(o, destination));
+			destinationObjects.add(mapper.map(o, destination));
 		}
 		return destinationObjects;
 	}
