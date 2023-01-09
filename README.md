@@ -1,9 +1,8 @@
 # Spring Boot Playground
 
-[![Continuous Integration with Github Actions](https://github.com/leandrocgsi/SpringBootPlayground/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/leandrocgsi/SpringBootPlayground/actions/workflows/docker-publish.yml)
+[![Continuous Integration with Github Actions](https://github.com/leandrocgsi/rest-with-spring-boot-and-java-erudio/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/leandrocgsi/rest-with-spring-boot-and-java-erudio/actions/workflows/continuous-integration.yml)
 [![Build Status](https://travis-ci.org/leandrocgsi/SpringBootPlayground.svg?branch=master)](https://travis-ci.org/leandrocgsi/SpringBootPlayground)
-[![Docker Hub Repo](https://img.shields.io/docker/pulls/leandrocgsi/rest-with-springboot-and-java-erudio.svg)](https://hub.docker.com/repository/docker/leandrocgsi/rest-with-springboot-and-java-erudio)
-
+[![Docker Hub Repo](https://img.shields.io/docker/pulls/leandrocgsi/rest-with-spring-boot-erudio.svg)](https://hub.docker.com/repository/docker/leandrocgsi/rest-with-spring-boot-erudio)
 
 # How to restore database
 
