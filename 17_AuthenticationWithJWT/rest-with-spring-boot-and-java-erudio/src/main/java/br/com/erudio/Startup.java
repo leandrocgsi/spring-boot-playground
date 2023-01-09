@@ -27,10 +27,5 @@ public class Startup {
         String result2 = passwordEncoder.encode("admin234");
         System.out.println("My hash " + result);
         System.out.println("My hash " + result2);
-        
-        /**
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(16);
-		String result = bCryptPasswordEncoder.encode("admin234");
-		System.out.println("My hash " + result);*/
     }
 }
