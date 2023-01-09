@@ -12,7 +12,7 @@ import br.com.erudio.controllers.BookController;
 import br.com.erudio.data.vo.v1.BookVO;
 import br.com.erudio.exceptions.RequiredObjectIsNullException;
 import br.com.erudio.exceptions.ResourceNotFoundException;
-import br.com.erudio.mapper.DozerMapper;
+import br.com.erudio.mapper.ErudioMapper;
 import br.com.erudio.model.Book;
 import br.com.erudio.repositories.BookRepository;
 
@@ -28,10 +28,10 @@ public class BookServices {
 
 		logger.info("Finding all book!");
 
-		var books = DozerMapper.parseListObjects(repository.findAll(), BookVO.class);
+		var books = ErudioMapper.parseListObjects(repository.findAll(), BookVO.class);
 		books
 			.stream()
-			.forEach(p -> p.add(linkTo(methodOn(BookController.class).findById(p.getKey())).withSelfRel()));
+			.forEach(p -> p.add(linkTo(methodOn(BookController.class).findById(p.getId())).withSelfRel()));
 		return books;
 	}
 
@@ -41,7 +41,7 @@ public class BookServices {
 		
 		var entity = repository.findById(id)
 			.orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
-		var vo = DozerMapper.parseObject(entity, BookVO.class);
+		var vo = ErudioMapper.parseObject(entity, BookVO.class);
 		vo.add(linkTo(methodOn(BookController.class).findById(id)).withSelfRel());
 		return vo;
 	}
@@ -51,9 +51,9 @@ public class BookServices {
 		if (book == null) throw new RequiredObjectIsNullException();
 		
 		logger.info("Creating one book!");
-		var entity = DozerMapper.parseObject(book, Book.class);
-		var vo =  DozerMapper.parseObject(repository.save(entity), BookVO.class);
-		vo.add(linkTo(methodOn(BookController.class).findById(vo.getKey())).withSelfRel());
+		var entity = ErudioMapper.parseObject(book, Book.class);
+		var vo =  ErudioMapper.parseObject(repository.save(entity), BookVO.class);
+		vo.add(linkTo(methodOn(BookController.class).findById(vo.getId())).withSelfRel());
 		return vo;
 	}
 	
@@ -63,7 +63,7 @@ public class BookServices {
 		
 		logger.info("Updating one book!");
 		
-		var entity = repository.findById(book.getKey())
+		var entity = repository.findById(book.getId())
 			.orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
 
 		entity.setAuthor(book.getAuthor());
@@ -71,8 +71,8 @@ public class BookServices {
 		entity.setPrice(book.getPrice());
 		entity.setTitle(book.getTitle());
 		
-		var vo =  DozerMapper.parseObject(repository.save(entity), BookVO.class);
-		vo.add(linkTo(methodOn(BookController.class).findById(vo.getKey())).withSelfRel());
+		var vo =  ErudioMapper.parseObject(repository.save(entity), BookVO.class);
+		vo.add(linkTo(methodOn(BookController.class).findById(vo.getId())).withSelfRel());
 		return vo;
 	}
 	

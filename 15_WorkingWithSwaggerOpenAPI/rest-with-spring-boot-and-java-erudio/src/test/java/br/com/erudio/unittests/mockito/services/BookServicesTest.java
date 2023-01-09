@@ -50,7 +50,7 @@ class BookServicesTest {
 		
 		var result = service.findById(1L);
 		assertNotNull(result);
-		assertNotNull(result.getKey());
+		assertNotNull(result.getId());
 		assertNotNull(result.getLinks());
 		
 		assertTrue(result.toString().contains("links: [</api/book/v1/1>;rel=\"self\"]"));
@@ -69,14 +69,14 @@ class BookServicesTest {
 		persisted.setId(1L);
 		
 		BookVO vo = input.mockVO(1);
-		vo.setKey(1L);
+		vo.setId(1L);
 		
 		when(repository.save(entity)).thenReturn(persisted);
 		
 		var result = service.create(vo);
 		
 		assertNotNull(result);
-		assertNotNull(result.getKey());
+		assertNotNull(result.getId());
 		assertNotNull(result.getLinks());
 		
 		assertTrue(result.toString().contains("links: [</api/book/v1/1>;rel=\"self\"]"));
@@ -107,7 +107,7 @@ class BookServicesTest {
 		persisted.setId(1L);
 		
 		BookVO vo = input.mockVO(1);
-		vo.setKey(1L);
+		vo.setId(1L);
 		
 
 		when(repository.findById(1L)).thenReturn(Optional.of(entity));
@@ -116,7 +116,7 @@ class BookServicesTest {
 		var result = service.update(vo);
 		
 		assertNotNull(result);
-		assertNotNull(result.getKey());
+		assertNotNull(result.getId());
 		assertNotNull(result.getLinks());
 		
 		assertTrue(result.toString().contains("links: [</api/book/v1/1>;rel=\"self\"]"));
@@ -164,7 +164,7 @@ class BookServicesTest {
 		var bookOne = people.get(1);
 		
 		assertNotNull(bookOne);
-		assertNotNull(bookOne.getKey());
+		assertNotNull(bookOne.getId());
 		assertNotNull(bookOne.getLinks());
 		
 		assertTrue(bookOne.toString().contains("links: [</api/book/v1/1>;rel=\"self\"]"));
@@ -176,7 +176,7 @@ class BookServicesTest {
 		var bookFour = people.get(4);
 		
 		assertNotNull(bookFour);
-		assertNotNull(bookFour.getKey());
+		assertNotNull(bookFour.getId());
 		assertNotNull(bookFour.getLinks());
 		
 		assertTrue(bookFour.toString().contains("links: [</api/book/v1/4>;rel=\"self\"]"));
@@ -188,7 +188,7 @@ class BookServicesTest {
 		var bookSeven = people.get(7);
 		
 		assertNotNull(bookSeven);
-		assertNotNull(bookSeven.getKey());
+		assertNotNull(bookSeven.getId());
 		assertNotNull(bookSeven.getLinks());
 		
 		assertTrue(bookSeven.toString().contains("links: [</api/book/v1/7>;rel=\"self\"]"));
