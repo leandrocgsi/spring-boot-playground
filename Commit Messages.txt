@@ -12,7 +12,7 @@ https://stackoverflow.com/questions/19595067/git-add-commit-and-push-commands-in
 14_HATEOAS/                             -> git acmp 'Testing Generation of HATEOAS Links with Mockito'
 15_WorkingWithSwaggerOpenAPI/           -> git acmp 'Adding Swagger Open API Support'
 16_ConfiguringCORS/                     -> git acmp 'Configuring Cross-Origin Resource Sharing (CORS)'
-17_AuthenticationWithJWT/               -> git acmp 'Implementing Authentication With JWT'
+17_AuthenticationWithJWT/               -> git acmp 'Implementing Authentication With Spring Security and JWT'
 18_ShieldingOurAPIWithTests/            -> git acmp 'Shielding our API with Rest Assured, Testcontainers and JUnit 5'
 19_WorkingWithPATCHMethod/              -> git acmp 'Working with PATCH Method'
 20_WorkingWithPagination/               -> git acmp 'Implementing Pagination Search'
