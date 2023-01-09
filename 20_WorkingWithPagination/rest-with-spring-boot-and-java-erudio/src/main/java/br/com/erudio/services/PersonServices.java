@@ -43,7 +43,7 @@ public class PersonServices {
 		personVosPage.map(
 			p -> p.add(
 				linkTo(methodOn(PersonController.class)
-					.findById(p.getKey())).withSelfRel()));
+					.findById(p.getId())).withSelfRel()));
 		
 		Link link = linkTo(
 			methodOn(PersonController.class)
@@ -64,7 +64,7 @@ public class PersonServices {
 		personVosPage.map(
 				p -> p.add(
 						linkTo(methodOn(PersonController.class)
-								.findById(p.getKey())).withSelfRel()));
+								.findById(p.getId())).withSelfRel()));
 		
 		Link link = linkTo(
 				methodOn(PersonController.class)
@@ -93,7 +93,7 @@ public class PersonServices {
 		logger.info("Creating one person!");
 		var entity = ErudioMapper.parseObject(person, Person.class);
 		var vo =  ErudioMapper.parseObject(repository.save(entity), PersonVO.class);
-		vo.add(linkTo(methodOn(PersonController.class).findById(vo.getKey())).withSelfRel());
+		vo.add(linkTo(methodOn(PersonController.class).findById(vo.getId())).withSelfRel());
 		return vo;
 	}
 	
@@ -112,7 +112,7 @@ public class PersonServices {
 		entity.setGender(person.getGender());
 		
 		var vo =  ErudioMapper.parseObject(repository.save(entity), PersonVO.class);
-		vo.add(linkTo(methodOn(PersonController.class).findById(vo.getKey())).withSelfRel());
+		vo.add(linkTo(methodOn(PersonController.class).findById(vo.getId())).withSelfRel());
 		return vo;
 	}
 	

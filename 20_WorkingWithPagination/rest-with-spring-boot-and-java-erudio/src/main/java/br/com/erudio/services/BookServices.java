@@ -39,7 +39,7 @@ public class BookServices {
 		var booksPage = repository.findAll(pageable);
 
 		var booksVOs = booksPage.map(p -> ErudioMapper.parseObject(p, BookVO.class));
-		booksVOs.map(p -> p.add(linkTo(methodOn(BookController.class).findById(p.getKey())).withSelfRel()));
+		booksVOs.map(p -> p.add(linkTo(methodOn(BookController.class).findById(p.getId())).withSelfRel()));
 
 		Link findAllLink = linkTo(
 		          methodOn(BookController.class)
@@ -68,7 +68,7 @@ public class BookServices {
 		logger.info("Creating one book!");
 		var entity = ErudioMapper.parseObject(book, Book.class);
 		var vo =  ErudioMapper.parseObject(repository.save(entity), BookVO.class);
-		vo.add(linkTo(methodOn(BookController.class).findById(vo.getKey())).withSelfRel());
+		vo.add(linkTo(methodOn(BookController.class).findById(vo.getId())).withSelfRel());
 		return vo;
 	}
 	
@@ -87,7 +87,7 @@ public class BookServices {
 		entity.setTitle(book.getTitle());
 		
 		var vo =  ErudioMapper.parseObject(repository.save(entity), BookVO.class);
-		vo.add(linkTo(methodOn(BookController.class).findById(vo.getKey())).withSelfRel());
+		vo.add(linkTo(methodOn(BookController.class).findById(vo.getId())).withSelfRel());
 		return vo;
 	}
 	
