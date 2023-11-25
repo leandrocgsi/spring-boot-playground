@@ -12,10 +12,9 @@
 	<artifactId>rest-with-spring-boot-and-java-erudio</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>rest-with-spring-boot-and-java-erudio</name>
-	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>19</java.version>
-		<modelmapper.version>3.1.1</modelmapper.version>
+		<dozer.version>6.4.0</dozer.version>
 		<springdoc.version>2.0.2</springdoc.version>
 		<testcontainers.version>1.16.3</testcontainers.version>
 		<rest-assured.version>4.5.0</rest-assured.version>
@@ -41,6 +40,11 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>com.auth0</groupId>
@@ -76,9 +80,9 @@
 		</dependency>
 		
 		<dependency>
-			<groupId>org.modelmapper</groupId>
-			<artifactId>modelmapper</artifactId>
-			<version>${modelmapper.version}</version>
+		    <groupId>com.github.dozermapper</groupId>
+		    <artifactId>dozer-core</artifactId>
+		    <version>${dozer.version}</version>
 		</dependency>
 
 		<dependency>
@@ -94,7 +98,6 @@
 		<dependency>
 			<groupId>io.rest-assured</groupId>
 			<artifactId>rest-assured</artifactId>
-			<version>${rest-assured.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -103,7 +106,7 @@
 			<version>${testcontainers.version}</version>
 			<scope>test</scope>
 		</dependency>
-
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
