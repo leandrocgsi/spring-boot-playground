@@ -195,7 +195,7 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
 
         WrapperBookVO wrapper = objectMapper.readValue(content, WrapperBookVO.class);
         List<BookVO> books = wrapper.getEmbedded().getBooks();
-
+		
         BookVO foundBookOne = books.get(0);
         
         assertNotNull(foundBookOne.getId());
@@ -244,8 +244,8 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
 		assertTrue(content.contains("\"last\":{\"href\":\"http://localhost:8888/api/book/v1?direction=asc&page=1&size=12&sort=title,asc\"}}"));
 		
 		assertTrue(content.contains("\"page\":{\"size\":12,\"totalElements\":15,\"totalPages\":2,\"number\":0}}"));
-	}
-	
+    }
+     
     private void mockBook() {
         book.setTitle("Docker Deep Dive");
         book.setAuthor("Nigel Poulton");

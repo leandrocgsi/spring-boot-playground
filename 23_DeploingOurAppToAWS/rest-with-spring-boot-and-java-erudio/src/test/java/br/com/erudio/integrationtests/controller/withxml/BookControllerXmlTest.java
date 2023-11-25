@@ -201,23 +201,23 @@ public class BookControllerXmlTest extends AbstractIntegrationTest {
 		List<BookVO> books = wrapper.getContent();
 		
 		BookVO foundBookOne = books.get(0);
-	    
-	    assertNotNull(foundBookOne.getId());
-	    assertNotNull(foundBookOne.getTitle());
-	    assertNotNull(foundBookOne.getAuthor());
-	    assertNotNull(foundBookOne.getPrice());
-	    assertTrue(foundBookOne.getId() > 0);
+        
+        assertNotNull(foundBookOne.getId());
+        assertNotNull(foundBookOne.getTitle());
+        assertNotNull(foundBookOne.getAuthor());
+        assertNotNull(foundBookOne.getPrice());
+        assertTrue(foundBookOne.getId() > 0);
 	    assertEquals("Big Data: como extrair volume, variedade, velocidade e valor da avalanche de informação cotidiana", foundBookOne.getTitle());
 	    assertEquals("Viktor Mayer-Schonberger e Kenneth Kukier", foundBookOne.getAuthor());
 	    assertEquals(54.00, foundBookOne.getPrice());
-	    
-	    BookVO foundBookFive = books.get(4);
-	    
-	    assertNotNull(foundBookFive.getId());
-	    assertNotNull(foundBookFive.getTitle());
-	    assertNotNull(foundBookFive.getAuthor());
-	    assertNotNull(foundBookFive.getPrice());
-	    assertTrue(foundBookFive.getId() > 0);
+        
+        BookVO foundBookFive = books.get(4);
+        
+        assertNotNull(foundBookFive.getId());
+        assertNotNull(foundBookFive.getTitle());
+        assertNotNull(foundBookFive.getAuthor());
+        assertNotNull(foundBookFive.getPrice());
+        assertTrue(foundBookFive.getId() > 0);
 	    assertEquals("Domain Driven Design", foundBookFive.getTitle());
 	    assertEquals("Eric Evans", foundBookFive.getAuthor());
 	    assertEquals(92.00, foundBookFive.getPrice());
