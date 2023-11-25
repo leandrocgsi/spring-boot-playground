@@ -4,7 +4,7 @@ https://stackoverflow.com/questions/19595067/git-add-commit-and-push-commands-in
 06_ParametersAndExceptionHandler/       -> git acmp 'REST Parameters and Exception Handler'
 07_WorkingWithVerbs/                    -> git acmp 'Working with four HTTP Main Verbs'
 08_ConnectingToMySQL/                   -> git acmp 'Connecting to MySQL with Spring Data, JPA and Hibernate'
-09_WorkingWithVOPattern/                -> git acmp 'Implementing VO pattern with Dozer and Orika'
+09_WorkingWithVOPattern/                -> git acmp 'Implementing VO pattern with Dozer and Model Mapper'
 10_VersioningEndpoints/                 -> git acmp 'Versioning our API'
 11_MigrationsWithFlyWay/                -> git acmp 'Adding migrations support with Flyway'
 12_CustomSerialization/                 -> git acmp 'Custom JSON serialization'
