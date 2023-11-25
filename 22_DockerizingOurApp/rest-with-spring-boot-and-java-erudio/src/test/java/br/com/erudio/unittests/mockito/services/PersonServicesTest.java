@@ -52,7 +52,7 @@ class PersonServicesTest {
 		
 		var result = service.findById(1L);
 		assertNotNull(result);
-		assertNotNull(result.getId());
+		assertNotNull(result.getKey());
 		assertNotNull(result.getLinks());
 		
 		assertTrue(result.toString().contains("links: [</api/person/v1/1>;rel=\"self\"]"));
@@ -71,14 +71,14 @@ class PersonServicesTest {
 		persisted.setId(1L);
 		
 		PersonVO vo = input.mockVO(1);
-		vo.setId(1L);
+		vo.setKey(1L);
 		
 		when(repository.save(entity)).thenReturn(persisted);
 		
 		var result = service.create(vo);
 		
 		assertNotNull(result);
-		assertNotNull(result.getId());
+		assertNotNull(result.getKey());
 		assertNotNull(result.getLinks());
 		
 		assertTrue(result.toString().contains("links: [</api/person/v1/1>;rel=\"self\"]"));
@@ -109,7 +109,7 @@ class PersonServicesTest {
 		persisted.setId(1L);
 		
 		PersonVO vo = input.mockVO(1);
-		vo.setId(1L);
+		vo.setKey(1L);
 		
 
 		when(repository.findById(1L)).thenReturn(Optional.of(entity));
@@ -118,7 +118,7 @@ class PersonServicesTest {
 		var result = service.update(vo);
 		
 		assertNotNull(result);
-		assertNotNull(result.getId());
+		assertNotNull(result.getKey());
 		assertNotNull(result.getLinks());
 		
 		assertTrue(result.toString().contains("links: [</api/person/v1/1>;rel=\"self\"]"));
@@ -127,8 +127,6 @@ class PersonServicesTest {
 		assertEquals("Last Name Test1", result.getLastName());
 		assertEquals("Female", result.getGender());
 	}
-	
-
 	
 	@Test
 	void testUpdateWithNullPerson() {

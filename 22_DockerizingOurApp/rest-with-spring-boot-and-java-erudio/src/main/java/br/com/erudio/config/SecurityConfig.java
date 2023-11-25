@@ -28,23 +28,20 @@ public class SecurityConfig {
 	@Autowired
 	private JwtTokenProvider tokenProvider;
 	
-	public SecurityConfig(JwtTokenProvider tokenProvider) {
-        this.tokenProvider = tokenProvider;
-    }
-
-    @Bean
-    PasswordEncoder passwordEncoder() {
+	@Bean
+	PasswordEncoder passwordEncoder() {
 		Map<String, PasswordEncoder> encoders = new HashMap<>();
+				
 		Pbkdf2PasswordEncoder pbkdf2Encoder = new Pbkdf2PasswordEncoder("", 8, 185000, SecretKeyFactoryAlgorithm.PBKDF2WithHmacSHA256);
-		
 		encoders.put("pbkdf2", pbkdf2Encoder);
 		DelegatingPasswordEncoder passwordEncoder = new DelegatingPasswordEncoder("pbkdf2", encoders);
 		passwordEncoder.setDefaultPasswordEncoderForMatches(pbkdf2Encoder);
 		return passwordEncoder;
-    }
-    
+	}
+	
     @Bean
-    AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
+    AuthenticationManager authenticationManagerBean(
+    		AuthenticationConfiguration authenticationConfiguration)
             throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
@@ -52,25 +49,26 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
-            .httpBasic().disable()
-            .csrf(AbstractHttpConfigurer::disable)
-            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-				.authorizeHttpRequests(
-					authorizeHttpRequests -> authorizeHttpRequests
-						.requestMatchers(
+                .httpBasic().disable()
+                .csrf(AbstractHttpConfigurer::disable)
+                .sessionManagement(
+            		session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(
+                    authorizeHttpRequests -> authorizeHttpRequests
+                        .requestMatchers(
 							"/auth/signin",
 							"/auth/refresh/**",
-							"/api-docs/**",
-							"/swagger-ui/**",
-							"/v3/api-docs/**"
-						).permitAll()
-						.requestMatchers("/api/**").authenticated()
-						.requestMatchers("/users").denyAll()
-				)
-				.cors()
-            .and()
-            .apply(new JwtConfigurer(tokenProvider))
-            .and()
-            .build();
+                    		"/swagger-ui/**",
+                    		"/v3/api-docs/**"
+                		).permitAll()
+                        .requestMatchers("/api/**").authenticated()
+                        .requestMatchers("/users").denyAll()
+                )
+                .cors()
+                .and()
+                .apply(new JwtConfigurer(tokenProvider))
+                .and()
+                .build();
+ 
     }
 }
