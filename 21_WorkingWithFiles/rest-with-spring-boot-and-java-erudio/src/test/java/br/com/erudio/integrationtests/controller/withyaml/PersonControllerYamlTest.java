@@ -293,7 +293,7 @@ public class PersonControllerYamlTest extends AbstractIntegrationTest {
 				.contentType(TestConfigs.CONTENT_TYPE_YML)
 				.accept(TestConfigs.CONTENT_TYPE_YML)
 				.queryParams("page", 3, "size", 10, "direction", "asc")
-				.when()
+					.when()
 					.get()
 				.then()
 					.statusCode(200)
@@ -338,7 +338,7 @@ public class PersonControllerYamlTest extends AbstractIntegrationTest {
 		assertEquals("Female", foundPersonSix.getGender());
 	}
 
-
+	
 	@Test
 	@Order(7)
 	public void testFindByName() throws JsonMappingException, JsonProcessingException {
