@@ -250,7 +250,7 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
 				.contentType(TestConfigs.CONTENT_TYPE_XML)
 				.accept(TestConfigs.CONTENT_TYPE_XML)
 				.queryParams("page", 3, "size", 10, "direction", "asc")
-				.when()
+					.when()
 					.get()
 				.then()
 					.statusCode(200)
@@ -268,7 +268,7 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
 		assertNotNull(foundPersonOne.getLastName());
 		assertNotNull(foundPersonOne.getAddress());
 		assertNotNull(foundPersonOne.getGender());
-
+		
 		assertTrue(foundPersonOne.getEnabled());
 		
 		assertEquals(677, foundPersonOne.getId());
@@ -285,7 +285,7 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
 		assertNotNull(foundPersonSix.getLastName());
 		assertNotNull(foundPersonSix.getAddress());
 		assertNotNull(foundPersonSix.getGender());
-
+		
 		assertTrue(foundPersonSix.getEnabled());
 		
 		assertEquals(911, foundPersonSix.getId());

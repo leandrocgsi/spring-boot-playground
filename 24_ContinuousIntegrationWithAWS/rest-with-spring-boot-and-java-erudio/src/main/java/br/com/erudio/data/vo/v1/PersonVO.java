@@ -6,7 +6,7 @@ import org.springframework.hateoas.RepresentationModel;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-//import com.github.dozermapper.core.Mapping;
+import com.github.dozermapper.core.Mapping;
 
 @JsonPropertyOrder({"id", "firstName", "lastName", "address", "gender", "enabled"})
 public class PersonVO extends RepresentationModel<PersonVO> implements Serializable {
@@ -14,8 +14,8 @@ public class PersonVO extends RepresentationModel<PersonVO> implements Serializa
 	private static final long serialVersionUID = 1L;
 
 	@JsonProperty("id")
-	//@Mapping("id")
-	private Long id;
+	@Mapping("id")
+	private Long key;
 	private String firstName;
 	private String lastName;
 	private String address;
@@ -24,12 +24,12 @@ public class PersonVO extends RepresentationModel<PersonVO> implements Serializa
 	
 	public PersonVO() {}
 
-	public Long getId() {
-		return id;
+	public Long getKey() {
+		return key;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setKey(Long key) {
+		this.key = key;
 	}
 
 	public String getFirstName() {
@@ -80,7 +80,7 @@ public class PersonVO extends RepresentationModel<PersonVO> implements Serializa
 		result = prime * result + ((enabled == null) ? 0 : enabled.hashCode());
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result + ((gender == null) ? 0 : gender.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((key == null) ? 0 : key.hashCode());
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
 		return result;
 	}
@@ -114,10 +114,10 @@ public class PersonVO extends RepresentationModel<PersonVO> implements Serializa
 				return false;
 		} else if (!gender.equals(other.gender))
 			return false;
-		if (id == null) {
-			if (other.id != null)
+		if (key == null) {
+			if (other.key != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!key.equals(other.key))
 			return false;
 		if (lastName == null) {
 			if (other.lastName != null)
