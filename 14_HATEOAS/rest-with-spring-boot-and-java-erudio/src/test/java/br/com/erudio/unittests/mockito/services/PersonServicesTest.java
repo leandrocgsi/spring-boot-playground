@@ -1,6 +1,7 @@
 package br.com.erudio.unittests.mockito.services;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
@@ -71,8 +72,8 @@ class PersonServicesTest {
 		PersonVO vo = input.mockVO(1);
 		vo.setKey(1L);
 		
-		when(repository.save(entity)).thenReturn(persisted);
-		
+		when(repository.save(any(Person.class))).thenReturn(persisted);
+        		
 		var result = service.create(vo);
 		
 		assertNotNull(result);
