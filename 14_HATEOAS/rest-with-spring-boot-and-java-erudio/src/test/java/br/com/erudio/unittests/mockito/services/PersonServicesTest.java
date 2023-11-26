@@ -63,10 +63,8 @@ class PersonServicesTest {
 	
 	@Test
 	void testCreate() {
-		Person entity = input.mockEntity(1); 
-		entity.setId(1L);
 		
-		Person persisted = entity;
+		Person persisted = input.mockEntity(1);
 		persisted.setId(1L);
 		
 		PersonVO vo = input.mockVO(1);
