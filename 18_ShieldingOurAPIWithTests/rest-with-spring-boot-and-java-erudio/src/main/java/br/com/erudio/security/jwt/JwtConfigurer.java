@@ -1,4 +1,3 @@
-/*
 package br.com.erudio.security.jwt;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,12 +27,12 @@ public class JwtConfigurer {
 		JwtTokenFilter customFilter = new JwtTokenFilter(tokenProvider);
 		http.addFilterBefore(customFilter, UsernamePasswordAuthenticationFilter.class);
 	}
-	
+	*/
 	
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    SecurityFilterChain addFilterBefore(HttpSecurity http) throws Exception {
         JwtTokenFilter customFilter = new JwtTokenFilter(tokenProvider);
         http.addFilterBefore(customFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
-}*/
+}
