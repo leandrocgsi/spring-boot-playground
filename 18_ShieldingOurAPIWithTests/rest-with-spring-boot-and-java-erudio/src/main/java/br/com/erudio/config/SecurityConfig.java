@@ -3,6 +3,7 @@ package br.com.erudio.config;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,15 +18,16 @@ import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder.Secret
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import br.com.erudio.security.jwt.JwtConfigurer;
 import br.com.erudio.security.jwt.JwtTokenFilter;
+import br.com.erudio.security.jwt.JwtTokenProvider;
 
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig {
 
-    private SecurityConfigData data = new SecurityConfigData();
-
+    @Autowired
+    private JwtTokenProvider tokenProvider;
+    
     @Bean
     PasswordEncoder passwordEncoder() {
         Map<String, PasswordEncoder> encoders = new HashMap<>();
@@ -39,7 +41,8 @@ public class SecurityConfig {
     }
 
     @Bean
-    AuthenticationManager authenticationManagerBean(AuthenticationConfiguration authenticationConfiguration)
+    AuthenticationManager authenticationManagerBean(
+    		AuthenticationConfiguration authenticationConfiguration)
             throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
@@ -47,7 +50,7 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         
-        JwtTokenFilter customFilter = new JwtTokenFilter(data.tokenProvider);
+        JwtTokenFilter customFilter = new JwtTokenFilter(tokenProvider);
         
         //@formatter:off
         return http
