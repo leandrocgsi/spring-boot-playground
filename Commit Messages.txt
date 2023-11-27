@@ -1,5 +1,7 @@
 https://stackoverflow.com/questions/19595067/git-add-commit-and-push-commands-in-one
 
+java_21_spring_boot_3.2.0
+
 05_FirstStepsInJavawithSpringBoot/      -> git acmp 'First Steps in Java 21 with Spring Boot 3.2.0'
 06_ParametersAndExceptionHandler/       -> git acmp 'REST Parameters and Exception Handler'
 07_WorkingWithVerbs/                    -> git acmp 'Working with four HTTP Main Verbs'
