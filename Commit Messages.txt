@@ -40,14 +40,18 @@ git add 08_ConnectingToMySQL/ | git commit -m'Connecting to MySQL with Spring Da
 git add 09_WorkingWithVOPattern/ | git commit -m'Implementing VO pattern with Dozer and Model Mapper'
 git add 10_VersioningEndpoints/ | git commit -m'Versioning our API'
 git add 11_MigrationsWithFlyWay/ | git commit -m'Adding migrations support with Flyway'
-
 git add 12_CustomSerialization/ | git commit -m'Custom JSON serialization'
 git add 13_ContentNegotiation/ | git commit -m'Implementing Content Negotiation with JSON, XML and YAML'
-git add 14_HATEOAS/ | git commit -m'Testing Generation of HATEOAS Links with Mockito'
+
+git add 14_HATEOAS_Dozer/ | git commit -m'Testing Generation of HATEOAS Links with Mockito - Dozer Version'
+git add 14_HATEOAS_Model_Mapper/ | git commit -m'Testing Generation of HATEOAS Links with Mockito - Model Mapper Version'
+
 git add 15_WorkingWithSwaggerOpenAPI/ | git commit -m'Adding Swagger Open API Support'
 git add 16_ConfiguringCORS/ | git commit -m'Configuring Cross-Origin Resource Sharing (CORS)'
+
 git add 17_AuthenticationWithJWT/ | git commit -m'Implementing Authentication With Spring Security and JWT'
 git add 18_ShieldingOurAPIWithTests/ | git commit -m'Shielding our API with Rest Assured, Testcontainers and JUnit 5'
+
 git add 19_WorkingWithPATCHMethod/ | git commit -m'Working with PATCH Method'
 git add 20_WorkingWithPagination/ | git commit -m'Implementing Pagination Search'
 git add 21_WorkingWithFiles/ | git commit -m'Implementing Upload and Download Files'
