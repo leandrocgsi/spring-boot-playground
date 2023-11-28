@@ -23,6 +23,7 @@ public class DozerMapper {
                 PersonVO.class,
                 Person.class)
             .addMapping(PersonVO::getKey, Person::setId);
+        
         mapper.createTypeMap(
                 Book.class,
                 BookVO.class)
