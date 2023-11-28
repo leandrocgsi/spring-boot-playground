@@ -33,6 +33,14 @@ java_21_spring_boot_3.2.0
 29_BONUS_ChatGPT/                       -> git acmp 'Integrating Spring Boot 3.2.0, Java 21 REST API to ChatGPTAPI'
 
 
+git add 05_FirstStepsInJavawithSpringBoot/ | git commit -m'First Steps in Java 21 with Spring Boot 3.2.0'
+git add 06_ParametersAndExceptionHandler/ | git commit -m'REST Parameters and Exception Handler'
+git add 07_WorkingWithVerbs/ | git commit -m'Working with four HTTP Main Verbs'
+git add 08_ConnectingToMySQL/ | git commit -m'Connecting to MySQL with Spring Data, JPA and Hibernate'
+git add 09_WorkingWithVOPattern/ | git commit -m'Implementing VO pattern with Dozer and Model Mapper'
+git add 10_VersioningEndpoints/ | git commit -m'Versioning our API'
+git add 11_MigrationsWithFlyWay/ | git commit -m'Adding migrations support with Flyway'
+
 git add 12_CustomSerialization/ | git commit -m'Custom JSON serialization'
 git add 13_ContentNegotiation/ | git commit -m'Implementing Content Negotiation with JSON, XML and YAML'
 git add 14_HATEOAS/ | git commit -m'Testing Generation of HATEOAS Links with Mockito'
@@ -45,3 +53,6 @@ git add 20_WorkingWithPagination/ | git commit -m'Implementing Pagination Search
 git add 21_WorkingWithFiles/ | git commit -m'Implementing Upload and Download Files'
 git add 22_DockerizingOurApp/ | git commit -m'Dockerizing our Application'
 git add 23_DeploingOurAppToAWS/ | git commit -m'Deploy to Amazon AWS'
+git add 24_ContinuousIntegrationWithAWS/ | git commit -m'Continuous Integration with Github, Github Actions, Amazon ECR and ECS' 
+git add 26A_BONUS_OtherDatabases_Postgres/ | git commit -m'Connecting to Other Databases - Postgres'
+git add 26B_BONUS_OtherDatabases_SQL_Server/ | git commit -m'Connecting to Other Databases - SQL Server'
