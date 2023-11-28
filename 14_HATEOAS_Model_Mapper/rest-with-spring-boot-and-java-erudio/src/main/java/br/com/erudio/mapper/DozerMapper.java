@@ -19,8 +19,8 @@ public class DozerMapper {
         .addMapping(Person::getId, PersonVO::setKey);
         
         mapper.createTypeMap(
-                PersonVO.class,
-                Person.class)
+            PersonVO.class,
+            Person.class)
         .addMapping(PersonVO::getKey, Person::setId);
     }
 	
