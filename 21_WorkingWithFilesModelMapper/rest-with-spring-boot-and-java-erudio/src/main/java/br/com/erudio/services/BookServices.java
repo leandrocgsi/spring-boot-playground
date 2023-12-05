@@ -28,6 +28,9 @@ public class BookServices {
 	
 	@Autowired
 	BookRepository repository;
+    
+    @Autowired
+    DozerMapper dozerMapper;
 
 	@Autowired
 	PagedResourcesAssembler<BookVO> assembler;
@@ -38,7 +41,7 @@ public class BookServices {
 
 		var booksPage = repository.findAll(pageable);
 
-		var booksVOs = booksPage.map(p -> DozerMapper.parseObject(p, BookVO.class));
+		var booksVOs = booksPage.map(p -> dozerMapper.parseObject(p, BookVO.class));
 		booksVOs.map(p -> p.add(linkTo(methodOn(BookController.class).findById(p.getKey())).withSelfRel()));
 		
 		Link findAllLink = linkTo(
@@ -56,7 +59,7 @@ public class BookServices {
 		
 		var entity = repository.findById(id)
 			.orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
-		var vo = DozerMapper.parseObject(entity, BookVO.class);
+		var vo = dozerMapper.parseObject(entity, BookVO.class);
 		vo.add(linkTo(methodOn(BookController.class).findById(id)).withSelfRel());
 		return vo;
 	}
@@ -66,8 +69,8 @@ public class BookServices {
 		if (book == null) throw new RequiredObjectIsNullException();
 		
 		logger.info("Creating one book!");
-		var entity = DozerMapper.parseObject(book, Book.class);
-		var vo =  DozerMapper.parseObject(repository.save(entity), BookVO.class);
+		var entity = dozerMapper.parseObject(book, Book.class);
+		var vo =  dozerMapper.parseObject(repository.save(entity), BookVO.class);
 		vo.add(linkTo(methodOn(BookController.class).findById(vo.getKey())).withSelfRel());
 		return vo;
 	}
@@ -86,7 +89,7 @@ public class BookServices {
 		entity.setPrice(book.getPrice());
 		entity.setTitle(book.getTitle());
 		
-		var vo =  DozerMapper.parseObject(repository.save(entity), BookVO.class);
+		var vo =  dozerMapper.parseObject(repository.save(entity), BookVO.class);
 		vo.add(linkTo(methodOn(BookController.class).findById(vo.getKey())).withSelfRel());
 		return vo;
 	}
