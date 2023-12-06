@@ -64,7 +64,7 @@ git add 26A_BONUS_OtherDatabases_Postgres/ | git commit -m'Connecting to Other D
 git add 26B_BONUS_OtherDatabases_SQL_Server/ | git commit -m'Connecting to Other Databases - SQL Server'
 
 
-[UPDATES - Spring Boot 3.2.0]
+[UPDATES - Spring Boot 3.2.0]c
 0808 [UPDATES] Removendo Warnings após o Upgrade p. Spring Boot 3.2.0 e Java 21 
 1411 [UPDATES] Diferenças entre o Spring Boot 3.2.0 com o Dozer e com o ModelMapper
 1718 [UPDATES] Removendo Depreciações do Spring Boot 3.2.0 na SecurityConfig
